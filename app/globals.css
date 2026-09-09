@@ -1,0 +1,168 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bone: #f2ece2;
+  --color-paper: #e6dccb;
+  --color-sand: #d3c3aa;
+  --color-clay: #b48a62;
+  --color-umber: #6b4a34;
+  --color-ink: #141210;
+  --color-moss: #3a4638;
+  --color-rule: color-mix(in srgb, var(--color-ink) 12%, transparent);
+  --font-display: var(--font-fraunces), "Times New Roman", serif;
+  --font-sans: var(--font-outfit), "Helvetica Neue", sans-serif;
+  --radius-sm: 2px;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .hero-media,
+  .lg-specular,
+  .liquid-glass::before,
+  .liquid-glass::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+body {
+  background: var(--color-bone);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--color-ink);
+  color: var(--color-bone);
+}
+
+:focus-visible {
+  outline: 1px solid var(--color-ink);
+  outline-offset: 3px;
+}
+
+@keyframes terrane-hero-in {
+  from { transform: scale(1.07); }
+  to { transform: scale(1); }
+}
+
+.hero-media {
+  animation: terrane-hero-in 2.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.liquid-glass {
+  --lg-x: 48%;
+  --lg-y: 38%;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      130% 180% at var(--lg-x) var(--lg-y),
+      rgba(255, 252, 246, 0.46) 0%,
+      rgba(255, 248, 238, 0.16) 38%,
+      rgba(243, 236, 226, 0.12) 100%
+    ),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.08));
+  border: 1px solid rgba(255, 255, 255, 0.52);
+  box-shadow:
+    0 18px 50px rgba(20, 18, 16, 0.16),
+    0 2px 8px rgba(20, 18, 16, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    inset 0 -1px 0 rgba(20, 18, 16, 0.1);
+  backdrop-filter: saturate(180%) blur(26px) brightness(1.04);
+  -webkit-backdrop-filter: saturate(180%) blur(26px) brightness(1.04);
+}
+
+html.lg-svg .liquid-glass {
+  backdrop-filter: url("#terrane-liquid-filter") saturate(165%) brightness(1.05);
+  -webkit-backdrop-filter: url("#terrane-liquid-filter") saturate(165%) brightness(1.05);
+}
+
+.liquid-glass::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    34% 90% at var(--lg-x) var(--lg-y),
+    rgba(255, 255, 255, 0.62),
+    rgba(255, 255, 255, 0.08) 42%,
+    transparent 72%
+  );
+  mix-blend-mode: screen;
+  opacity: 0.9;
+}
+
+.liquid-glass::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    115deg,
+    rgba(255, 255, 255, 0.28) 0%,
+    transparent 28%,
+    transparent 62%,
+    rgba(255, 255, 255, 0.12) 100%
+  );
+  opacity: 0.7;
+}
+
+.liquid-glass[data-tone="dark"] {
+  background:
+    radial-gradient(
+      130% 180% at var(--lg-x) var(--lg-y),
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(20, 18, 16, 0.28) 58%,
+      rgba(20, 18, 16, 0.38) 100%
+    ),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(20, 18, 16, 0.28));
+  border-color: rgba(255, 255, 255, 0.24);
+  color: var(--color-bone);
+  box-shadow:
+    0 18px 50px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.liquid-panel {
+  position: relative;
+  isolation: isolate;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.38), rgba(255, 255, 255, 0.1)),
+    color-mix(in srgb, var(--color-paper) 72%, transparent);
+  border: 1px solid rgba(255, 255, 255, 0.46);
+  box-shadow:
+    0 20px 50px rgba(20, 18, 16, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  backdrop-filter: saturate(150%) blur(18px);
+  -webkit-backdrop-filter: saturate(150%) blur(18px);
+}
+
+.send-veil {
+  background: color-mix(in srgb, var(--color-ink) 74%, transparent);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 80;
+  background: var(--color-ink);
+  color: var(--color-bone);
+  padding: 0.6rem 0.9rem;
+}
+.skip-link:focus {
+  top: 0.75rem;
+}
