@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { CaseChoreography } from "@/components/CaseChoreography";
 import { getProject, projects, site } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -9,10 +10,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const project = getProject(slug);
-  return {
-    title: project ? `${project.title} — ${site.name}` : site.name,
-    description: project?.excerpt ?? site.description,
-  };
+  return { title: project ? `${project.title} — ${site.name}` : site.name, description: project?.excerpt ?? site.description };
 }
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -24,6 +22,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   return (
     <main id="main" className="case-page bg-bone">
+      <CaseChoreography />
       <article>
         <header className="case-hero relative min-h-[82svh] overflow-hidden bg-ink text-bone">
           <div className="case-hero-media absolute inset-0">
@@ -32,12 +31,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <div className="case-hero-shade absolute inset-0" />
           <div className="case-grid absolute inset-0" aria-hidden="true" />
           <div className="case-hero-copy absolute inset-x-0 bottom-0 z-10 mx-auto max-w-[1280px] px-5 pb-10 sm:px-7 md:px-10 md:pb-14 lg:px-12">
-            <p className="case-kicker text-[10px] font-semibold tracking-[0.2em] text-sand uppercase">
-              <Link href="/#work" className="hover:text-bone">Work</Link> / {project.index} / Design study
-            </p>
-            <h1 className="case-title mt-4 max-w-[70rem] font-display text-[3.2rem] leading-[0.9] font-light tracking-[-0.045em] sm:text-7xl md:text-[6.3rem]">
-              {project.title}
-            </h1>
+            <p className="case-kicker text-[10px] font-semibold tracking-[0.2em] text-sand uppercase"><Link href="/#work" className="hover:text-bone">Work</Link> / {project.index} / Design study</p>
+            <h1 className="case-title mt-4 max-w-[70rem] font-display text-[3.2rem] leading-[0.9] font-light tracking-[-0.045em] sm:text-7xl md:text-[6.3rem]">{project.title}</h1>
             <div className="mt-7 flex flex-wrap gap-x-8 gap-y-3 border-t border-bone/20 pt-4 text-[9px] font-semibold tracking-[0.16em] text-bone/62 uppercase sm:text-[10px]">
               <span>{project.type}</span><span>{project.location}</span><span>{project.year}</span><span>{project.discipline}</span>
             </div>
@@ -59,15 +54,21 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           </div>
         </section>
 
-        <section className="case-gallery mx-auto max-w-[1280px] px-5 sm:px-7 md:px-10 lg:px-12" aria-label={`${project.title} visual study`}>
-          {project.images.map((image, i) => (
-            <figure key={image.src} className={`case-gallery-item case-gallery-item-${i + 1} overflow-hidden bg-paper`}>
-              <img src={image.src} alt={image.alt} className="case-gallery-image h-full w-full object-cover" loading="lazy" decoding="async" />
-              <figcaption className="flex items-center justify-between gap-4 border-t border-ink/10 bg-bone py-3 text-[9px] tracking-[0.14em] text-umber uppercase">
-                <span>{project.title}</span><span>{String(i + 1).padStart(2, "0")} / {String(project.images.length).padStart(2, "0")}</span>
-              </figcaption>
-            </figure>
-          ))}
+        <section className="case-gallery mx-auto grid max-w-[1280px] gap-7 px-5 sm:px-7 md:grid-cols-12 md:px-10 lg:px-12" aria-label={`${project.title} visual study`}>
+          {project.images.map((image, i) => {
+            const layout = i === 0 ? "md:col-span-8" : i === 1 ? "md:col-span-4 md:mt-32" : "md:col-span-10 md:col-start-3 md:mt-8";
+            const ratio = i === 0 ? "aspect-[4/3]" : i === 1 ? "aspect-[3/4]" : "aspect-[16/9]";
+            return (
+              <figure key={image.src} className={`case-gallery-item overflow-hidden ${layout}`}>
+                <div className={`overflow-hidden bg-paper ${ratio}`}>
+                  <img src={image.src} alt={image.alt} className="case-gallery-image h-full w-full object-cover" loading="lazy" decoding="async" />
+                </div>
+                <figcaption className="flex items-center justify-between gap-4 border-t border-ink/10 bg-bone py-3 text-[9px] tracking-[0.14em] text-umber uppercase">
+                  <span>{project.title}</span><span>{String(i + 1).padStart(2, "0")} / {String(project.images.length).padStart(2, "0")}</span>
+                </figcaption>
+              </figure>
+            );
+          })}
         </section>
 
         <section className="case-material mx-auto grid max-w-[1280px] gap-12 px-5 py-20 sm:px-7 md:grid-cols-12 md:px-10 md:py-28 lg:px-12 lg:py-32">
