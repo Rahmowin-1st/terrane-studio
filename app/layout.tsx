@@ -1,34 +1,26 @@
 import type { Metadata } from "next";
 import { Fraunces, Outfit } from "next/font/google";
 import "./globals.css";
+import "./case.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { LiquidEngine } from "@/components/LiquidEngine";
 import { Choreography } from "@/components/Choreography";
 
-const display = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-fraunces",
-  display: "swap",
-});
-const sans = Outfit({
-  subsets: ["latin"],
-  variable: "--font-outfit",
-  display: "swap",
-});
+const display = Fraunces({ subsets: ["latin"], variable: "--font-fraunces", display: "swap" });
+const sans = Outfit({ subsets: ["latin"], variable: "--font-outfit", display: "swap" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://terrane-lake.vercel.app"),
+  metadataBase: new URL("https://terrane-studio.vercel.app"),
   title: {
     default: "TERRANE — Architecture of ground, light, and duration.",
     template: "%s — TERRANE",
   },
-  description:
-    "Terrane is an architecture studio in Tashkent. Houses, interiors, and landscapes as one material condition.",
+  description: "Terrane is a portfolio architecture concept for houses, interiors, landscapes and reuse in Central Asia.",
   icons: { icon: "/logo.svg" },
   openGraph: {
     title: "TERRANE",
-    description: "Houses, interiors, and landscapes of lasting proportion.",
+    description: "Architecture of ground, light, and duration — a production portfolio study.",
     type: "website",
   },
 };
