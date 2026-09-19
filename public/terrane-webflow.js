@@ -5,6 +5,19 @@
   const qa = (s, r=document) => [...r.querySelectorAll(s)];
   const pad = n => String(n + 1).padStart(2, "0");
 
+  function stitchMain(root=document) {
+    if (root !== document || document.getElementById("main")) return;
+    const a=document.getElementById("terrane-main-a"), b=document.getElementById("terrane-main-b");
+    if(!a||!b)return;
+    const main=document.createElement("main");
+    main.id="main";
+    a.parentNode.insertBefore(main,a);
+    while(a.firstChild)main.appendChild(a.firstChild);
+    while(b.firstChild)main.appendChild(b.firstChild);
+    a.remove();
+    b.remove();
+  }
+
   function liquid(root=document) {
     const header = q(".liquid-glass", root);
     if (!header || header.dataset.vsLiquid) return;
@@ -99,6 +112,7 @@
     const m=map[status];
     overlay.innerHTML='<div class="consultation-status-card w-full max-w-md border border-bone/18 bg-ink/94 px-7 py-10 text-center text-bone shadow-2xl backdrop-blur-xl sm:px-9"><p class="text-[9px] font-semibold tracking-[0.18em] text-clay uppercase">'+m[0]+'</p><p class="mt-4 font-display text-[2.6rem] leading-none font-light">'+m[1]+'</p><p class="mx-auto mt-5 max-w-xs text-sm leading-[1.65] text-bone/62">'+m[2]+'</p>'+(status==="sending"?'<div class="consultation-progress mx-auto mt-8 h-px w-36 overflow-hidden bg-bone/15"><span class="block h-full w-1/2 bg-clay"></span></div>':'<button type="button" class="mt-8 min-h-10 text-[10px] font-semibold tracking-[0.18em] uppercase underline decoration-bone/30 underline-offset-4">Return to brief</button>')+'</div>';
     wrap.appendChild(overlay);q("button",overlay)?.addEventListener("click",()=>overlay.remove());
+    return overlay;
   }
 
   function consultation(root=document) {
@@ -118,7 +132,7 @@
         const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),12000);
         const res=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json","X-Request-Id":requestId},body:JSON.stringify({name:data.name,email:data.email,type:data.type,budget:data.budget,site:data.site,brief:data.brief,requestId}),signal:ctrl.signal});
         clearTimeout(timer);const payload=await res.json().catch(()=>({}));const wait=Math.max(0,950-(Date.now()-started));if(wait)await new Promise(r=>setTimeout(r,wait));
-        if(res.ok&&payload.ok){statusOverlay(form,"success");form.reset();requestId="";qa(".form-error",form).forEach(x=>x.remove());}else statusOverlay(form,"failed");
+        if(res.ok&&payload.ok){const layer=statusOverlay(form,"success");form.reset();requestId="";qa(".form-error",form).forEach(x=>x.remove());setTimeout(()=>layer?.remove(),3000);}else statusOverlay(form,"failed");
       }catch{statusOverlay(form,navigator.onLine?"failed":"offline");}
       finally{form.dataset.sending="0";}
     });
@@ -164,7 +178,7 @@
     setTimeout(()=>ScrollTrigger.refresh(),60);
   }
 
-  function boot(root=document){ header(root); liquid(root); menu(root); galleries(root); consultation(root); homeMotion(root); caseMotion(root); }
+  function boot(root=document){ stitchMain(root); header(root); liquid(root); menu(root); galleries(root); consultation(root); homeMotion(root); caseMotion(root); }
 
   async function caseLoader() {
     const root=document.getElementById("terrane-case-root"); if(!root||root.dataset.loaded)return;root.dataset.loaded="1";
