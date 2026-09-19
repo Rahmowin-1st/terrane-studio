@@ -13,6 +13,7 @@
   function boot(){
     document.body.classList.add("terrane-v2");
     installChrome();
+    caseChrome();
     tagScenes();
     activeNavigation();
     projectDepth();
@@ -42,6 +43,15 @@
     };
     addEventListener("scroll",()=>{if(!ticking){ticking=true;requestAnimationFrame(update)}},{passive:true});
     update();
+  }
+
+  function caseChrome(){
+    const root=document.getElementById("terrane-case-root");
+    if(!root)return;
+    const scene=q(".terrane-chrome__scene");
+    if(scene) scene.innerHTML="<b>CS</b><span>CASE / STUDY</span>";
+    const left=q(".terrane-chrome__left");
+    if(left) left.innerHTML="<span>TERRANE / CASE STUDY</span><i class=\"terrane-chrome__rule\"></i><span>ARCHIVE</span>";
   }
 
   function tagScenes(){
