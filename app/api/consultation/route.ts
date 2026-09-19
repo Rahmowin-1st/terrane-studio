@@ -8,12 +8,47 @@ export const dynamic = "force-dynamic";
 
 const MAX_BYTES = 16_384;
 
-function json(body: Record<string, unknown>, status = 200) {
+const DEFAULT_ALLOWED_ORIGINS = [
+  "https://terrane-studio.vercel.app",
+] as const;
+
+function allowedOrigins() {
+  const extra = (process.env.ALLOWED_ORIGINS || process.env.WEBFLOW_ALLOWED_ORIGIN || "")
+    .split(",")
+    .map((value) => value.trim())
+    .filter(Boolean);
+  return new Set<string>([...DEFAULT_ALLOWED_ORIGINS, ...extra]);
+}
+
+function corsOrigin(req: Request) {
+  const origin = req.headers.get("origin") || "";
+  if (!origin) return "";
+  if (allowedOrigins().has(origin)) return origin;
+  try {
+    const host = new URL(origin).hostname;
+    if (host === "webflow.io" || host.endsWith(".webflow.io")) return origin;
+  } catch {}
+  return "";
+}
+
+function corsHeaders(req: Request) {
+  const origin = corsOrigin(req);
+  const headers: Record<string, string> = {
+    "Cache-Control": "no-store",
+    Vary: "Origin",
+  };
+  if (origin) {
+    headers["Access-Control-Allow-Origin"] = origin;
+    headers["Access-Control-Allow-Methods"] = "POST, OPTIONS";
+    headers["Access-Control-Allow-Headers"] = "Content-Type, X-Request-Id";
+  }
+  return headers;
+}
+
+function json(req: Request, body: Record<string, unknown>, status = 200) {
   return NextResponse.json(body, {
     status,
-    headers: {
-      "Cache-Control": "no-store",
-    },
+    headers: corsHeaders(req),
   });
 }
 
@@ -30,35 +65,40 @@ async function clientHash(req: Request, email: string) {
     .slice(0, 32);
 }
 
-export async function GET() {
-  return json({ ok: false, error: "method_not_allowed" }, 405);
+export async function OPTIONS(req: Request) {
+  if (!corsOrigin(req)) return new NextResponse(null, { status: 403, headers: corsHeaders(req) });
+  return new NextResponse(null, { status: 204, headers: corsHeaders(req) });
+}
+
+export async function GET(req: Request) {
+  return json(req, { ok: false, error: "method_not_allowed" }, 405);
 }
 
 export async function POST(req: Request) {
   const length = Number(req.headers.get("content-length") || 0);
-  if (length > MAX_BYTES) return json({ ok: false, error: "payload_too_large" }, 413);
+  if (length > MAX_BYTES) return json(req, { ok: false, error: "payload_too_large" }, 413);
 
   let body: Record<string, unknown> = {};
   try {
     body = (await req.json()) as Record<string, unknown>;
   } catch {
-    return json({ ok: false, error: "invalid_json" }, 400);
+    return json(req, { ok: false, error: "invalid_json" }, 400);
   }
 
   if (clean(body.website, 200)) {
-    return json({ ok: true, id: null, ignored: true });
+    return json(req, { ok: true, id: null, ignored: true });
   }
 
   const allowed = new Set(["name", "email", "type", "budget", "site", "brief", "requestId", "website"]);
   for (const key of Object.keys(body)) {
-    if (!allowed.has(key)) return json({ ok: false, error: "unexpected_fields" }, 400);
+    if (!allowed.has(key)) return json(req, { ok: false, error: "unexpected_fields" }, 400);
   }
 
   const parsed = validateInquiry({
     ...body,
     requestId: body.requestId || req.headers.get("x-request-id"),
   });
-  if (!parsed.ok) return json({ ok: false, error: parsed.error }, 400);
+  if (!parsed.ok) return json(req, { ok: false, error: parsed.error }, 400);
 
   const inquiry = parsed.value;
   const hash = await clientHash(req, inquiry.email);
@@ -75,7 +115,7 @@ export async function POST(req: Request) {
 
   if (!stored.ok) {
     const status = stored.error === "rate_limited" ? 429 : stored.error === "invalid_fields" ? 400 : 503;
-    return json({ ok: false, error: stored.error }, status);
+    return json(req, { ok: false, error: stored.error }, status);
   }
 
   if (stored.duplicate) {
@@ -90,7 +130,7 @@ export async function POST(req: Request) {
         notification: stored.notificationStatus,
       }),
     );
-    return json({
+    return json(req, {
       ok: true,
       id: stored.id,
       requestId: stored.requestId,
@@ -117,7 +157,7 @@ export async function POST(req: Request) {
     }),
   );
 
-  return json({
+  return json(req, {
     ok: true,
     id: stored.id,
     requestId: stored.requestId,
