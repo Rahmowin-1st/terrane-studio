@@ -1,5 +1,17 @@
 import type { NextConfig } from "next";
 
+const securityHeaders = [
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "X-Frame-Options", value: "SAMEORIGIN" },
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+];
+
+const publicCrossOriginHeaders = [
+  { key: "Access-Control-Allow-Origin", value: "*" },
+  { key: "Cross-Origin-Resource-Policy", value: "cross-origin" },
+];
+
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [{ protocol: "https", hostname: "images.unsplash.com" }],
@@ -9,12 +21,25 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/(.*)",
-        headers: [
-          { key: "X-Content-Type-Options", value: "nosniff" },
-          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-          { key: "X-Frame-Options", value: "SAMEORIGIN" },
-          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
-        ],
+        headers: securityHeaders,
+      },
+      {
+        // Webflow's universal Work page fetches the public case-study HTML.
+        source: "/work/:path*",
+        headers: publicCrossOriginHeaders,
+      },
+      {
+        source: "/terrane-webflow.css",
+        headers: publicCrossOriginHeaders,
+      },
+      {
+        source: "/terrane-webflow.js",
+        headers: publicCrossOriginHeaders,
+      },
+      {
+        // The Webflow stylesheet references these font files cross-origin.
+        source: "/_next/static/media/:path*",
+        headers: publicCrossOriginHeaders,
       },
     ];
   },
