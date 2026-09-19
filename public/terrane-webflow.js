@@ -65,18 +65,53 @@
     const btn=q(".site-header button[aria-controls='index-menu']",root);
     if(!btn||btn.dataset.vsMenu)return;
     btn.dataset.vsMenu="1";
-    let open=false, aside=null;
-    const close=()=>{open=false;btn.textContent="Index";btn.setAttribute("aria-expanded","false");document.body.style.overflow="";aside?.remove();aside=null;};
+    let open=false, aside=null, previousFocus=null;
+    const close=()=>{
+      if(!open)return;
+      open=false;
+      btn.textContent="Index";
+      btn.setAttribute("aria-expanded","false");
+      document.body.style.overflow="";
+      aside?.remove();
+      aside=null;
+      if(previousFocus instanceof HTMLElement) previousFocus.focus();
+    };
     const show=()=>{
-      open=true;btn.textContent="Close";btn.setAttribute("aria-expanded","true");document.body.style.overflow="hidden";
-      aside=document.createElement("aside");aside.id="index-menu";aside.className="fixed inset-0 z-40 overflow-y-auto bg-ink px-5 pt-28 text-bone sm:px-7 lg:hidden";
+      open=true;
+      previousFocus=document.activeElement;
+      btn.textContent="Close";
+      btn.setAttribute("aria-expanded","true");
+      document.body.style.overflow="hidden";
+      aside=document.createElement("aside");
+      aside.id="index-menu";
+      aside.className="fixed inset-0 z-40 overflow-y-auto bg-ink px-5 pt-28 text-bone sm:px-7 lg:hidden";
+      aside.setAttribute("role","dialog");
+      aside.setAttribute("aria-modal","true");
+      aside.setAttribute("aria-label","TERRANE navigation");
       aside.innerHTML='<div class="mx-auto max-w-xl"><p class="text-[9px] font-semibold tracking-[0.2em] text-clay uppercase">Terrane / index</p><nav class="mt-7 flex flex-col" aria-label="Mobile">'+
         [["Work","/#work"],["Practice","/#trust"],["Approach","/#approach"],["Studio","/#studio"],["Commission","/#commission"]].map((x,i)=>'<a href="'+x[1]+'" class="flex items-end justify-between gap-4 border-b border-bone/14 py-5 font-display text-[2.7rem] leading-none font-light"><span><small class="mr-3 align-middle text-[10px] text-clay">0'+(i+1)+'</small>'+x[0]+'</span><span class="pb-1 text-xl text-bone/35">↗</span></a>').join("")+
         '</nav><div class="mt-10 flex items-center justify-between gap-5 border-t border-bone/14 pt-6"><p class="max-w-[14rem] text-xs leading-relaxed text-bone/52">Architecture of ground, light, and duration.</p><a href="/#commission" class="inline-flex min-h-12 items-center rounded-full bg-bone px-5 text-[9px] font-semibold tracking-[0.16em] text-ink uppercase">Start brief ↗</a></div></div>';
-      aside.style.opacity="0";aside.style.clipPath="inset(0 0 100% 0)";document.body.appendChild(aside);
-      requestAnimationFrame(()=>{aside.style.transition="opacity .45s ease,clip-path .52s cubic-bezier(.16,1,.3,1)";aside.style.opacity="1";aside.style.clipPath="inset(0 0 0 0)";});
+      aside.style.opacity="0";
+      aside.style.clipPath="inset(0 0 100% 0)";
+      document.body.appendChild(aside);
+      requestAnimationFrame(()=>{
+        aside.style.transition="opacity .45s ease,clip-path .52s cubic-bezier(.16,1,.3,1)";
+        aside.style.opacity="1";
+        aside.style.clipPath="inset(0 0 0 0)";
+        q("a",aside)?.focus();
+      });
       aside.addEventListener("click",e=>{if(e.target.closest("a"))close();});
+      aside.addEventListener("keydown",e=>{
+        if(e.key==="Escape"){e.preventDefault();close();return;}
+        if(e.key!=="Tab")return;
+        const focusable=qa('a,button,[tabindex]:not([tabindex="-1"])',aside).filter(el=>!el.hasAttribute("disabled"));
+        if(!focusable.length)return;
+        const first=focusable[0],last=focusable[focusable.length-1];
+        if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+        else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+      });
     };
+    btn.setAttribute("aria-expanded","false");
     btn.addEventListener("click",()=>open?close():show());
   }
 
@@ -193,6 +228,19 @@
       doc.querySelectorAll('img[src="/logo.svg"]').forEach(i=>i.setAttribute("src",SOURCE+"/logo.svg"));
       root.innerHTML=doc.body.innerHTML;
       const title=doc.querySelector("title")?.textContent;if(title)document.title=title;
+      const description=doc.querySelector('meta[name="description"]')?.getAttribute("content");
+      if(description){
+        let meta=document.querySelector('meta[name="description"]');
+        if(!meta){meta=document.createElement("meta");meta.setAttribute("name","description");document.head.appendChild(meta);}
+        meta.setAttribute("content",description);
+      }
+      const cover=doc.querySelector(".case-cover")?.getAttribute("src");
+      [["og:title",title],["og:description",description],["og:image",cover]].forEach(([property,value])=>{
+        if(!value)return;
+        let meta=document.querySelector('meta[property="'+property+'"]');
+        if(!meta){meta=document.createElement("meta");meta.setAttribute("property",property);document.head.appendChild(meta);}
+        meta.setAttribute("content",value);
+      });
       boot(root);
     }catch{
       root.innerHTML='<main class="min-h-dvh bg-bone px-6 py-32 text-ink"><div class="mx-auto max-w-3xl"><p class="text-[10px] uppercase tracking-[.2em] text-umber">Terrane / case study</p><h1 class="mt-5 font-display text-5xl font-light">Case study unavailable.</h1><p class="mt-5 text-ink/65">Open the production study directly.</p><a class="mt-8 inline-flex underline" href="'+SOURCE+'/work/'+slug+'">Open study ↗</a></div></main>';
