@@ -168,7 +168,7 @@
 
   async function caseLoader() {
     const root=document.getElementById("terrane-case-root"); if(!root||root.dataset.loaded)return;root.dataset.loaded="1";
-    const allowed=["house-of-four-courts","qorasuv-reading-room","garden-wall-house","steppe-courtyard","old-city-reuse"];
+    const allowed=["house-of-four-courts","qorasuv-reading-room","chorsu-apartment","sitora-garden","fergana-pavilion"];
     let slug=new URLSearchParams(location.search).get("slug")||allowed[0]; if(!allowed.includes(slug))slug=allowed[0];
     try{
       const res=await fetch(SOURCE+"/work/"+slug,{credentials:"omit"}); if(!res.ok)throw new Error("load");
