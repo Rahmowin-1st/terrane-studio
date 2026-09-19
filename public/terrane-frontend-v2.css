@@ -1,0 +1,396 @@
+/* TERRANE Frontend V2 — architectural art-direction layer.
+   Non-destructive override: content, routes, forms and backend remain unchanged. */
+
+:root{
+  --tv2-ink:#11100e;
+  --tv2-bone:#f2ece2;
+  --tv2-paper:#e7dccb;
+  --tv2-sand:#d5c4aa;
+  --tv2-clay:#b48a62;
+  --tv2-moss:#3d463b;
+  --tv2-line:rgba(17,16,14,.14);
+  --tv2-ease:cubic-bezier(.16,1,.3,1);
+  --tv2-page:min(1280px,calc(100% - 2.5rem));
+}
+
+html{background:var(--tv2-bone)}
+body.terrane-v2{
+  background:var(--tv2-bone);
+  color:var(--tv2-ink);
+  overflow-x:clip;
+}
+body.terrane-v2::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:999;
+  opacity:.14;
+  mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+}
+
+/* ---- Architectural chrome ---- */
+.terrane-chrome{position:fixed;inset:0;z-index:44;pointer-events:none;color:currentColor}
+.terrane-chrome__left,.terrane-chrome__right{
+  position:absolute;top:50%;transform:translateY(-50%);
+  writing-mode:vertical-rl;text-orientation:mixed;
+  font-size:8px;letter-spacing:.2em;text-transform:uppercase;
+  opacity:.48;display:flex;align-items:center;gap:14px;
+}
+.terrane-chrome__left{left:11px;transform:translateY(-50%) rotate(180deg)}
+.terrane-chrome__right{right:11px}
+.terrane-chrome__rule{width:1px;height:54px;background:currentColor;opacity:.35}
+.terrane-chrome__progress{
+  position:absolute;left:0;top:0;width:2px;height:100%;
+  transform-origin:top;background:var(--tv2-clay);transform:scaleY(var(--tv2-progress,0));
+}
+.terrane-chrome__scene{
+  position:absolute;right:28px;bottom:20px;
+  display:flex;align-items:center;gap:10px;
+  font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(242,236,226,.78);
+  mix-blend-mode:difference;
+}
+.terrane-chrome__scene b{font-family:var(--font-display);font-weight:300;font-size:1.25rem;letter-spacing:-.04em}
+
+/* ---- Header: signature TERRANE instrument ---- */
+body.terrane-v2 .site-header{padding-top:max(.6rem,env(safe-area-inset-top));}
+body.terrane-v2 .site-header-inner{
+  max-width:1240px;height:4.35rem!important;
+  border-radius:1rem!important;
+  background:
+    linear-gradient(180deg,rgba(247,241,231,.80),rgba(232,221,205,.58))!important;
+  color:var(--tv2-ink)!important;
+  border:1px solid rgba(255,255,255,.72)!important;
+  box-shadow:0 16px 50px rgba(20,18,16,.13),inset 0 1px rgba(255,255,255,.86)!important;
+  backdrop-filter:blur(22px) saturate(150%)!important;
+  -webkit-backdrop-filter:blur(22px) saturate(150%)!important;
+}
+body.terrane-v2 .site-header-inner::before{
+  content:"";position:absolute;inset:7px;border:1px solid rgba(20,18,16,.08);
+  border-radius:.7rem;pointer-events:none;
+}
+body.terrane-v2 .site-header-inner::after{
+  content:"41.31°N / 69.24°E";
+  position:absolute;left:50%;top:7px;transform:translateX(-50%);
+  font-size:7px;letter-spacing:.18em;text-transform:uppercase;opacity:.32;
+}
+body.terrane-v2 .site-header nav a{opacity:.62;transition:opacity .25s ease,transform .25s var(--tv2-ease)}
+body.terrane-v2 .site-header nav a:hover,
+body.terrane-v2 .site-header nav a[data-active="true"]{opacity:1;transform:translateY(-1px)}
+body.terrane-v2 .site-header nav a[data-active="true"]::before{
+  content:"";position:absolute;left:50%;bottom:-10px;width:4px;height:4px;border-radius:50%;
+  transform:translateX(-50%);background:var(--tv2-clay);
+}
+
+/* ---- Hero: cinematic plan / landscape split ---- */
+body.terrane-v2 .hero-frame{min-height:max(48rem,100svh);background:#0e0d0b}
+body.terrane-v2 .hero-media-shell{left:26%;clip-path:inset(0 0 0 0)}
+body.terrane-v2 .hero-media{
+  filter:saturate(.72) contrast(1.08) sepia(.08);
+  transform:scale(1.015);
+}
+body.terrane-v2 .hero-shade{
+  background:
+    linear-gradient(90deg,rgba(10,9,8,.96) 0%,rgba(10,9,8,.86) 29%,rgba(10,9,8,.43) 52%,rgba(10,9,8,.1) 100%),
+    linear-gradient(180deg,rgba(0,0,0,.18),transparent 55%,rgba(0,0,0,.55));
+}
+body.terrane-v2 .hero-vignette{
+  background:radial-gradient(circle at 68% 42%,transparent 0 20%,rgba(9,8,7,.16) 56%,rgba(9,8,7,.76) 100%);
+}
+body.terrane-v2 .hero-grid{opacity:.7;background-size:8.333vw 100%,8.333vw 100%}
+body.terrane-v2 .hero-plan{opacity:.86;filter:drop-shadow(0 0 18px rgba(180,138,98,.14))}
+body.terrane-v2 .hero-copy{
+  max-width:1380px;padding-bottom:max(3rem,6vh);
+}
+body.terrane-v2 .hero-copy::before{
+  content:"TERRANE / ARCHITECTURE";
+  position:absolute;left:5rem;top:-7.5rem;
+  font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:rgba(242,236,226,.42);
+}
+body.terrane-v2 .hero-copy-grid{grid-template-columns:minmax(0,1.2fr) minmax(18rem,.8fr);gap:5vw}
+body.terrane-v2 .hero-primary-copy{max-width:760px}
+body.terrane-v2 .hero-title{
+  font-size:clamp(4.6rem,9.8vw,9.6rem)!important;
+  line-height:.74!important;letter-spacing:-.075em!important;
+  text-wrap:balance;
+}
+body.terrane-v2 .hero-line-accent{color:#dcc5a4!important}
+body.terrane-v2 .hero-lead{
+  max-width:40rem!important;font-size:clamp(1rem,1.35vw,1.18rem)!important;
+  border-left:1px solid rgba(211,195,170,.38);padding-left:1.15rem;
+}
+body.terrane-v2 .hero-meta{
+  background:linear-gradient(180deg,rgba(242,236,226,.06),rgba(242,236,226,.02));
+  border:1px solid rgba(242,236,226,.14);padding:1.4rem;
+  backdrop-filter:blur(8px);
+}
+body.terrane-v2 .hero-footer-line{border-color:rgba(242,236,226,.16)!important}
+
+/* ---- Practice: manifesto rhythm ---- */
+body.terrane-v2 .practice-scene{position:relative;background:#f3ede4;overflow:hidden}
+body.terrane-v2 .practice-scene::before{
+  content:"01";position:absolute;right:-.02em;top:-.18em;
+  font-family:var(--font-display);font-size:min(32vw,28rem);line-height:1;font-weight:200;
+  letter-spacing:-.08em;color:rgba(20,18,16,.035);pointer-events:none;
+}
+body.terrane-v2 .practice-intro{position:relative;z-index:2;align-items:start}
+body.terrane-v2 .practice-title{font-size:clamp(3.5rem,7vw,7.6rem)!important;line-height:.88!important;max-width:880px}
+body.terrane-v2 .practice-copy{
+  border-top:1px solid var(--tv2-line);padding-top:1.2rem;position:relative;
+}
+body.terrane-v2 .practice-copy::before{
+  content:"WHAT MUST REMAIN";display:block;margin-bottom:1rem;
+  font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--tv2-clay);
+}
+body.terrane-v2 .practice-grid{
+  margin-top:2.5rem!important;border-top:1px solid var(--tv2-line);
+  border-bottom:1px solid var(--tv2-line);
+  display:grid!important;grid-template-columns:repeat(12,1fr)!important;
+}
+body.terrane-v2 .practice-proof{
+  border:0!important;min-height:22rem!important;padding:2rem 1.5rem!important;
+  border-right:1px solid var(--tv2-line)!important;
+}
+body.terrane-v2 .practice-proof:nth-child(1){grid-column:1/4}
+body.terrane-v2 .practice-proof:nth-child(2){grid-column:4/7;transform:translateY(3rem)}
+body.terrane-v2 .practice-proof:nth-child(3){grid-column:7/10}
+body.terrane-v2 .practice-proof:nth-child(4){grid-column:10/13;transform:translateY(-2rem)}
+body.terrane-v2 .practice-proof-title{font-size:2.2rem!important}
+body.terrane-v2 .practice-proof::after{
+  content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(180,138,98,.08));
+  transform:scaleY(0);transform-origin:bottom;transition:transform .5s var(--tv2-ease);pointer-events:none;
+}
+body.terrane-v2 .practice-proof:hover::after{transform:scaleY(1)}
+
+/* ---- Work: full-story architectural sequence ---- */
+body.terrane-v2 .work-scene{background:#d8cdbd;position:relative}
+body.terrane-v2 .work-intro{
+  position:relative;padding-top:9rem!important;padding-bottom:6rem!important;
+}
+body.terrane-v2 .work-intro::before{
+  content:"02 / SELECTED WORK";position:absolute;left:0;top:2.6rem;
+  font-size:8px;letter-spacing:.24em;text-transform:uppercase;color:rgba(20,18,16,.5);
+}
+body.terrane-v2 .work-heading{font-size:clamp(3.8rem,7.5vw,8rem)!important;line-height:.84!important;max-width:960px!important}
+body.terrane-v2 .project-sequence{padding-bottom:0!important}
+body.terrane-v2 .project-story{
+  min-height:100svh;padding:7rem 0!important;border-top:1px solid rgba(20,18,16,.16)!important;
+  display:flex;align-items:center;
+}
+body.terrane-v2 .project-story:nth-child(even){
+  width:calc(100% + 2.5rem);margin-left:-1.25rem;padding-inline:1.25rem!important;
+  background:#151310;color:var(--tv2-bone);
+}
+body.terrane-v2 .project-story:nth-child(even) .project-copy-rule,
+body.terrane-v2 .project-story:nth-child(even) .project-facts{border-color:rgba(242,236,226,.16)!important}
+body.terrane-v2 .project-story:nth-child(even) .project-kicker,
+body.terrane-v2 .project-story:nth-child(even) .project-excerpt,
+body.terrane-v2 .project-story:nth-child(even) .project-facts{color:rgba(242,236,226,.72)!important}
+body.terrane-v2 .project-layout{
+  width:100%;grid-template-columns:minmax(0,1.55fr) minmax(22rem,.65fr)!important;
+  gap:clamp(2rem,6vw,6.5rem)!important;align-items:center!important;
+}
+body.terrane-v2 .project-stage-wrap{
+  position:sticky;top:7rem;align-self:start;
+}
+body.terrane-v2 .project-stage{
+  aspect-ratio:1.46!important;border-radius:.35rem;
+  box-shadow:0 40px 110px rgba(20,18,16,.18)!important;
+  transform:perspective(1200px) rotateX(var(--tv2-rx,0deg)) rotateY(var(--tv2-ry,0deg)) translateZ(0);
+  transition:transform .25s ease;
+}
+body.terrane-v2 .project-story:nth-child(3) .project-stage{aspect-ratio:1.02!important}
+body.terrane-v2 .project-story:nth-child(4) .project-stage{aspect-ratio:1.7!important}
+body.terrane-v2 .project-stage::before{
+  content:"";position:absolute;inset:12px;border:1px solid rgba(255,255,255,.28);z-index:4;pointer-events:none;
+}
+body.terrane-v2 .project-number{
+  z-index:0!important;font-size:clamp(11rem,21vw,22rem)!important;
+  color:rgba(20,18,16,.055)!important;top:2rem!important;
+}
+body.terrane-v2 .project-story:nth-child(even) .project-number{color:rgba(242,236,226,.05)!important}
+body.terrane-v2 .project-copy{position:relative;z-index:2;padding:2rem 0!important}
+body.terrane-v2 .project-title{font-size:clamp(3rem,5vw,5.5rem)!important;line-height:.86!important}
+body.terrane-v2 .project-excerpt{font-size:1rem!important}
+body.terrane-v2 .project-facts{grid-template-columns:1fr!important}
+body.terrane-v2 .project-link{
+  border:1px solid currentColor;border-radius:999px;padding:.8rem 1.1rem;min-height:0!important;
+  transition:background .3s ease,color .3s ease,transform .3s var(--tv2-ease);
+}
+body.terrane-v2 .project-link:hover{background:currentColor;transform:translateY(-2px)}
+body.terrane-v2 .project-story:nth-child(odd) .project-link:hover{color:var(--tv2-bone)}
+body.terrane-v2 .project-story:nth-child(even) .project-link:hover{color:var(--tv2-ink)}
+
+/* ---- Expertise: monumental rows ---- */
+body.terrane-v2 .expertise-scene{background:#0f0e0c!important}
+body.terrane-v2 .expertise-head{padding-bottom:3rem;border-bottom:1px solid rgba(242,236,226,.14)}
+body.terrane-v2 .expertise-title{font-size:clamp(4rem,8vw,8.2rem)!important;line-height:.82!important}
+body.terrane-v2 .discipline-row{
+  min-height:10.5rem;grid-template-columns:5rem minmax(14rem,.7fr) 1fr 4rem!important;
+  padding:2.4rem 0!important;overflow:hidden;
+}
+body.terrane-v2 .discipline-row::before{
+  content:attr(data-discipline-index);
+  position:absolute;right:7%;top:50%;transform:translateY(-50%);
+  font-family:var(--font-display);font-size:9rem;line-height:1;
+  color:rgba(242,236,226,.035);pointer-events:none;
+}
+body.terrane-v2 .discipline-title{font-size:clamp(2.8rem,5vw,5rem)!important}
+body.terrane-v2 .discipline-copy{max-width:38rem!important;font-size:.95rem!important}
+body.terrane-v2 .discipline-sweep{
+  background:linear-gradient(90deg,rgba(180,138,98,.14),rgba(242,236,226,.035))!important;
+}
+
+/* ---- Decision architecture: sculptural split ---- */
+body.terrane-v2 .control-scene{background:#e9dfd0!important}
+body.terrane-v2 .control-layout{align-items:start}
+body.terrane-v2 .control-title{font-size:clamp(3.6rem,6.8vw,7rem)!important;line-height:.87!important}
+body.terrane-v2 .control-steps{
+  border-left:1px solid rgba(20,18,16,.14);padding-left:2rem;
+}
+body.terrane-v2 .control-step{
+  min-height:10rem;align-items:center!important;padding:1.8rem!important;
+  background:rgba(242,236,226,.42);border:1px solid rgba(20,18,16,.1)!important;
+  margin-bottom:1rem;
+}
+body.terrane-v2 .control-step:nth-child(2){margin-left:2rem}
+body.terrane-v2 .control-step:nth-child(3){margin-left:4rem}
+body.terrane-v2 .control-step:hover{transform:translateX(10px)!important;background:#f3ede4!important}
+
+/* ---- Approach: vertical editorial timeline ---- */
+body.terrane-v2 .approach-scene{background:#f4eee5!important}
+body.terrane-v2 .approach-title{font-size:clamp(3.8rem,6.5vw,6.8rem)!important;line-height:.86!important}
+body.terrane-v2 .approach-sticky>div{
+  top:8rem!important;padding-right:2rem;border-right:1px solid var(--tv2-line);
+}
+body.terrane-v2 .approach-step{padding-bottom:7rem!important}
+body.terrane-v2 .approach-step-copy{padding-top:1.8rem!important}
+body.terrane-v2 .approach-step h3{font-size:clamp(2.7rem,4vw,4.2rem)!important}
+body.terrane-v2 .approach-dot{background:transparent!important;border-color:rgba(20,18,16,.2)!important}
+body.terrane-v2 .approach-step.is-current .approach-dot{
+  background:var(--tv2-ink)!important;color:var(--tv2-bone)!important;border-color:var(--tv2-ink)!important;
+}
+
+/* ---- Studio: asymmetric collage ---- */
+body.terrane-v2 .studio-scene{background:#d9cebf!important}
+body.terrane-v2 .studio-grid{align-items:center!important}
+body.terrane-v2 .studio-media{grid-column:1/9!important}
+body.terrane-v2 .studio-copy{grid-column:9/13!important;padding-bottom:0!important}
+body.terrane-v2 .studio-main-image{clip-path:polygon(0 0,94% 0,100% 88%,8% 100%,0 78%)}
+body.terrane-v2 .studio-image{aspect-ratio:5/4!important;filter:saturate(.68) contrast(1.06)}
+body.terrane-v2 .studio-material-card{
+  display:block!important;right:-2rem!important;bottom:-4rem!important;width:44%!important;
+  transform:rotate(2.4deg);
+}
+body.terrane-v2 .studio-title{font-size:clamp(3.5rem,5.4vw,5.8rem)!important;line-height:.88!important}
+
+/* ---- Commission: final architectural chamber ---- */
+body.terrane-v2 .commission-scene{
+  background:
+    radial-gradient(circle at 82% 18%,rgba(180,138,98,.18),transparent 28%),
+    radial-gradient(circle at 6% 84%,rgba(61,70,59,.22),transparent 25%),
+    #0d0c0b!important;
+}
+body.terrane-v2 .commission-layout{align-items:stretch!important}
+body.terrane-v2 .commission-copy{position:relative}
+body.terrane-v2 .commission-copy::before{
+  content:"08 / BEGIN";position:absolute;top:-2.5rem;left:0;
+  font-size:8px;letter-spacing:.24em;color:rgba(242,236,226,.38);
+}
+body.terrane-v2 .commission-title{font-size:clamp(4.5rem,8vw,8.8rem)!important;line-height:.78!important}
+body.terrane-v2 .consultation-plane{
+  border-radius:.75rem!important;
+  background:
+    linear-gradient(140deg,rgba(248,243,234,.98),rgba(218,205,185,.94))!important;
+  box-shadow:0 70px 150px rgba(0,0,0,.36),inset 0 1px rgba(255,255,255,.88)!important;
+}
+body.terrane-v2 .consultation-plane::after{
+  content:"PROJECT / BRIEF";
+  position:absolute;right:1rem;top:1rem;font-size:7px;letter-spacing:.22em;color:rgba(20,18,16,.34);
+}
+body.terrane-v2 .form-control{font-size:1rem!important}
+body.terrane-v2 .consultation-submit{border-radius:.45rem!important;min-width:15rem}
+
+/* ---- Footer ---- */
+body.terrane-v2 footer{background:#080807!important}
+body.terrane-v2 .footer-inner{max-width:1380px!important}
+
+/* ---- Progressive scene transitions ---- */
+body.terrane-v2 [data-tv2-scene]{position:relative}
+body.terrane-v2 [data-tv2-scene]::after{
+  content:attr(data-tv2-label);
+  position:absolute;right:1.25rem;top:1.25rem;
+  font-size:7px;letter-spacing:.22em;text-transform:uppercase;
+  opacity:.34;pointer-events:none;
+}
+
+/* ---- Mobile: deliberately re-art-directed, not desktop squeezed ---- */
+@media(max-width:991px){
+  .terrane-chrome__left,.terrane-chrome__right{display:none}
+  .terrane-chrome__scene{right:12px;bottom:10px;font-size:7px}
+  body.terrane-v2 .site-header-inner{height:3.75rem!important;border-radius:.8rem!important}
+  body.terrane-v2 .site-header-inner::after{display:none}
+  body.terrane-v2 .hero-copy-grid{grid-template-columns:1fr!important}
+  body.terrane-v2 .hero-meta{display:none!important}
+  body.terrane-v2 .practice-grid{grid-template-columns:1fr!important}
+  body.terrane-v2 .practice-proof,
+  body.terrane-v2 .practice-proof:nth-child(n){grid-column:1!important;transform:none!important;min-height:0!important}
+  body.terrane-v2 .project-layout{grid-template-columns:1fr!important}
+  body.terrane-v2 .project-stage-wrap{position:relative;top:auto}
+  body.terrane-v2 .project-story{min-height:0}
+  body.terrane-v2 .discipline-row{grid-template-columns:3rem 1fr!important}
+  body.terrane-v2 .discipline-copy{grid-column:2!important}
+  body.terrane-v2 .discipline-arrow{display:none!important}
+  body.terrane-v2 .control-step:nth-child(n){margin-left:0}
+  body.terrane-v2 .studio-media,body.terrane-v2 .studio-copy{grid-column:auto!important}
+}
+@media(max-width:768px){
+  body.terrane-v2 .hero-frame{min-height:52rem!important}
+  body.terrane-v2 .hero-media-shell{left:12%!important}
+  body.terrane-v2 .hero-shade{
+    background:linear-gradient(90deg,rgba(10,9,8,.94),rgba(10,9,8,.48) 80%,rgba(10,9,8,.22)),
+               linear-gradient(180deg,rgba(0,0,0,.08),transparent 42%,rgba(0,0,0,.72));
+  }
+  body.terrane-v2 .hero-copy{padding-inline:1.15rem!important}
+  body.terrane-v2 .hero-copy::before{display:none}
+  body.terrane-v2 .hero-title{font-size:clamp(4rem,18vw,5.9rem)!important;line-height:.76!important}
+  body.terrane-v2 .hero-lead{max-width:24rem!important}
+  body.terrane-v2 .practice-title,
+  body.terrane-v2 .work-heading,
+  body.terrane-v2 .expertise-title,
+  body.terrane-v2 .control-title,
+  body.terrane-v2 .approach-title,
+  body.terrane-v2 .studio-title{font-size:clamp(3rem,13vw,4.25rem)!important}
+  body.terrane-v2 .practice-grid{margin-top:1rem!important}
+  body.terrane-v2 .practice-proof{padding:2rem 0!important;border-right:0!important}
+  body.terrane-v2 .project-story{padding:5rem 0!important}
+  body.terrane-v2 .project-story:nth-child(even){width:auto;margin-inline:-1rem;padding-inline:1rem!important}
+  body.terrane-v2 .project-stage{aspect-ratio:1/.95!important;border-radius:.2rem}
+  body.terrane-v2 .project-stage::before{inset:8px}
+  body.terrane-v2 .project-title{font-size:clamp(2.8rem,12vw,4rem)!important}
+  body.terrane-v2 .project-number{font-size:8rem!important;top:1rem!important}
+  body.terrane-v2 .expertise-title{line-height:.88!important}
+  body.terrane-v2 .discipline-row{min-height:auto!important;padding:1.8rem 0!important}
+  body.terrane-v2 .discipline-title{font-size:2.65rem!important}
+  body.terrane-v2 .control-steps{padding-left:0;border-left:0}
+  body.terrane-v2 .control-step{padding:1.35rem!important;min-height:8rem}
+  body.terrane-v2 .approach-sticky>div{border-right:0;padding-right:0}
+  body.terrane-v2 .approach-step{padding-bottom:4rem!important}
+  body.terrane-v2 .studio-main-image{clip-path:polygon(0 0,100% 0,100% 92%,8% 100%,0 84%)}
+  body.terrane-v2 .studio-material-card{display:none!important}
+  body.terrane-v2 .commission-title{font-size:clamp(4.1rem,18vw,6rem)!important}
+  body.terrane-v2 .consultation-plane{border-radius:.6rem!important}
+  body.terrane-v2 [data-tv2-scene]::after{display:none}
+}
+@media(max-width:420px){
+  body.terrane-v2 .hero-title{font-size:3.95rem!important}
+  body.terrane-v2 .hero-media-shell{left:4%!important}
+  body.terrane-v2 .project-stage{aspect-ratio:.9!important}
+  body.terrane-v2 .commission-title{font-size:4.3rem!important}
+}
+@media(prefers-reduced-motion:reduce){
+  body.terrane-v2 .project-stage{transform:none!important}
+  .terrane-chrome__progress{display:none}
+}
