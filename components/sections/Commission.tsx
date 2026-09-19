@@ -65,6 +65,7 @@ export function Commission() {
         requestIdRef.current = "";
         form.reset();
         setErrors({});
+        window.setTimeout(() => setStatus("idle"), 3000);
       } else {
         setStatus("failed");
       }
