@@ -1,25 +1,111 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useReducedMotion } from "motion/react";
 import { projects } from "@/lib/site";
 
 function Stage({ images, title }: { images: { src: string; alt: string }[]; title: string }) {
   const slides = images.slice(0, 3);
   const [i, setI] = useState(0);
+  const [inView, setInView] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const reduce = useReducedMotion();
+  const rootRef = useRef<HTMLDivElement>(null);
+  const pointer = useRef<{ id: number; x: number; y: number; t: number } | null>(null);
+
   const go = (n: number) => setI((v) => (v + n + slides.length) % slides.length);
 
+  useEffect(() => {
+    const node = rootRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(Boolean(entry?.isIntersecting && entry.intersectionRatio >= 0.45)),
+      { threshold: [0, 0.2, 0.45, 0.7] },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (reduce || paused || !inView || slides.length < 2) return;
+    const timer = window.setInterval(() => go(1), 5000);
+    return () => window.clearInterval(timer);
+  }, [inView, paused, reduce, slides.length]);
+
+  const onPointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    pointer.current = { id: event.pointerId, x: event.clientX, y: event.clientY, t: performance.now() };
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+    setPaused(true);
+  };
+
+  const onPointerUp = (event: React.PointerEvent<HTMLDivElement>) => {
+    const start = pointer.current;
+    pointer.current = null;
+    if (!start) return;
+
+    const dx = event.clientX - start.x;
+    const dy = event.clientY - start.y;
+    const dt = Math.max(1, performance.now() - start.t);
+    const velocity = dx / dt;
+    const horizontal = Math.abs(dx) > Math.abs(dy) * 1.15;
+    const threshold = Math.max(34, event.currentTarget.clientWidth * 0.12);
+
+    if (horizontal && (Math.abs(dx) >= threshold || Math.abs(velocity) > 0.45)) {
+      go(dx < 0 ? 1 : -1);
+    }
+
+    window.setTimeout(() => setPaused(false), 650);
+  };
+
   return (
-    <div className="project-stage relative overflow-hidden bg-ink">
+    <div
+      ref={rootRef}
+      className="project-stage relative overflow-hidden bg-ink"
+      role="group"
+      aria-roledescription="carousel"
+      aria-label={title + " image gallery"}
+      tabIndex={0}
+      onPointerDown={onPointerDown}
+      onPointerUp={onPointerUp}
+      onPointerCancel={() => {
+        pointer.current = null;
+        window.setTimeout(() => setPaused(false), 650);
+      }}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setPaused(false);
+      }}
+      onKeyDown={(event) => {
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          go(1);
+        } else if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          go(-1);
+        } else if (event.key === "Home") {
+          event.preventDefault();
+          setI(0);
+        } else if (event.key === "End") {
+          event.preventDefault();
+          setI(slides.length - 1);
+        }
+      }}
+      style={{ touchAction: "pan-y" }}
+    >
       <div className="project-image-stack absolute inset-0">
         {slides.map((img, idx) => (
           <img
             key={img.src}
             src={img.src}
             alt={img.alt}
-            className={`project-image absolute inset-0 h-full w-full object-cover ${idx === i ? "is-active" : ""}`}
+            className={"project-image absolute inset-0 h-full w-full object-cover " + (idx === i ? "is-active" : "")}
             loading={idx === 0 ? "eager" : "lazy"}
             decoding="async"
+            aria-hidden={idx !== i}
           />
         ))}
       </div>
@@ -28,12 +114,12 @@ function Stage({ images, title }: { images: { src: string; alt: string }[]; titl
         Image {String(i + 1).padStart(2, "0")}
       </div>
       <div className="project-controls absolute inset-x-4 bottom-4 flex items-center justify-between gap-3 sm:inset-x-5 sm:bottom-5">
-        <span className="project-counter text-[10px] tracking-[0.16em] text-bone uppercase">
+        <span className="project-counter text-[10px] tracking-[0.16em] text-bone uppercase" aria-live="polite">
           {String(i + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
         </span>
         <div className="flex gap-2">
-          <button type="button" aria-label={`Previous ${title} image`} className="project-arrow" onClick={() => go(-1)}>←</button>
-          <button type="button" aria-label={`Next ${title} image`} className="project-arrow" onClick={() => go(1)}>→</button>
+          <button type="button" aria-label={"Previous " + title + " image"} className="project-arrow" onClick={() => go(-1)}>←</button>
+          <button type="button" aria-label={"Next " + title + " image"} className="project-arrow" onClick={() => go(1)}>→</button>
         </div>
       </div>
     </div>
