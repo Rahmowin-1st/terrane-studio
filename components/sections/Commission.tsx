@@ -128,7 +128,7 @@ export function Commission() {
               <div className="md:col-span-2 mt-1 flex flex-col gap-5 border-t border-ink/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
                 <p className="max-w-xs text-[11px] leading-[1.5] text-umber">No polished brief needed. Critical decisions stay documented.</p>
                 <button type="submit" disabled={status === "sending"} className="consultation-submit group inline-flex min-h-13 items-center justify-center gap-5 rounded-full bg-ink px-7 text-[10px] font-semibold tracking-[0.18em] text-bone uppercase disabled:cursor-wait disabled:opacity-60">
-                  Request consultation <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">↗</span>
+                  Request consultation <span className="h-2 w-2 rounded-full bg-bone/60" aria-hidden="true" />
                 </button>
               </div>
             </form>
