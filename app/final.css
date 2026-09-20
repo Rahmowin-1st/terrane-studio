@@ -1,6 +1,6 @@
 /* TERRANE FINAL — warm editorial architecture, cinematic depth, zero dark sections. */
 :root{
-  --tf-bg:#b9ad9f;
+  --tf-bg:#d4c9bc;
   --tf-bone:#f5efe7;
   --tf-ivory:#fbf8f2;
   --tf-paper:#eee4d7;
@@ -35,7 +35,7 @@ html.terrane-final body{
   background:
     radial-gradient(80rem 56rem at 4% 0%,rgba(243,218,187,.72),transparent 60%),
     radial-gradient(70rem 50rem at 96% 24%,rgba(129,148,121,.32),transparent 64%),
-    linear-gradient(180deg,#c7bbad 0%,#b5a899 58%,#a99c8e 100%)!important;
+    linear-gradient(180deg,#ddd3c7 0%,#d0c4b6 58%,#c7baac 100%)!important;
   color:var(--tf-ink)!important;
 }
 html.terrane-final body::before{
@@ -427,22 +427,22 @@ html.terrane-final .work-disclosure{
 html.terrane-final .expertise-grid{display:none!important}
 html.terrane-final .expertise-note,
 html.terrane-final .discipline-copy{color:var(--tf-muted)!important}
-html.terrane-final .expertise-list{border-color:rgba(25,23,20,.12)!important}
+html.terrane-final .expertise-list{border:0!important}
 html.terrane-final .discipline-row{
-  margin:.4rem 0!important;
-  padding:1.35rem .3rem!important;
+  margin:.5rem 0!important;
+  padding:1.25rem 1.3rem!important;
   color:var(--tf-ink)!important;
-  background:transparent!important;
-  border-color:rgba(25,23,20,.12)!important;
-  border-radius:0!important;
-  transition:padding .32s var(--tf-ease),background .25s ease!important;
+  background:rgba(255,255,255,.22)!important;
+  border:1px solid rgba(255,255,255,.48)!important;
+  border-radius:24px!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.52);
+  transition:transform .3s var(--tf-ease),background .25s ease!important;
 }
 html.terrane-final .discipline-title{color:var(--tf-ink)!important;transform:none!important}
 html.terrane-final .discipline-copy{color:var(--tf-muted)!important}
 html.terrane-final .discipline-row:hover{
-  padding-left:1rem!important;
-  padding-right:1rem!important;
-  background:rgba(255,255,255,.22)!important;
+  transform:translateY(-2px)!important;
+  background:rgba(255,255,255,.38)!important;
 }
 
 /* CONTROL */
@@ -470,13 +470,12 @@ html.terrane-final .approach-dot{
   box-shadow:0 8px 22px rgba(40,31,23,.08)!important;
 }
 html.terrane-final .approach-step-copy{
-  padding:1.25rem 0 0!important;
+  padding:1.25rem 1.35rem!important;
   color:var(--tf-ink)!important;
-  background:transparent!important;
-  border:0!important;
-  border-top:1px solid rgba(25,23,20,.12)!important;
-  border-radius:0!important;
-  box-shadow:none!important;
+  background:rgba(255,255,255,.30)!important;
+  border:1px solid rgba(255,255,255,.50)!important;
+  border-radius:24px!important;
+  box-shadow:0 10px 30px rgba(40,31,23,.05),inset 0 1px rgba(255,255,255,.58)!important;
 }
 html.terrane-final .approach-step p{color:var(--tf-muted)!important}
 
@@ -775,4 +774,35 @@ html.terrane-final .studio-image{transition:transform 1.2s var(--tf-ease),filter
   html.terrane-final .will-reveal{opacity:1!important;transform:none!important}
   html.terrane-final .hero-media,
   html.terrane-final .hero-copy{transform:none!important}
+}
+
+
+/* Rounded form language: no hard underline-only fields. */
+html.terrane-final .form-field{
+  padding:.8rem .95rem .55rem!important;
+  background:rgba(255,255,255,.42)!important;
+  border:1px solid rgba(255,255,255,.66)!important;
+  border-radius:18px!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.62);
+}
+html.terrane-final .form-control{
+  min-height:2.65rem!important;
+  margin-top:.15rem!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:12px!important;
+  box-shadow:none!important;
+  background:transparent!important;
+}
+html.terrane-final textarea.form-control{padding-top:.45rem!important}
+html.terrane-final .form-field:focus-within{
+  border-color:rgba(86,102,83,.34)!important;
+  box-shadow:0 0 0 3px rgba(86,102,83,.08),inset 0 1px rgba(255,255,255,.72)!important;
+}
+html.terrane-final #index-menu nav a{
+  margin:.28rem 0!important;
+  padding:1rem 1.05rem!important;
+  background:rgba(255,255,255,.28)!important;
+  border:1px solid rgba(255,255,255,.48)!important;
+  border-radius:22px!important;
 }
