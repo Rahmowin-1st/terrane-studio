@@ -59,7 +59,15 @@ export function LightExperience() {
       { rootMargin: "0px 0px -9% 0px", threshold: 0.08 },
     );
 
-    nodes.forEach((node) => observer.observe(node));
+    nodes.forEach((node) => {
+      const rect = node.getBoundingClientRect();
+      if (rect.top <= window.innerHeight * 0.92) {
+        node.classList.add("is-visible");
+        return;
+      }
+      node.classList.add("will-reveal");
+      observer.observe(node);
+    });
 
     return () => {
       observer.disconnect();
