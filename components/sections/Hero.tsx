@@ -1,4 +1,5 @@
 import { site } from "@/lib/site";
+import { imageSrcSet } from "@/lib/media";
 
 export function Hero() {
   return (
@@ -7,6 +8,8 @@ export function Hero() {
         <div className="hero-media-shell absolute inset-0 overflow-hidden">
           <img
             src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2400&q=88"
+            srcSet={imageSrcSet("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2400&q=88")}
+            sizes="100vw"
             alt="Courtyard house with deep eaves and warm masonry in late light."
             className="hero-media h-full w-full origin-center object-cover"
             width={2400}
