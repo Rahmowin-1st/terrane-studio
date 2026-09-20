@@ -128,8 +128,8 @@ export function Header() {
         {open && (
           <motion.aside
             id="index-menu"
-            initial={reduce ? false : { opacity: 0, clipPath: "inset(0 0 100% 0)" }}
-            animate={{ opacity: 1, clipPath: "inset(0 0 0% 0)" }}
+            initial={reduce ? false : { opacity: 0, clipPath: "inset(0 0 100% 0 round 40px)" }}
+            animate={{ opacity: 1, clipPath: "inset(0 0 0% 0 round 40px)" }}
             exit={reduce ? { opacity: 0 } : { opacity: 0, clipPath: "inset(0 0 100% 0)" }}
             transition={{ duration: reduce ? 0.1 : 0.52, ease: [0.16, 1, 0.3, 1] }}
             className="fixed inset-0 z-40 overflow-y-auto bg-ink px-5 pt-28 text-bone sm:px-7 lg:hidden"
@@ -139,13 +139,13 @@ export function Header() {
               <nav className="mt-7 flex flex-col" aria-label="Mobile">
                 {nav.map((item, i) => (
                   <motion.a key={item.id} href={item.href} onClick={() => setOpen(false)} initial={reduce ? false : { x: -22, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: reduce ? 0 : .08 + i * .045, duration: .45, ease: [0.16, 1, 0.3, 1] }} className="flex items-end justify-between gap-4 border-b border-bone/14 py-5 font-display text-[2.7rem] leading-none font-light">
-                    <span><small className="mr-3 align-middle text-[10px] text-clay">0{i + 1}</small>{item.label}</span><span className="pb-1 text-xl text-bone/35">↗</span>
+                    <span><small className="mr-3 align-middle text-[10px] text-clay">0{i + 1}</small>{item.label}</span><span className="h-2.5 w-2.5 rounded-full bg-clay/70" aria-hidden="true" />
                   </motion.a>
                 ))}
               </nav>
               <div className="mt-10 flex items-center justify-between gap-5 border-t border-bone/14 pt-6">
                 <p className="max-w-[14rem] text-xs leading-relaxed text-bone/52">Architecture of ground, light, and duration.</p>
-                <a href="/#commission" onClick={() => setOpen(false)} className="inline-flex min-h-12 items-center rounded-full bg-bone px-5 text-[9px] font-semibold tracking-[0.16em] text-ink uppercase">Start brief ↗</a>
+                <a href="/#commission" onClick={() => setOpen(false)} className="inline-flex min-h-12 items-center rounded-full bg-bone px-5 text-[9px] font-semibold tracking-[0.16em] text-ink uppercase">Start brief</a>
               </div>
             </div>
           </motion.aside>
