@@ -8,12 +8,12 @@ export function Control() {
       <div className="mx-auto max-w-[1280px] px-5 py-20 sm:px-7 md:px-10 md:py-28 lg:px-12 lg:py-32">
         <div className="control-layout grid gap-12 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-6">
-            <p className="control-kicker text-[10px] font-semibold tracking-[0.2em] text-umber uppercase">Decision architecture</p>
+            <p className="control-kicker text-[10px] font-semibold tracking-[0.2em] text-umber uppercase">Decisions</p>
             <h2 id="control-heading" className="control-title mt-5 max-w-[42rem] font-display text-[2.8rem] leading-[0.98] font-light tracking-[-0.035em] sm:text-6xl md:text-[4.7rem]">
-              Know what is fixed. Know what is still open.
+              Know what is fixed. Know what can change.
             </h2>
             <p className="control-lead mt-6 max-w-lg text-[15px] leading-[1.75] text-ink/70">
-              A good project is not only a set of drawings. It is a sequence of decisions that can still be understood when the room is full of dust and people.
+              Every major choice stays visible, reviewable and documented.
             </p>
           </div>
 
@@ -31,9 +31,9 @@ export function Control() {
         </div>
 
         <div className="control-footer mt-16 grid gap-5 border-t border-ink/15 pt-6 text-[10px] tracking-[0.15em] text-umber uppercase sm:grid-cols-3 md:mt-24">
-          <span>Review in context</span>
-          <span>Approve before commitment</span>
-          <span className="sm:text-right">Document what survives</span>
+          <span>Review</span>
+          <span>Approve</span>
+          <span className="sm:text-right">Document</span>
         </div>
       </div>
     </section>
