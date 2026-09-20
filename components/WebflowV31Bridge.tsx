@@ -23,6 +23,20 @@ export function WebflowV31Bridge() {
 
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const fine = matchMedia("(pointer:fine)").matches;
+    const nav = navigator as Navigator & {
+      deviceMemory?: number;
+      connection?: { saveData?: boolean };
+    };
+    const constrained =
+      Boolean(nav.connection?.saveData) ||
+      (nav.hardwareConcurrency > 0 && nav.hardwareConcurrency <= 4) ||
+      (typeof nav.deviceMemory === "number" && nav.deviceMemory <= 4);
+    document.documentElement.dataset.motionTier = reduce
+      ? "reduced"
+      : fine && !constrained && window.innerWidth >= 900
+        ? "ultra"
+        : "lite";
+
     const cleanups: Array<() => void> = [];
 
     const header = q<HTMLElement>(".site-header-inner");
