@@ -1429,3 +1429,139 @@ body.terrane-v2 .tv3-pressable:active{transform:scale(.965)!important}
   body.terrane-v2 .consultation-submit{transition:none!important}
   body.terrane-v2 .hero-frame::after{display:none}
 }
+
+
+/* ==========================================================================
+   TERRANE V3.1 FINAL HARDENING — cleanliness, touch, safe-area, performance
+   ========================================================================== */
+body.terrane-v2::before{opacity:.045!important}
+body.terrane-v2{
+  -webkit-tap-highlight-color:transparent;
+  font-synthesis:none;
+}
+body.terrane-v2 ::selection{background:#1b1916;color:#f7f0e5}
+body.terrane-v2 :focus-visible{
+  outline:2px solid rgba(180,138,98,.82)!important;
+  outline-offset:4px!important;
+}
+body.terrane-v2 img{
+  -webkit-user-drag:none;
+  backface-visibility:hidden;
+}
+body.terrane-v2 .hero-media,
+body.terrane-v2 .project-image,
+body.terrane-v2 .case-gallery-image,
+body.terrane-v2 .studio-image{
+  transform:translateZ(0);
+}
+
+/* Keep the Dynamic-Island cue clear of the hero footer. */
+body.terrane-v2 .tv3-hero-island{
+  bottom:clamp(5.4rem,8vh,7.4rem)!important;
+}
+
+/* Mobile header control should feel like a native glass control. */
+body.terrane-v2 .site-header-inner.tv3-liquid button[aria-controls="index-menu"]{
+  min-width:4.3rem!important;
+  min-height:2.55rem!important;
+  padding:0 .8rem!important;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.07);
+  box-shadow:inset 0 1px rgba(255,255,255,.14);
+}
+body.terrane-v2 .site-header-inner.tv3-liquid[data-tv3-tone="light"] button[aria-controls="index-menu"]{
+  background:rgba(20,18,16,.055);
+  border-color:rgba(20,18,16,.08);
+}
+body.terrane-v2 .site-header-inner.tv3-liquid[data-tv3-tone="dark"] button[aria-controls="index-menu"]{
+  color:#fbf7ef;
+}
+
+/* Stronger but cleaner sheet boundaries. */
+body.terrane-v2 .practice-scene,
+body.terrane-v2 .expertise-scene,
+body.terrane-v2 .commission-scene{
+  overflow:clip;
+}
+body.terrane-v2 .practice-scene::after,
+body.terrane-v2 .expertise-scene::after,
+body.terrane-v2 .commission-scene::after{
+  border-radius:inherit;
+}
+
+/* Keep tactile movement on pointer devices only. */
+@media(hover:none),(pointer:coarse){
+  body.terrane-v2 .project-story:hover .project-copy,
+  body.terrane-v2 .project-story:hover .project-image.is-active,
+  body.terrane-v2 .discipline-row:hover,
+  body.terrane-v2 .project-arrow:hover,
+  body.terrane-v2 .hero-primary-cta:hover,
+  body.terrane-v2 .hero-secondary-cta:hover,
+  body.terrane-v2 .consultation-submit:hover{
+    transform:none!important;
+  }
+  body.terrane-v2 .project-stage{
+    transform:none!important;
+  }
+}
+
+/* iPhone-sized screens: no collisions, generous safe areas. */
+@media(max-width:768px){
+  body.terrane-v2 .hero-copy{
+    padding-bottom:max(7.4rem,calc(6.6rem + env(safe-area-inset-bottom)))!important;
+  }
+  body.terrane-v2 .tv3-hero-island{
+    left:1rem!important;
+    right:auto!important;
+    bottom:max(3.8rem,calc(3.1rem + env(safe-area-inset-bottom)))!important;
+  }
+  body.terrane-v2 .hero-footer-line{
+    margin-top:1.35rem!important;
+    padding-bottom:env(safe-area-inset-bottom);
+  }
+  body.terrane-v2 .site-header{
+    padding-inline:.45rem!important;
+  }
+  body.terrane-v2 .site-header-inner.tv3-liquid{
+    max-width:calc(100vw - .9rem)!important;
+  }
+  body.terrane-v2 .project-story{
+    overflow:visible;
+  }
+  body.terrane-v2 .project-stage{
+    min-height:0!important;
+  }
+  body.terrane-v2 .project-copy{
+    border-radius:0!important;
+  }
+  body.terrane-v2 .consultation-plane{
+    box-shadow:
+      0 30px 80px rgba(0,0,0,.27),
+      0 4px 14px rgba(0,0,0,.10),
+      inset 0 1px rgba(255,255,255,.9)!important;
+  }
+  body.terrane-v2 #index-menu{
+    padding-top:max(6.8rem,calc(5.9rem + env(safe-area-inset-top)))!important;
+  }
+}
+@media(max-width:390px){
+  body.terrane-v2 .hero-title{
+    font-size:clamp(3.55rem,17vw,4.2rem)!important;
+  }
+  body.terrane-v2 .hero-actions{
+    align-items:stretch!important;
+  }
+  body.terrane-v2 .hero-primary-cta{
+    width:100%;
+    justify-content:space-between;
+  }
+  body.terrane-v2 .hero-secondary-cta{
+    width:max-content;
+  }
+  body.terrane-v2 .tv3-hero-island b{display:none}
+  body.terrane-v2 .tv3-hero-island__bar{width:30px}
+  body.terrane-v2 .commission-title{
+    font-size:3.9rem!important;
+  }
+}
