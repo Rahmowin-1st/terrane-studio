@@ -40,8 +40,10 @@ export function LiquidEngine() {
 
     const paint = (w: number, h: number) => {
       if (!ctx || !feImage) return;
-      const W = Math.max(12, Math.round(w));
-      const H = Math.max(12, Math.round(h));
+      const maxW = 360;
+      const scale = Math.min(1, maxW / Math.max(1, w));
+      const W = Math.max(48, Math.round(w * scale));
+      const H = Math.max(24, Math.round(h * scale));
       canvas.width = W;
       canvas.height = H;
       const img = ctx.createImageData(W, H);
@@ -65,10 +67,16 @@ export function LiquidEngine() {
     };
 
     const header = document.querySelector<HTMLElement>(".liquid-glass");
+    let resizeTimer = 0;
+    let pendingWidth = 0;
+    let pendingHeight = 0;
     const ro = header
       ? new ResizeObserver((entries) => {
           const { width, height } = entries[0].contentRect;
-          paint(width, height);
+          pendingWidth = width;
+          pendingHeight = height;
+          window.clearTimeout(resizeTimer);
+          resizeTimer = window.setTimeout(() => paint(pendingWidth, pendingHeight), 120);
         })
       : null;
     if (header && ro) {
@@ -78,6 +86,7 @@ export function LiquidEngine() {
 
     return () => {
       ro?.disconnect();
+      window.clearTimeout(resizeTimer);
       svg.remove();
       document.documentElement.classList.remove("lg-svg");
     };
