@@ -334,3 +334,200 @@
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",start,{once:true});
   else start();
 })();
+
+/* TERRANE V3 FINAL — iPhone / VeroSpace interaction polish */
+(() => {
+  if (window.__TERRANE_V3_FINAL__) return;
+  window.__TERRANE_V3_FINAL__ = true;
+
+  const q=(s,r=document)=>r.querySelector(s);
+  const qa=(s,r=document)=>[...r.querySelectorAll(s)];
+  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+  const fine=matchMedia("(pointer:fine)").matches;
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function liquidHeader(){
+    const header=q(".site-header-inner");
+    if(!header||header.dataset.tv3Ready)return;
+    header.dataset.tv3Ready="1";
+    header.classList.add("tv3-liquid");
+
+    let tx=50,ty=18,cx=50,cy=18,raf=0;
+    if(fine&&!reduce){
+      const tick=()=>{
+        cx+=(tx-cx)*.12;cy+=(ty-cy)*.12;
+        header.style.setProperty("--lg-x",cx.toFixed(2)+"%");
+        header.style.setProperty("--lg-y",cy.toFixed(2)+"%");
+        raf=requestAnimationFrame(tick);
+      };
+      const move=e=>{
+        const r=header.getBoundingClientRect();
+        tx=clamp(((e.clientX-r.left)/Math.max(1,r.width))*100,0,100);
+        ty=clamp(((e.clientY-r.top)/Math.max(1,r.height))*100,0,100);
+      };
+      header.addEventListener("pointermove",move,{passive:true});
+      raf=requestAnimationFrame(tick);
+    }
+
+    let press=0,target=0,velocity=0,last=performance.now(),praf=0;
+    const animatePress=now=>{
+      const dt=Math.min(.035,(now-last)/1000);last=now;
+      const spring=120,damping=18;
+      const a=(target-press)*spring-velocity*damping;
+      velocity+=a*dt;press+=velocity*dt;
+      press=clamp(press,0,1.08);
+      header.style.setProperty("--lg-press",press.toFixed(3));
+      header.classList.toggle("tv3-pressed",press>.08);
+      if(Math.abs(target-press)>.003||Math.abs(velocity)>.01)praf=requestAnimationFrame(animatePress);
+      else{praf=0;press=target;velocity=0}
+    };
+    const setPress=v=>{target=v;last=performance.now();if(!praf)praf=requestAnimationFrame(animatePress)};
+    header.addEventListener("pointerdown",()=>setPress(1),{passive:true});
+    addEventListener("pointerup",()=>setPress(0),{passive:true});
+    addEventListener("pointercancel",()=>setPress(0),{passive:true});
+
+    const darkSelectors=[".hero-scene",".expertise-scene",".commission-scene",".case-hero",".case-material","footer"];
+    const updateTone=()=>{
+      const r=header.getBoundingClientRect();
+      const y=r.top+r.height*.56;
+      let dark=false;
+      for(const sel of darkSelectors){
+        for(const el of qa(sel)){
+          const b=el.getBoundingClientRect();
+          if(b.top<=y&&b.bottom>=y){dark=true;break}
+        }
+        if(dark)break;
+      }
+      header.dataset.tv3Tone=dark?"dark":"light";
+      header.dataset.tv3Scrolled=scrollY>96?"true":"false";
+    };
+    addEventListener("scroll",updateTone,{passive:true});
+    addEventListener("resize",updateTone,{passive:true});
+    updateTone();
+  }
+
+  function heroPolish(){
+    const frame=q(".hero-frame");
+    if(!frame)return;
+
+    if(!q(".tv3-hero-island",frame)){
+      const island=document.createElement("div");
+      island.className="tv3-hero-island";
+      island.setAttribute("aria-hidden","true");
+      island.innerHTML='<i></i><span>Explore the work</span><span class="tv3-hero-island__bar"><span></span></span><b>01—08</b>';
+      frame.appendChild(island);
+    }
+
+    let ticking=false;
+    const progress=()=>{
+      const r=frame.getBoundingClientRect();
+      const total=Math.max(1,r.height-innerHeight*.35);
+      const p=clamp((-r.top)/total,0,1);
+      document.documentElement.style.setProperty("--tv3-hero-progress",(p*100).toFixed(1)+"%");
+      ticking=false;
+    };
+    addEventListener("scroll",()=>{if(!ticking){ticking=true;requestAnimationFrame(progress)}},{passive:true});
+    progress();
+
+    if(fine&&!reduce){
+      frame.addEventListener("pointermove",e=>{
+        const r=frame.getBoundingClientRect();
+        const x=clamp(((e.clientX-r.left)/r.width)*100,0,100);
+        const y=clamp(((e.clientY-r.top)/r.height)*100,0,100);
+        document.body.style.setProperty("--tv3-hero-x",x.toFixed(1)+"%");
+        document.body.style.setProperty("--tv3-hero-y",y.toFixed(1)+"%");
+      },{passive:true});
+    }
+  }
+
+  function formGlow(){
+    const form=q(".consultation-plane");
+    if(!form||!fine||reduce)return;
+    form.addEventListener("pointermove",e=>{
+      const r=form.getBoundingClientRect();
+      const x=clamp(((e.clientX-r.left)/r.width)*100,0,100);
+      const y=clamp(((e.clientY-r.top)/r.height)*100,0,100);
+      form.style.setProperty("--form-x",x.toFixed(1)+"%");
+      form.style.setProperty("--form-y",y.toFixed(1)+"%");
+    },{passive:true});
+  }
+
+  function tactile(){
+    qa(".hero-primary-cta,.hero-secondary-cta,.project-arrow,.project-link,.consultation-submit,.site-header-inner button").forEach(el=>{
+      el.classList.add("tv3-pressable");
+    });
+  }
+
+  function cinematicScroll(){
+    if(reduce||!window.gsap||!window.ScrollTrigger)return;
+    try{
+      const gsap=window.gsap,ST=window.ScrollTrigger;
+      gsap.registerPlugin(ST);
+
+      qa(".practice-scene,.work-scene,.expertise-scene,.control-scene,.approach-scene,.studio-scene,.commission-scene").forEach((scene,i)=>{
+        if(scene.dataset.tv3SceneMotion)return;
+        scene.dataset.tv3SceneMotion="1";
+        const heading=q("h2",scene);
+        if(heading){
+          gsap.fromTo(heading,{y:30,opacity:.68},{y:0,opacity:1,ease:"none",
+            scrollTrigger:{trigger:scene,start:"top 94%",end:"top 60%",scrub:.8}});
+        }
+      });
+
+      qa(".project-stage").forEach((stage,i)=>{
+        if(stage.dataset.tv3StageMotion)return;
+        stage.dataset.tv3StageMotion="1";
+        const image=q(".project-image.is-active",stage);
+        if(image){
+          gsap.to(image,{scale:1.075,yPercent:i%2?2.8:-2.8,ease:"none",
+            scrollTrigger:{trigger:stage,start:"top bottom",end:"bottom top",scrub:1}});
+        }
+      });
+
+      qa(".case-gallery-image").forEach((img,i)=>{
+        if(img.dataset.tv3Motion)return;
+        img.dataset.tv3Motion="1";
+        gsap.to(img,{scale:1.045,yPercent:i%2?3:-3,ease:"none",
+          scrollTrigger:{trigger:img,start:"top bottom",end:"bottom top",scrub:1}});
+      });
+
+      setTimeout(()=>ST.refresh(),120);
+    }catch(_){}
+  }
+
+  function mobileMenuPolish(){
+    const btn=q('.site-header button[aria-controls="index-menu"]');
+    if(!btn)return;
+    const body=document.body;
+    new MutationObserver(()=>{
+      const menu=q("#index-menu");
+      body.classList.toggle("tv3-menu-open",!!menu);
+    }).observe(body,{childList:true,subtree:true});
+  }
+
+  function caseObserve(){
+    const root=document.getElementById("terrane-case-root");
+    if(!root)return;
+    let t=0;
+    new MutationObserver(()=>{
+      clearTimeout(t);
+      t=setTimeout(()=>{
+        tactile();
+        cinematicScroll();
+      },80);
+    }).observe(root,{childList:true,subtree:true});
+  }
+
+  function start(){
+    liquidHeader();
+    heroPolish();
+    formGlow();
+    tactile();
+    cinematicScroll();
+    mobileMenuPolish();
+    caseObserve();
+  }
+
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",start,{once:true});
+  else start();
+})();
