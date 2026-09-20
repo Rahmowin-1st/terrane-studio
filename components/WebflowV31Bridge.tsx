@@ -68,7 +68,12 @@ export function WebflowV31Bridge() {
       document.body.appendChild(el);
     }
 
+    const chromeLeft = q<HTMLElement>(".terrane-chrome__left");
+    const chromeRight = q<HTMLElement>(".terrane-chrome__right");
     const sceneRead = q<HTMLElement>(".terrane-chrome__scene");
+    if (chromeLeft) chromeLeft.innerHTML = '<span>TERRANE / TASHKENT</span><i class="terrane-chrome__rule"></i><span>41.31°N</span>';
+    if (chromeRight) chromeRight.innerHTML = '<span>ARCHITECTURE / INTERIOR / LAND</span><i class="terrane-chrome__rule"></i><span>69.24°E</span>';
+    if (sceneRead) sceneRead.innerHTML = "<b>01</b><span>GROUND / LIGHT / DURATION</span>";
     const sceneConfig = [
       [".hero-scene", "01", "GROUND / LIGHT / DURATION"],
       [".practice-scene", "02", "PRACTICE / WHAT REMAINS"],
@@ -201,10 +206,15 @@ export function WebflowV31Bridge() {
 
       if (fine && !reduce) {
         let touchedImage: HTMLElement | null = null;
-        const onMove = (event: PointerEvent) => {
+        let raf = 0;
+        let clientX = 0;
+        let clientY = 0;
+
+        const paint = () => {
+          raf = 0;
           const r = stage.getBoundingClientRect();
-          const x = clamp((event.clientX - r.left) / Math.max(1, r.width), 0, 1) - 0.5;
-          const y = clamp((event.clientY - r.top) / Math.max(1, r.height), 0, 1) - 0.5;
+          const x = clamp((clientX - r.left) / Math.max(1, r.width), 0, 1) - 0.5;
+          const y = clamp((clientY - r.top) / Math.max(1, r.height), 0, 1) - 0.5;
           stage.style.setProperty("--tv2-rx", (-y * 2.4).toFixed(2) + "deg");
           stage.style.setProperty("--tv2-ry", (x * 3.2).toFixed(2) + "deg");
 
@@ -213,14 +223,24 @@ export function WebflowV31Bridge() {
           touchedImage = active;
           if (active) active.style.transform = `scale(1.055) translate(${(-x * 14).toFixed(1)}px,${(-y * 10).toFixed(1)}px)`;
 
-          const px = clamp((event.clientX - r.left) / Math.max(1, r.width) * 100, 0, 100);
-          const py = clamp((event.clientY - r.top) / Math.max(1, r.height) * 100, 0, 100);
+          const px = clamp((clientX - r.left) / Math.max(1, r.width) * 100, 0, 100);
+          const py = clamp((clientY - r.top) / Math.max(1, r.height) * 100, 0, 100);
           cross!.style.setProperty("--x", px.toFixed(1) + "%");
           cross!.style.setProperty("--y", py.toFixed(1) + "%");
           const read = q<HTMLElement>("span", cross!);
           if (read) read.textContent = Math.round(px) + " / " + Math.round(py);
         };
+
+        const onMove = (event: PointerEvent) => {
+          clientX = event.clientX;
+          clientY = event.clientY;
+          if (!raf) raf = requestAnimationFrame(paint);
+        };
         const onLeave = () => {
+          if (raf) {
+            cancelAnimationFrame(raf);
+            raf = 0;
+          }
           stage.style.setProperty("--tv2-rx", "0deg");
           stage.style.setProperty("--tv2-ry", "0deg");
           if (touchedImage) touchedImage.style.transform = "";
@@ -229,6 +249,7 @@ export function WebflowV31Bridge() {
         stage.addEventListener("pointermove", onMove, { passive: true });
         stage.addEventListener("pointerleave", onLeave, { passive: true });
         projectCleanups.push(() => {
+          if (raf) cancelAnimationFrame(raf);
           stage.removeEventListener("pointermove", onMove);
           stage.removeEventListener("pointerleave", onLeave);
         });
@@ -267,13 +288,25 @@ export function WebflowV31Bridge() {
 
     const form = q<HTMLElement>(".consultation-plane");
     if (form && fine && !reduce) {
+      let formRaf = 0;
+      let formX = 80;
+      let formY = 0;
+      const paintForm = () => {
+        formRaf = 0;
+        form.style.setProperty("--form-x", formX.toFixed(1) + "%");
+        form.style.setProperty("--form-y", formY.toFixed(1) + "%");
+      };
       const onFormMove = (event: PointerEvent) => {
         const r = form.getBoundingClientRect();
-        form.style.setProperty("--form-x", clamp((event.clientX - r.left) / Math.max(1, r.width) * 100, 0, 100).toFixed(1) + "%");
-        form.style.setProperty("--form-y", clamp((event.clientY - r.top) / Math.max(1, r.height) * 100, 0, 100).toFixed(1) + "%");
+        formX = clamp((event.clientX - r.left) / Math.max(1, r.width) * 100, 0, 100);
+        formY = clamp((event.clientY - r.top) / Math.max(1, r.height) * 100, 0, 100);
+        if (!formRaf) formRaf = requestAnimationFrame(paintForm);
       };
       form.addEventListener("pointermove", onFormMove, { passive: true });
-      cleanups.push(() => form.removeEventListener("pointermove", onFormMove));
+      cleanups.push(() => {
+        if (formRaf) cancelAnimationFrame(formRaf);
+        form.removeEventListener("pointermove", onFormMove);
+      });
     }
 
     return () => {
