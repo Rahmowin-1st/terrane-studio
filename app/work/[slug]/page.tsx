@@ -99,7 +99,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             <p className="text-[10px] font-semibold tracking-[0.18em] text-sand uppercase">Next study / {next.index}</p>
             <Link href={`/work/${next.slug}`} className="group mt-5 flex items-end justify-between gap-8 border-t border-bone/20 pt-7">
               <span className="max-w-[58rem] font-display text-[2.8rem] leading-none font-light tracking-[-0.035em] sm:text-6xl md:text-[5rem]">{next.title}</span>
-              <span className="pb-2 font-display text-4xl text-clay transition-transform duration-300 group-hover:translate-x-2" aria-hidden="true">→</span>
+              <span className="h-3 w-3 shrink-0 rounded-full bg-clay" aria-hidden="true" />
             </Link>
           </div>
         </section>
