@@ -48,10 +48,10 @@ export function Header() {
           </Link>
 
           <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
-            {nav.map((item, i) => (
-              <a key={item.id} href={item.href} className="group relative text-[10px] font-semibold tracking-[0.18em] uppercase opacity-72 transition-opacity hover:opacity-100">
-                <span className="mr-1 text-[8px] opacity-45">0{i + 1}</span>{item.label}
-                <span className="absolute inset-x-0 -bottom-2 h-px origin-left scale-x-0 bg-current transition-transform duration-300 group-hover:scale-x-100" />
+            {nav.map((item) => (
+              <a key={item.id} href={item.href} className="group relative inline-flex items-center gap-2 text-[10px] font-semibold tracking-[0.16em] uppercase opacity-72 transition-opacity hover:opacity-100">
+                <span className="h-1.5 w-1.5 rounded-full bg-current opacity-25 transition-opacity group-hover:opacity-70" aria-hidden="true" />
+                {item.label}
               </a>
             ))}
           </nav>
