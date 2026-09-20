@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Fraunces, Outfit } from "next/font/google";
 import "./globals.css";
 import "./case.css";
 import { Header } from "@/components/Header";
@@ -7,9 +6,6 @@ import { Footer } from "@/components/Footer";
 import { LiquidEngine } from "@/components/LiquidEngine";
 import { Choreography } from "@/components/Choreography";
 import { WebflowV31Bridge } from "@/components/WebflowV31Bridge";
-
-const display = Fraunces({ subsets: ["latin"], variable: "--font-fraunces", display: "swap" });
-const sans = Outfit({ subsets: ["latin"], variable: "--font-outfit", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://terrane-studio.vercel.app"),
@@ -28,7 +24,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable} antialiased terrane-v31`}>
+    <html lang="en" className="antialiased terrane-v31">
       <head>
         <link rel="preconnect" href="https://images.unsplash.com" />
         <link
