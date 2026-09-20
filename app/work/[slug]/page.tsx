@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CaseChoreography } from "@/components/CaseChoreography";
 import { getProject, projects, site } from "@/lib/site";
 import { imageSrcSet } from "@/lib/media";
 
@@ -23,7 +22,6 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   return (
     <main id="main" className="case-page bg-bone">
-      <CaseChoreography />
       <article>
         <header className="case-hero relative min-h-[82svh] overflow-hidden bg-paper text-ink">
           <div className="case-hero-media absolute inset-0">
