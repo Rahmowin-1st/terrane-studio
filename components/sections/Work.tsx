@@ -17,6 +17,7 @@ function Stage({ images, title }: { images: { src: string; alt: string }[]; titl
   const hovered = useRef(false);
   const focused = useRef(false);
   const resumeTimer = useRef<number | null>(null);
+  const failedSlides = useRef<Set<number>>(new Set());
 
   const clearResume = () => {
     if (resumeTimer.current !== null) {
@@ -34,6 +35,18 @@ function Stage({ images, title }: { images: { src: string; alt: string }[]; titl
   };
 
   const go = (n: number) => setI((v) => (v + n + slides.length) % slides.length);
+
+  const markFailed = (idx: number) => {
+    failedSlides.current.add(idx);
+    if (idx !== i || failedSlides.current.size >= slides.length) return;
+    for (let step = 1; step < slides.length; step += 1) {
+      const candidate = (idx + step) % slides.length;
+      if (!failedSlides.current.has(candidate)) {
+        setI(candidate);
+        break;
+      }
+    }
+  };
 
   useEffect(() => {
     const node = rootRef.current;
@@ -144,6 +157,13 @@ function Stage({ images, title }: { images: { src: string; alt: string }[]; titl
             fetchPriority="auto"
             decoding="async"
             aria-hidden={idx !== i}
+            onError={(event) => {
+              event.currentTarget.style.visibility = "hidden";
+              markFailed(idx);
+            }}
+            onLoad={(event) => {
+              event.currentTarget.style.visibility = "visible";
+            }}
           />
         ))}
       </div>
