@@ -6,7 +6,7 @@ export const site = {
   district: "Yunusabad",
   email: "studio@terrane.uz",
   founded: 2016,
-  tagline: "Architecture of ground, light, and duration.",
+  tagline: "Architecture shaped by ground, light and material.",
   promise: "Houses, interiors and landscapes built around climate and proportion.",
   description:
     "Terrane designs houses, interiors and landscapes around climate, proportion and material.",
@@ -15,9 +15,9 @@ export const site = {
 export const nav = [
   { href: "/#work", label: "Work", id: "work" },
   { href: "/#trust", label: "Practice", id: "trust" },
-  { href: "/#approach", label: "Approach", id: "approach" },
+  { href: "/#approach", label: "Process", id: "approach" },
   { href: "/#studio", label: "Studio", id: "studio" },
-  { href: "/#commission", label: "Commission", id: "commission" },
+  { href: "/#commission", label: "Contact", id: "commission" },
 ] as const;
 
 export const trust = [
@@ -38,7 +38,7 @@ export const trust = [
   },
   {
     index: "04",
-    title: "Held after handover",
+    title: "Handover",
     text: "Leave decisions and open items documented.",
   },
 ] as const;

@@ -42,15 +42,9 @@ export function LightExperience() {
     const onSelectStart = (event: Event) => {
       if (!isEditable(event.target)) event.preventDefault();
     };
-    const onContextMenu = (event: MouseEvent) => {
-      if (!isEditable(event.target)) event.preventDefault();
-    };
-
     document.addEventListener("selectstart", onSelectStart);
-    document.addEventListener("contextmenu", onContextMenu);
     return () => {
       document.removeEventListener("selectstart", onSelectStart);
-      document.removeEventListener("contextmenu", onContextMenu);
     };
   }, []);
 

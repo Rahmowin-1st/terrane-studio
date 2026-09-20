@@ -117,13 +117,14 @@ html.terrane-final .tf-photo{
   width:100%;height:100%;object-fit:cover;filter:brightness(1.04) saturate(.78) contrast(.99);
   transition:transform 1.2s var(--ease),filter .35s ease;
 }
-html.terrane-final .tf-hero-media .tf-photo{transform:scale(1.025)}
+html.terrane-final .tf-hero-media .tf-photo{transform:translate3d(var(--hero-px,0px),calc(var(--hero-y,0px) + var(--hero-py,0px)),0) scale(1.035)}
 html.terrane-final .tf-hero-veil{
   position:absolute;z-index:2;inset:0;pointer-events:none;
   background:linear-gradient(90deg,#f1ece4 0%,rgba(241,236,228,.99) 33%,rgba(241,236,228,.77) 45%,rgba(241,236,228,.08) 62%);
 }
 html.terrane-final .tf-hero-copy{
   position:absolute;z-index:4;left:var(--gutter);bottom:clamp(58px,8vw,120px);width:min(720px,50vw);
+  transform:translate3d(0,var(--hero-copy-y,0px),0);
 }
 html.terrane-final .tf-hero-copy h1{
   margin:14px 0 0;font-family:var(--font-display);font-size:clamp(5.2rem,9.6vw,10rem);
@@ -392,7 +393,7 @@ html.terrane-final .is-visible{opacity:1;transform:none}
   html.terrane-final .tf-field-hero{opacity:.08;background-size:130% auto;background-position:center 4%}
   html.terrane-final .tf-hero-media{top:0;left:0;right:0;bottom:auto;height:51%;border-radius:0}
   html.terrane-final .tf-hero-veil{background:linear-gradient(180deg,transparent 0 34%,rgba(238,233,225,.10) 44%,rgba(238,233,225,.92) 62%,#eee9e1 76%)}
-  html.terrane-final .tf-hero-copy{left:18px;right:18px;bottom:32px;width:auto}
+  html.terrane-final .tf-hero-copy{left:18px;right:18px;bottom:32px;width:auto;transform:none}
   html.terrane-final .tf-hero-copy h1{font-size:clamp(4rem,19vw,5.7rem);line-height:.79}
   html.terrane-final .tf-lead{margin-top:20px;font-size:15px;max-width:34rem}
   html.terrane-final .tf-actions{margin-top:22px}
@@ -516,7 +517,10 @@ html.terrane-final .custom-select-panel{
   left:-1px;
   right:-1px;
   top:calc(100% + 9px);
-  overflow:hidden;
+  overflow-x:hidden;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  max-height:min(320px,46vh);
   padding:6px;
   color:var(--ink);
   background:rgba(247,244,238,.98);

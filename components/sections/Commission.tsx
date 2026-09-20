@@ -116,11 +116,11 @@ export function Commission() {
             <form onSubmit={onSubmit} className="consultation-plane relative grid gap-x-5 gap-y-5 rounded-[1.5rem] px-5 py-7 text-ink sm:px-7 md:grid-cols-2 md:px-8 md:py-9" noValidate>
               <label className="sr-only" aria-hidden="true">Website<input name="website" tabIndex={-1} autoComplete="off" /></label>
 
-              <Field label="Name" name="name" error={errors.name} autoComplete="name" />
-              <Field label="Email" name="email" type="email" error={errors.email} autoComplete="email" />
-              <CustomSelect label="Project type" name="type" error={errors.type} options={projectTypes} />
-              <CustomSelect label="Budget range" name="budget" error={errors.budget} options={budgets} />
-              <Field label="Site / city" name="site" error={errors.site} className="md:col-span-2" />
+              <Field label="Name" name="name" error={errors.name} autoComplete="name" onEdit={() => setErrors((current) => ({ ...current, name: "" }))} />
+              <Field label="Email" name="email" type="email" error={errors.email} autoComplete="email" onEdit={() => setErrors((current) => ({ ...current, email: "" }))} />
+              <CustomSelect label="Project type" name="type" error={errors.type} options={projectTypes} onValueChange={() => setErrors((current) => ({ ...current, type: "" }))} />
+              <CustomSelect label="Budget range" name="budget" error={errors.budget} options={budgets} onValueChange={() => setErrors((current) => ({ ...current, budget: "" }))} />
+              <Field label="Site / city" name="site" error={errors.site} className="md:col-span-2" onEdit={() => setErrors((current) => ({ ...current, site: "" }))} />
 
               <label className="form-field md:col-span-2">
                 <span className="form-label">Brief</span>
@@ -131,6 +131,7 @@ export function Commission() {
                   aria-invalid={!!errors.brief}
                   className="form-control min-h-[8.5rem] resize-y"
                   placeholder="What needs to change? What must remain?"
+                  onChange={() => setErrors((current) => ({ ...current, brief: "" }))}
                 />
                 {errors.brief && <small className="form-error">{errors.brief}</small>}
               </label>
@@ -192,6 +193,7 @@ function Field({
   type = "text",
   autoComplete,
   className = "",
+  onEdit,
 }: {
   label: string;
   name: string;
@@ -199,11 +201,12 @@ function Field({
   type?: string;
   autoComplete?: string;
   className?: string;
+  onEdit?: () => void;
 }) {
   return (
     <label className={`form-field ${className}`}>
       <span className="form-label">{label}</span>
-      <input data-field={name} name={name} type={type} autoComplete={autoComplete} aria-invalid={!!error} className="form-control" />
+      <input data-field={name} name={name} type={type} autoComplete={autoComplete} aria-invalid={!!error} className="form-control" onChange={onEdit} />
       {error && <small className="form-error">{error}</small>}
     </label>
   );
@@ -214,17 +217,35 @@ function CustomSelect({
   name,
   error,
   options,
+  onValueChange,
 }: {
   label: string;
   name: string;
   error?: string;
   options: readonly { value: string; label: string }[];
+  onValueChange?: () => void;
 }) {
   const [value, setValue] = useState("");
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const selected = options.find((option) => option.value === value);
+  const listRef = useRef<HTMLDivElement>(null);
+
+  const focusOption = (index: number) => {
+    const buttons = listRef.current?.querySelectorAll<HTMLButtonElement>('[role="option"]');
+    if (!buttons?.length) return;
+    const safe = (index + buttons.length) % buttons.length;
+    buttons[safe]?.focus();
+  };
+
+  const openList = () => {
+    setOpen(true);
+    requestAnimationFrame(() => {
+      const index = Math.max(0, options.findIndex((option) => option.value === value));
+      focusOption(index);
+    });
+  };
 
   useEffect(() => {
     const onPointerDown = (event: PointerEvent) => {
@@ -251,7 +272,7 @@ function CustomSelect({
     }
     if (event.key === "ArrowDown" || event.key === "Enter" || event.key === " ") {
       event.preventDefault();
-      setOpen(true);
+      openList();
     }
   }
 
@@ -267,7 +288,7 @@ function CustomSelect({
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-invalid={!!error}
-        onClick={() => setOpen((current) => !current)}
+        onClick={() => (open ? setOpen(false) : openList())}
         onKeyDown={onKeyDown}
       >
         <span className={selected ? "" : "is-placeholder"}>{selected?.label ?? "Select"}</span>
@@ -275,7 +296,7 @@ function CustomSelect({
       </button>
 
       {open && (
-        <div className="custom-select-panel" role="listbox" aria-label={label}>
+        <div ref={listRef} className="custom-select-panel" role="listbox" aria-label={label}>
           {options.map((option) => (
             <button
               key={option.value}
@@ -283,8 +304,30 @@ function CustomSelect({
               role="option"
               aria-selected={value === option.value}
               className={value === option.value ? "is-selected" : ""}
+              onKeyDown={(event) => {
+                const buttons = Array.from(listRef.current?.querySelectorAll<HTMLButtonElement>('[role="option"]') ?? []);
+                const index = buttons.indexOf(event.currentTarget);
+                if (event.key === "ArrowDown") {
+                  event.preventDefault();
+                  focusOption(index + 1);
+                } else if (event.key === "ArrowUp") {
+                  event.preventDefault();
+                  focusOption(index - 1);
+                } else if (event.key === "Escape") {
+                  event.preventDefault();
+                  setOpen(false);
+                  buttonRef.current?.focus();
+                } else if (event.key === "Home") {
+                  event.preventDefault();
+                  focusOption(0);
+                } else if (event.key === "End") {
+                  event.preventDefault();
+                  focusOption(buttons.length - 1);
+                }
+              }}
               onClick={() => {
                 setValue(option.value);
+                onValueChange?.();
                 setOpen(false);
                 requestAnimationFrame(() => buttonRef.current?.focus());
               }}

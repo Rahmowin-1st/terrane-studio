@@ -8,14 +8,14 @@ import { LightExperience } from "@/components/LightExperience";
 export const metadata: Metadata = {
   metadataBase: new URL("https://terrane-studio.vercel.app"),
   title: {
-    default: "TERRANE — Architecture of ground, light, and duration.",
+    default: "TERRANE — Ground, light and material.",
     template: "%s — TERRANE",
   },
-  description: "Terrane is a portfolio architecture concept for houses, interiors, landscapes and reuse in Central Asia.",
+  description: "Architecture for houses, interiors, landscapes and reuse across Central Asia.",
   icons: { icon: "/logo.svg" },
   openGraph: {
     title: "TERRANE",
-    description: "Architecture of ground, light, and duration — a production portfolio study.",
+    description: "Architecture shaped by climate, proportion and material.",
     type: "website",
   },
 };
