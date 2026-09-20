@@ -8,7 +8,17 @@ export function LiquidEngine() {
     const ua = navigator.userAgent;
     const isChromium = /Chrome|Chromium|Edg|CriOS/i.test(ua) && !/OPR|Opera|Firefox/i.test(ua);
     const fine = window.matchMedia("(pointer: fine)").matches;
-    if (!isChromium || window.innerWidth < 720 || !fine) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const nav = navigator as Navigator & {
+      deviceMemory?: number;
+      connection?: { saveData?: boolean };
+    };
+    const constrained =
+      Boolean(nav.connection?.saveData) ||
+      (nav.hardwareConcurrency > 0 && nav.hardwareConcurrency <= 4) ||
+      (typeof nav.deviceMemory === "number" && nav.deviceMemory <= 4);
+
+    if (!isChromium || window.innerWidth < 900 || !fine || reduced || constrained) return;
 
     const svgNS = "http://www.w3.org/2000/svg";
     const svg = document.createElementNS(svgNS, "svg");
