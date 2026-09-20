@@ -92,6 +92,8 @@ export function LightExperience() {
       root.style.setProperty("--hero-px", reduced ? "0px" : `${px.toFixed(1)}px`);
       root.style.setProperty("--hero-py", reduced ? "0px" : `${py.toFixed(1)}px`);
       root.dataset.scrolled = window.scrollY > 36 ? "true" : "false";
+      const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      root.style.setProperty("--page-progress", Math.max(0, Math.min(1, window.scrollY / maxScroll)).toFixed(4));
     };
     const schedule = () => { if (!raf) raf = requestAnimationFrame(paint); };
     const onScroll = () => schedule();
@@ -121,7 +123,36 @@ export function LightExperience() {
       root.style.removeProperty("--hero-copy-y");
       root.style.removeProperty("--hero-px");
       root.style.removeProperty("--hero-py");
+      root.style.removeProperty("--page-progress");
     };
+  }, [pathname]);
+
+  useEffect(() => {
+    if (pathname !== "/") return;
+    const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('.site-header nav a[href^="/#"]'));
+    const sections = links
+      .map((link) => {
+        const hash = new URL(link.href).hash;
+        const section = hash ? document.querySelector<HTMLElement>(hash) : null;
+        return section ? { link, section } : null;
+      })
+      .filter((entry): entry is { link: HTMLAnchorElement; section: HTMLElement } => Boolean(entry));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visible) return;
+        links.forEach((link) => link.removeAttribute("data-active"));
+        const match = sections.find((entry) => entry.section === visible.target);
+        match?.link.setAttribute("data-active", "true");
+      },
+      { rootMargin: "-22% 0px -62% 0px", threshold: [0, .12, .3, .55] },
+    );
+
+    sections.forEach(({ section }) => observer.observe(section));
+    return () => observer.disconnect();
   }, [pathname]);
 
   useEffect(() => {
