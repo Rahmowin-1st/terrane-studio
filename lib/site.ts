@@ -149,7 +149,7 @@ export const projects: Project[] = [
     excerpt:
       "A family house organised as four courts for shade, air and privacy.",
     goal: "Fit three generations around usable courts.",
-    space: "Edge-of-city plot, long south face, neighbour to the west. Dust and noon heat first.",
+    space: "Long south-facing plot with heat, dust and a close western neighbour.",
     design: "Four linked courts organise arrival, water, kitchen and rest.",
     materials: ["Rammed earth walls", "Lime wash", "Mulberry timber roofs", "Still pool", "Deep openings"],
     decisions: [
@@ -158,9 +158,9 @@ export const projects: Project[] = [
       "Openings deep enough to keep noon off the floor",
     ],
     brief:
-      "A family of seven asked for a house that could hold three generations without spectacle. Dust, heat, and shade were the first constraints.",
+      "A three-generation home needing shade, privacy and shared outdoor space.",
     response:
-      "The plan is a chain of courts. Walls are rammed earth, roofs timber, openings deep. Nothing is shown that the family would not use.",
+      "Four linked courts organise movement, shade and family life.",
     discipline: "Houses",
   },
   {
@@ -190,14 +190,14 @@ export const projects: Project[] = [
     excerpt:
       "A brick warehouse reused as a calm neighbourhood reading room.",
     goal: "Make a useful civic room that still feels local.",
-    space: "Former warehouse beside the Qorasuv canal. Good bones, poor light at the back.",
+    space: "Brick warehouse beside the canal with weak daylight at the rear.",
     design: "Keep the shell; align tables and shelves with daylight.",
     materials: ["Existing brick", "Oak tables", "Lime at the rear wall", "Warm 2700K lighting"],
     decisions: ["Open the rear only where structure already wanted it", "No decorative library language"],
     brief:
-      "A small civic client wanted tables, shelves, a quiet room for children, and a place that would still feel local.",
+      "A local reading room for adults, children and community use.",
     response:
-      "We kept the brick and the roof. New oak tables run with the light. The room is for reading, not for being photographed.",
+      "Keep the shell. Add daylight, long tables and simple oak shelving.",
     discipline: "Reuse",
   },
   {
@@ -226,14 +226,14 @@ export const projects: Project[] = [
     ],
     excerpt:
       "A compact apartment reorganised around a new light well.",
-    goal: "More calm than square metres. Light in the centre, not only at the street.",
-    space: "Late-Soviet block near Chorsu. Corridor of small rooms.",
-    design: "Cut a light well and treat it as a court. Millwork holds books, beds, a folding table.",
+    goal: "Bring daylight and calm into the centre of the plan.",
+    space: "Compact apartment with a dark central corridor.",
+    design: "A central light well and built-in oak storage reorganise the plan.",
     materials: ["Lime plaster", "Oak millwork", "Soft mineral floors"],
     decisions: ["Street room for work", "Inner rooms for rest", "Nothing open-plan for its own sake"],
-    brief: "A pair of writers asked for calm. Light arrived only at the street face.",
+    brief: "A compact home needing better daylight, storage and quiet rooms.",
     response:
-      "A light well through the centre. Surfaces lime and oak. The street room works; the inner rooms rest.",
+      "Open the centre to light; use lime plaster and oak to unify the rooms.",
     discipline: "Interiors",
   },
   {
@@ -261,15 +261,15 @@ export const projects: Project[] = [
       },
     ],
     excerpt:
-      "A walled garden restoring shade and water. Fruit trees, a still canal, and brick that already knew the climate.",
-    goal: "Fruit, quiet, and a place to sit in August.",
-    space: "Private garden behind an old house. Water and shade had been lost.",
-    design: "Repair the wall, recut a shallow canal, plant for canopy first.",
+      "A walled garden rebuilt around shade, water and fruit trees.",
+    goal: "Restore shade, water and a comfortable summer garden.",
+    space: "Old walled garden with lost shade and irrigation.",
+    design: "Repair the wall, restore the canal and plant canopy first.",
     materials: ["Existing baked brick", "Pomegranate, fig, mulberry", "Shallow canal"],
     decisions: ["Paths lower than beds so irrigation stays", "Canopy before ornament"],
-    brief: "The garden had lost its water and most of its shade.",
+    brief: "Restore water, shade and useful planting.",
     response:
-      "Wall repaired, canal recut, canopy first. The garden is a room without a roof.",
+      "Repair the wall, recut the canal and rebuild the canopy.",
     discipline: "Landscapes",
   },
   {
@@ -297,15 +297,15 @@ export const projects: Project[] = [
       },
     ],
     excerpt:
-      "A small exhibition pavilion for textile crafts. Brick plinth, timber roof, and shade that does the work of walls.",
-    goal: "A room that can be built quickly and still feel like a building.",
-    space: "A field at the edge of the city. Wind and a long view.",
-    design: "Brick plinth holds the ground. Deep-eaved timber roof makes the shade. Sides open.",
+      "A lightweight exhibition pavilion built from brick, timber and shade.",
+    goal: "Create a fast, durable pavilion with a clear civic presence.",
+    space: "Open edge-of-city site with wind and long views.",
+    design: "A brick plinth anchors a deep-eaved timber roof with open sides.",
     materials: ["Brick plinth", "Timber roof", "Open sides for moving cloth"],
     decisions: ["Visitors walk through, not around", "Plinth can remain when the roof travels"],
-    brief: "Seasonal exhibition of Fergana textiles needed a room that could be taken down if required.",
+    brief: "A seasonal textile pavilion that can be partly dismantled.",
     response:
-      "A brick plinth and a travelling roof. Shade does the work of walls.",
+      "Keep the plinth permanent; make the timber roof removable.",
     discipline: "Reuse",
   },
 ];
@@ -313,19 +313,6 @@ export const projects: Project[] = [
 export function getProject(slug: string) {
   return projects.find((p) => p.slug === slug);
 }
-
-export const principals = [
-  {
-    name: "Nilufar Karimova",
-    role: "Principal, architecture",
-    text: "Leads the houses and public rooms. The work is concerned with climate, courtyard, and the plan as a social instrument.",
-  },
-  {
-    name: "Jasur Rahimov",
-    role: "Principal, interiors and landscape",
-    text: "Leads interiors, gardens, and the making of rooms. The studio’s material library is held in his hand first.",
-  },
-] as const;
 
 export const projectTypes = [
   { value: "house", label: "House" },
