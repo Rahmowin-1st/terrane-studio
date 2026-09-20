@@ -6,14 +6,14 @@ export function Trust() {
       <div className="mx-auto max-w-[1280px] px-5 py-20 sm:px-7 md:px-10 md:py-28 lg:px-12 lg:py-32">
         <div className="practice-intro grid gap-10 md:grid-cols-12">
           <div className="md:col-span-7">
-            <p className="practice-kicker text-[10px] font-semibold tracking-[0.2em] text-umber uppercase">Practice / clarity before commitment</p>
+            <p className="practice-kicker text-[10px] font-semibold tracking-[0.2em] text-umber uppercase">Practice / clear decisions</p>
             <h2 id="trust-heading" className="practice-title mt-5 font-display text-[2.8rem] leading-[0.98] font-light tracking-[-0.035em] sm:text-6xl md:text-[4.9rem]">
-              Architecture begins with what must remain.
+              Keep what matters. Change what must.
             </h2>
           </div>
           <div className="practice-copy md:col-span-4 md:col-start-9 md:self-end">
             <p className="text-[16px] leading-[1.75] text-ink/78">
-              {site.name} treats climate, proportion, approval and material as one practice. The work is not decorated after the plan; the character grows out of the decisions that survive it.
+              Climate, proportion and material are resolved before decoration.
             </p>
           </div>
         </div>
@@ -34,8 +34,8 @@ export function Trust() {
         </div>
 
         <div className="practice-caption mt-8 flex flex-col gap-2 text-[10px] tracking-[0.14em] text-umber uppercase sm:flex-row sm:justify-between">
-          <span>Ground / shade / proportion / use</span>
-          <span>Decisions before decoration</span>
+          <span>Climate / proportion / material / use</span>
+          <span>Clear before decorative</span>
         </div>
       </div>
     </section>
