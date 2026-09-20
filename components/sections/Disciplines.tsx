@@ -23,8 +23,7 @@ export function Disciplines() {
               <span className="discipline-index text-[10px] font-semibold tracking-[0.16em] text-clay md:col-span-1">{item.index}</span>
               <h3 className="discipline-title font-display text-[2.15rem] leading-none font-light md:col-span-4 md:text-[3.2rem]">{item.title}</h3>
               <p className="discipline-copy max-w-xl text-[14px] leading-[1.65] text-bone/62 md:col-span-5">{item.text}</p>
-              <div className="discipline-arrow hidden justify-self-end font-display text-3xl text-clay transition-transform duration-300 group-hover:translate-x-1 md:col-span-2 md:block" aria-hidden="true">↗</div>
-              <span className="discipline-sweep absolute inset-y-0 left-0 -z-0 w-0 bg-bone/[0.035] transition-[width] duration-500 group-hover:w-full" aria-hidden="true" />
+              <div className="hidden justify-self-end md:col-span-2 md:block" aria-hidden="true"><span className="block h-3 w-3 rounded-full bg-clay/80" /></div>
             </li>
           ))}
         </ol>
