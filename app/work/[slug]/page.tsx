@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProject, projects, site } from "@/lib/site";
 import { imageSrcSet } from "@/lib/media";
+import { ResilientImage } from "@/components/ResilientImage";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -25,12 +26,21 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       <article>
         <header className="case-hero relative min-h-[82svh] overflow-hidden bg-paper text-ink">
           <div className="case-hero-media absolute inset-0">
-            <img src={project.cover} srcSet={imageSrcSet(project.cover)} sizes="100vw" alt={project.coverAlt} className="case-cover h-full w-full object-cover" fetchPriority="high" />
+            <ResilientImage
+              src={project.cover}
+              srcSet={imageSrcSet(project.cover)}
+              sizes="100vw"
+              alt={project.coverAlt}
+              className="case-cover h-full w-full object-cover"
+              fallbackClassName="case-hero-fallback"
+              loading="eager"
+              fetchPriority="high"
+            />
           </div>
           <div className="case-hero-shade absolute inset-0" />
           <div className="case-grid absolute inset-0" aria-hidden="true" />
           <div className="case-hero-copy absolute inset-x-0 bottom-0 z-10 mx-auto max-w-[1280px] px-5 pb-10 sm:px-7 md:px-10 md:pb-14 lg:px-12">
-            <p className="case-kicker text-[10px] font-semibold tracking-[0.2em] text-clay uppercase"><Link href="/#work" className="hover:text-ink">Work</Link> / {project.index} / Design study</p>
+            <p className="case-kicker text-[10px] font-semibold tracking-[0.2em] text-clay uppercase"><Link href="/#work" className="hover:text-ink">Work</Link> / {project.index}</p>
             <h1 className="case-title mt-4 max-w-[70rem] font-display text-[3.2rem] leading-[0.9] font-light tracking-[-0.045em] sm:text-7xl md:text-[6.3rem]">{project.title}</h1>
             <div className="mt-7 flex flex-wrap gap-x-8 gap-y-3 border-t border-ink/10 pt-4 text-[9px] font-semibold tracking-[0.16em] text-ink/62 uppercase sm:text-[10px]">
               <span>{project.type}</span><span>{project.location}</span><span>{project.year}</span><span>{project.discipline}</span>
@@ -55,12 +65,19 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
         <section className="case-gallery mx-auto grid max-w-[1280px] gap-7 px-5 sm:px-7 md:grid-cols-12 md:px-10 lg:px-12" aria-label={`${project.title} visual study`}>
           {project.images.map((image, i) => {
-            const layout = i === 0 ? "md:col-span-8" : i === 1 ? "md:col-span-4 md:mt-32" : "md:col-span-10 md:col-start-3 md:mt-8";
+            const layout = i === 0 ? "md:col-span-7" : i === 1 ? "md:col-span-5" : "md:col-span-12";
             const ratio = i === 0 ? "aspect-[4/3]" : i === 1 ? "aspect-[3/4]" : "aspect-[16/9]";
             return (
               <figure key={image.src} className={`case-gallery-item overflow-hidden ${layout}`}>
                 <div className={`overflow-hidden bg-paper ${ratio}`}>
-                  <img src={image.src} srcSet={imageSrcSet(image.src)} sizes={i === 1 ? "(min-width: 769px) 34vw, 100vw" : "(min-width: 769px) 72vw, 100vw"} alt={image.alt} className="case-gallery-image h-full w-full object-cover" loading="lazy" decoding="async" />
+                  <ResilientImage
+                    src={image.src}
+                    srcSet={imageSrcSet(image.src)}
+                    sizes={i === 1 ? "(min-width: 769px) 42vw, 100vw" : "(min-width: 769px) 58vw, 100vw"}
+                    alt={image.alt}
+                    className="case-gallery-image h-full w-full object-cover"
+                    fallbackClassName="case-gallery-fallback"
+                  />
                 </div>
                 <figcaption className="flex items-center justify-between gap-4 border-t border-ink/10 bg-bone py-3 text-[9px] tracking-[0.14em] text-umber uppercase">
                   <span>{project.title}</span><span>{String(i + 1).padStart(2, "0")} / {String(project.images.length).padStart(2, "0")}</span>
@@ -72,14 +89,14 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
         <section className="case-material mx-auto grid max-w-[1280px] gap-12 px-5 py-20 sm:px-7 md:grid-cols-12 md:px-10 md:py-28 lg:px-12 lg:py-32">
           <div className="md:col-span-5">
-            <p className="text-[10px] font-semibold tracking-[0.18em] text-umber uppercase">Material direction</p>
-            <h2 className="mt-5 font-display text-[2.8rem] leading-none font-light md:text-[4rem]">What the room is made to remember.</h2>
+            <p className="text-[10px] font-semibold tracking-[0.18em] text-umber uppercase">Materials</p>
+            <h2 className="mt-5 font-display text-[2.8rem] leading-none font-light md:text-[4rem]">Materials and key decisions.</h2>
           </div>
           <div className="md:col-span-6 md:col-start-7">
             <ul className="divide-y divide-ink/12 border-y border-ink/12">
               {project.materials.map((m, i) => <li key={m} className="grid grid-cols-[3rem_1fr] gap-4 py-5"><span className="text-[10px] text-clay">0{i + 1}</span><span className="text-[15px] text-ink/72">{m}</span></li>)}
             </ul>
-            <p className="mt-10 text-[10px] font-semibold tracking-[0.18em] text-umber uppercase">Key decisions</p>
+            <p className="mt-10 text-[10px] font-semibold tracking-[0.18em] text-umber uppercase">Decisions</p>
             <ul className="mt-4 space-y-3 text-[15px] leading-[1.65] text-ink/72">
               {project.decisions.map((m) => <li key={m} className="flex gap-4"><span className="text-clay">—</span><span>{m}</span></li>)}
             </ul>
@@ -94,7 +111,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
         <section className="case-next bg-paper text-ink">
           <div className="mx-auto max-w-[1280px] px-5 py-20 sm:px-7 md:px-10 md:py-28 lg:px-12">
-            <p className="text-[10px] font-semibold tracking-[0.18em] text-sand uppercase">Next study / {next.index}</p>
+            <p className="text-[10px] font-semibold tracking-[0.18em] text-sand uppercase">Next project / {next.index}</p>
             <Link href={`/work/${next.slug}`} className="group mt-5 flex items-end justify-between gap-8 border-t border-ink/10 pt-7">
               <span className="max-w-[58rem] font-display text-[2.8rem] leading-none font-light tracking-[-0.035em] sm:text-6xl md:text-[5rem]">{next.title}</span>
               <span className="h-3 w-3 shrink-0 rounded-full bg-clay" aria-hidden="true" />
