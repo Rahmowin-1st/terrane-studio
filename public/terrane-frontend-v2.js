@@ -102,20 +102,28 @@
     qa(".project-story").forEach((story,i)=>{
       story.dataset.tv2Project=String(i+1).padStart(2,"0");
       const stage=q(".project-stage",story);
-      const image=q(".project-image.is-active",stage||story);
       if(!stage||!fine||reduce)return;
+
+      let touchedImage=null;
+      const activeImage=()=>q(".project-image.is-active",stage);
 
       const reset=()=>{
         stage.style.setProperty("--tv2-rx","0deg");
         stage.style.setProperty("--tv2-ry","0deg");
-        if(image)image.style.transform="";
+        if(touchedImage)touchedImage.style.transform="";
+        touchedImage=null;
       };
+
       stage.addEventListener("pointermove",e=>{
         const r=stage.getBoundingClientRect();
         const x=(e.clientX-r.left)/r.width-.5;
         const y=(e.clientY-r.top)/r.height-.5;
         stage.style.setProperty("--tv2-rx",(-y*2.4).toFixed(2)+"deg");
         stage.style.setProperty("--tv2-ry",(x*3.2).toFixed(2)+"deg");
+
+        const image=activeImage();
+        if(touchedImage&&touchedImage!==image)touchedImage.style.transform="";
+        touchedImage=image;
         if(image)image.style.transform="scale(1.055) translate("+(-x*7).toFixed(1)+"px,"+(-y*5).toFixed(1)+"px)";
       });
       stage.addEventListener("pointerleave",reset);
