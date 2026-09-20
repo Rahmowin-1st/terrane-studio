@@ -22,11 +22,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="antialiased terrane-final">
+    <html lang="en" translate="no" className="antialiased terrane-final notranslate">
       <head>
+        <meta name="google" content="notranslate" />
+        <meta name="robots" content="notranslate" />
         <link rel="preconnect" href="https://images.unsplash.com" />
       </head>
-      <body className="min-h-dvh bg-bone font-sans text-ink">
+      <body translate="no" className="notranslate min-h-dvh bg-bone font-sans text-ink">
         <LightExperience />
         <Header />
         {children}
