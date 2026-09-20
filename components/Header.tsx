@@ -11,7 +11,6 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const reduce = useReducedMotion();
   const pathname = usePathname();
-  const glassRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
 
@@ -41,7 +40,7 @@ export function Header() {
     <>
       <a href="#main" className="skip-link">Skip to content</a>
       <header className="site-header fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-[max(0.7rem,env(safe-area-inset-top))]">
-        <div ref={glassRef} className="site-header-inner flex h-14 w-full max-w-[1180px] items-center justify-between rounded-full px-3 md:h-[4rem] md:px-5">
+        <div className="site-header-inner flex h-14 w-full max-w-[1180px] items-center justify-between rounded-full px-3 md:h-[4rem] md:px-5">
           <Link href="/" className="flex items-center gap-2.5 pl-1 text-current" aria-label={`${site.name} home`}>
             <Logo className="h-8 w-8" />
             <span className="font-display text-[1.15rem] tracking-[0.08em]">{site.name}</span>
