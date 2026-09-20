@@ -1,20 +1,20 @@
 /* TERRANE FINAL — warm editorial architecture, cinematic depth, zero dark sections. */
 :root{
-  --tf-bg:#d4c9bc;
-  --tf-bone:#f5efe7;
-  --tf-ivory:#fbf8f2;
-  --tf-paper:#eee4d7;
-  --tf-sage:#e5eadf;
-  --tf-sage-deep:#d4dccf;
+  --tf-bg:#c9bdae;
+  --tf-bone:#f2ece3;
+  --tf-ivory:#f8f5ef;
+  --tf-paper:#e9e0d4;
+  --tf-sage:#dfe5dc;
+  --tf-sage-deep:#cbd4c8;
   --tf-sand:#dfcfba;
-  --tf-clay:#a97855;
-  --tf-moss:#566653;
+  --tf-clay:#8b684d;
+  --tf-moss:#46554a;
   --tf-ink:#191714;
   --tf-muted:#6b6259;
   --tf-line:rgba(25,23,20,.11);
   --tf-white-line:rgba(255,255,255,.62);
-  --tf-radius-xl:clamp(34px,4vw,52px);
-  --tf-radius-lg:clamp(24px,3vw,36px);
+  --tf-radius-xl:clamp(28px,3vw,40px);
+  --tf-radius-lg:clamp(22px,2.4vw,32px);
   --tf-radius-md:22px;
   --tf-gap:clamp(10px,1.1vw,16px);
   --tf-shadow:0 28px 90px rgba(40,30,22,.12),0 6px 24px rgba(40,30,22,.06);
@@ -36,7 +36,7 @@ html.terrane-final body{
   background:
     radial-gradient(80rem 56rem at 4% 0%,rgba(243,218,187,.72),transparent 60%),
     radial-gradient(70rem 50rem at 96% 24%,rgba(129,148,121,.32),transparent 64%),
-    linear-gradient(180deg,#ddd3c7 0%,#d0c4b6 58%,#c7baac 100%)!important;
+    linear-gradient(180deg,#d7ccbf 0%,#c8bcad 58%,#bcae9f 100%)!important;
   color:var(--tf-ink)!important;
 }
 html.terrane-final body::before{
@@ -181,7 +181,7 @@ html.terrane-final .hero-title{
   letter-spacing:-.058em!important;
   text-wrap:balance;
 }
-html.terrane-final .hero-line-accent{color:var(--tf-moss)!important;font-style:italic}
+html.terrane-final .hero-line-accent{color:var(--tf-moss)!important;font-style:normal}
 html.terrane-final .hero-lead{color:rgba(25,23,20,.68)!important;max-width:34rem!important}
 html.terrane-final .hero-primary-cta{
   background:var(--tf-moss)!important;
@@ -806,4 +806,148 @@ html.terrane-final #index-menu nav a{
   background:rgba(255,255,255,.28)!important;
   border:1px solid rgba(255,255,255,.48)!important;
   border-radius:22px!important;
+}
+
+
+/* === TERRANE 80 — stronger architectural tone === */
+html.terrane-final :is(
+  .hero-title,.practice-title,.work-heading,.project-title,.expertise-title,
+  .discipline-title,.control-title,.approach-title,.studio-title,.commission-title,
+  .case-title
+){
+  font-weight:400!important;
+}
+html.terrane-final .hero-title{letter-spacing:-.052em!important}
+html.terrane-final .project-title{letter-spacing:-.035em!important}
+
+/* Material light field behind the whole experience. */
+html.terrane-final body::after{
+  content:"";
+  position:fixed;
+  z-index:-1;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(34rem 26rem at 14% 18%,rgba(255,235,210,.26),transparent 72%),
+    radial-gradient(42rem 32rem at 88% 36%,rgba(93,117,92,.18),transparent 74%),
+    radial-gradient(38rem 28rem at 45% 88%,rgba(255,255,255,.18),transparent 72%);
+}
+
+/* Real architectural imagery used as atmosphere, never as text background. */
+html.terrane-final .work-scene::before,
+html.terrane-final .studio-scene::before,
+html.terrane-final .commission-scene::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-position:center;
+  opacity:.10;
+  filter:grayscale(.18) saturate(.65) contrast(.94);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 28%,#000 100%);
+  mask-image:linear-gradient(90deg,transparent 0%,#000 28%,#000 100%);
+}
+html.terrane-final .work-scene::before{
+  background-image:
+    linear-gradient(90deg,rgba(229,217,202,.95),rgba(229,217,202,.28)),
+    url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=58");
+  background-position:70% center;
+}
+html.terrane-final .studio-scene::before{
+  background-image:
+    linear-gradient(90deg,rgba(232,234,223,.96),rgba(232,234,223,.28)),
+    url("https://images.unsplash.com/photo-1452860606245-08befc0ff44b?auto=format&fit=crop&w=1800&q=58");
+  background-position:80% center;
+}
+html.terrane-final .commission-scene::before{
+  background-image:
+    linear-gradient(90deg,rgba(231,221,208,.96),rgba(219,226,213,.30)),
+    url("https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1800&q=58");
+  background-position:76% center;
+}
+html.terrane-final .work-scene>*,
+html.terrane-final .studio-scene>*,
+html.terrane-final .commission-scene>*{position:relative;z-index:1}
+
+/* Resilient local-looking generated fallback art. */
+html.terrane-final .resilient-image-fallback,
+html.terrane-final .project-image-stack::before{
+  background:
+    radial-gradient(28rem 18rem at 74% 18%,rgba(255,255,255,.48),transparent 68%),
+    linear-gradient(115deg,transparent 0 44%,rgba(255,255,255,.16) 44% 46%,transparent 46% 100%),
+    linear-gradient(25deg,rgba(70,84,69,.18),transparent 40%),
+    linear-gradient(145deg,#c9b7a3,#8e9a87);
+}
+html.terrane-final .hero-fallback .resilient-image-fallback{
+  background:
+    radial-gradient(26rem 20rem at 72% 24%,rgba(255,244,226,.45),transparent 68%),
+    linear-gradient(90deg,transparent 0 18%,rgba(255,255,255,.14) 18% 19%,transparent 19% 52%,rgba(47,57,47,.15) 52% 54%,transparent 54%),
+    linear-gradient(0deg,rgba(83,96,79,.18),transparent 45%),
+    linear-gradient(145deg,#b7a692,#667662);
+}
+html.terrane-final .studio-fallback .resilient-image-fallback{
+  background:
+    linear-gradient(90deg,transparent 0 24%,rgba(255,255,255,.20) 24% 25%,transparent 25% 70%,rgba(87,70,54,.12) 70% 71%,transparent 71%),
+    radial-gradient(18rem 14rem at 70% 22%,rgba(255,255,255,.36),transparent 72%),
+    linear-gradient(145deg,#b6a58f,#83917d);
+}
+html.terrane-final .material-fallback .resilient-image-fallback{
+  background:
+    radial-gradient(circle at 25% 32%,rgba(255,255,255,.24),transparent 20%),
+    linear-gradient(135deg,#9c7456,#d3b38e 55%,#77705e);
+}
+html.terrane-final .project-image-stack::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+}
+
+/* Stronger section edge treatment, still rounded. */
+html.terrane-final #main:not(.case-page)>section{
+  border-color:rgba(255,255,255,.42)!important;
+  box-shadow:
+    0 24px 70px rgba(38,29,22,.10),
+    inset 0 1px rgba(255,255,255,.40)!important;
+}
+html.terrane-final .project-story,
+html.terrane-final .practice-proof,
+html.terrane-final .control-step,
+html.terrane-final .approach-step-copy{
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+
+/* Cleaner hierarchy: no excessive tiny technical labels. */
+html.terrane-final :is(.practice-caption,.control-footer){
+  opacity:.72;
+}
+
+/* Mobile: preserve atmosphere but keep content readable and fast. */
+@media(max-width:768px){
+  html.terrane-final body::after{
+    background:
+      radial-gradient(24rem 18rem at 12% 12%,rgba(255,235,210,.18),transparent 72%),
+      radial-gradient(28rem 22rem at 92% 55%,rgba(93,117,92,.12),transparent 74%);
+  }
+  html.terrane-final .work-scene::before,
+  html.terrane-final .studio-scene::before,
+  html.terrane-final .commission-scene::before{
+    opacity:.065;
+    filter:grayscale(.25) saturate(.55);
+    background-size:auto 62%;
+    background-position:right top;
+    -webkit-mask-image:linear-gradient(180deg,#000 0%,transparent 68%);
+    mask-image:linear-gradient(180deg,#000 0%,transparent 68%);
+  }
+  html.terrane-final .project-story,
+  html.terrane-final .project-story:nth-child(even){
+    background:rgba(241,234,224,.84)!important;
+  }
+  html.terrane-final .project-story:nth-child(even){
+    background:rgba(222,229,217,.84)!important;
+  }
 }
