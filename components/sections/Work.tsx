@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "motion/react";
 import { projects } from "@/lib/site";
+import { imageSrcSet } from "@/lib/media";
 
 function Stage({ images, title, priority = false }: { images: { src: string; alt: string }[]; title: string; priority?: boolean }) {
   const slides = images.slice(0, 3);
@@ -135,6 +136,8 @@ function Stage({ images, title, priority = false }: { images: { src: string; alt
           <img
             key={img.src}
             src={img.src}
+            srcSet={imageSrcSet(img.src)}
+            sizes="(min-width: 769px) 64vw, 100vw"
             alt={img.alt}
             className={"project-image absolute inset-0 h-full w-full object-cover " + (idx === i ? "is-active" : "")}
             loading={priority && idx === 0 ? "eager" : "lazy"}
