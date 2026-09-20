@@ -75,7 +75,7 @@ export function Commission() {
   }
 
   return (
-    <section id="commission" className="commission-scene relative scroll-mt-24 overflow-hidden bg-ink text-bone" aria-labelledby="commission-heading">
+    <section id="commission" className="commission-scene relative scroll-mt-24 overflow-hidden bg-paper text-ink" aria-labelledby="commission-heading">
       <div className="commission-grid absolute inset-0" aria-hidden="true" />
       <div className="commission-orbit commission-orbit-a" aria-hidden="true" />
       <div className="commission-orbit commission-orbit-b" aria-hidden="true" />
@@ -84,31 +84,31 @@ export function Commission() {
         <div className="commission-layout grid gap-12 md:grid-cols-12 md:gap-10">
           <div className="commission-copy md:col-span-5 md:flex md:min-h-[44rem] md:flex-col md:justify-between">
             <div>
-              <p className="commission-kicker text-[10px] font-semibold tracking-[0.2em] text-sand uppercase">Commission / start with the real problem</p>
-              <h2 id="commission-heading" className="commission-title mt-5 font-display text-[3.25rem] leading-[0.92] font-light tracking-[-0.045em] text-bone sm:text-7xl md:text-[5.2rem]">
+              <p className="commission-kicker text-[10px] font-semibold tracking-[0.2em] text-clay uppercase">Commission / start with the real problem</p>
+              <h2 id="commission-heading" className="commission-title mt-5 font-display text-[3.25rem] leading-[0.92] font-light tracking-[-0.045em] text-ink sm:text-7xl md:text-[5.2rem]">
                 Start with<br />the site.
               </h2>
-              <p className="commission-lead mt-7 max-w-md text-[15px] leading-[1.78] text-bone/66">
+              <p className="commission-lead mt-7 max-w-md text-[15px] leading-[1.78] text-ink/66">
                 Send the place, what must change, the budget range and the timing. No polished deck is required. The form is the recorded path: a success state appears only after the server has accepted and stored the brief.
               </p>
             </div>
 
-            <div className="commission-responsibility mt-10 border-t border-bone/18 pt-6 md:mt-16">
+            <div className="commission-responsibility mt-10 border-t border-ink/10 pt-6 md:mt-16">
               <p className="text-[9px] font-semibold tracking-[0.18em] text-clay uppercase">What this surface guarantees</p>
-              <div className="mt-5 grid gap-4 text-[11px] leading-[1.55] text-bone/62 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
+              <div className="mt-5 grid gap-4 text-[11px] leading-[1.55] text-ink/62 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
                 <span>Server-confirmed success</span>
                 <span>Idempotent request path</span>
                 <span>Input retained on failure</span>
                 <span>No mailing list</span>
               </div>
-              <p className="mt-7 text-[11px] leading-relaxed text-bone/48">
-                Brand correspondence: <span className="text-bone/76">{site.email}</span>. This address is brand copy and is not presented as proof of notification delivery.
+              <p className="mt-7 text-[11px] leading-relaxed text-ink/48">
+                Brand correspondence: <span className="text-ink/76">{site.email}</span>. This address is brand copy and is not presented as proof of notification delivery.
               </p>
             </div>
           </div>
 
           <div className="commission-form-wrap relative md:col-span-7">
-            <div className="commission-form-cap mb-4 flex items-center justify-between gap-4 text-[9px] tracking-[0.16em] text-bone/48 uppercase">
+            <div className="commission-form-cap mb-4 flex items-center justify-between gap-4 text-[9px] tracking-[0.16em] text-ink/48 uppercase">
               <span>Project brief / secure recorded path</span><span>02nd portfolio system</span>
             </div>
             <form onSubmit={onSubmit} className="consultation-plane relative grid gap-x-6 gap-y-6 overflow-hidden rounded-[1.75rem] px-5 py-7 text-ink sm:px-7 md:grid-cols-2 md:px-9 md:py-10" noValidate>
@@ -145,7 +145,7 @@ export function Commission() {
                   role="status"
                   aria-live="polite"
                 >
-                  <div className="consultation-status-card w-full max-w-md border border-bone/18 bg-ink/94 px-7 py-10 text-center text-bone shadow-2xl backdrop-blur-xl sm:px-9">
+                  <div className="consultation-status-card w-full max-w-md border border-ink/10 bg-ink/94 px-7 py-10 text-center text-bone shadow-2xl backdrop-blur-xl sm:px-9">
                     <p className="text-[9px] font-semibold tracking-[0.18em] text-clay uppercase">
                       {status === "sending" ? "Recording brief" : status === "success" ? "Server confirmed" : "Not recorded"}
                     </p>
@@ -155,7 +155,7 @@ export function Commission() {
                       {status === "failed" && "Not held yet."}
                       {status === "offline" && "Offline."}
                     </p>
-                    <p className="mx-auto mt-5 max-w-xs text-sm leading-[1.65] text-bone/62">
+                    <p className="mx-auto mt-5 max-w-xs text-sm leading-[1.65] text-ink/62">
                       {status === "sending" && "The studio path is validating and storing your brief."}
                       {status === "success" && "The server accepted and stored the brief. Notification delivery depends on the configured owner channel."}
                       {status === "failed" && "Your words remain in the form. Return and try again."}
