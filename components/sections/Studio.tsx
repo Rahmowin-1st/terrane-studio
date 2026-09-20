@@ -1,4 +1,5 @@
 import { site } from "@/lib/site";
+import { imageSrcSet } from "@/lib/media";
 
 export function Studio() {
   return (
@@ -9,6 +10,8 @@ export function Studio() {
             <div className="studio-main-image overflow-hidden">
               <img
                 src="https://images.unsplash.com/photo-1452860606245-08befc0ff44b?auto=format&fit=crop&w=1800&q=86"
+                srcSet={imageSrcSet("https://images.unsplash.com/photo-1452860606245-08befc0ff44b?auto=format&fit=crop&w=1800&q=86")}
+                sizes="(min-width: 769px) 58vw, 100vw"
                 alt="Studio table with drawings and material samples."
                 className="studio-image aspect-[4/3] w-full object-cover"
                 loading="lazy"
@@ -19,6 +22,8 @@ export function Studio() {
               <div className="aspect-[4/3] overflow-hidden bg-clay">
                 <img
                   src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1000&q=82"
+                  srcSet={imageSrcSet("https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1000&q=82", [360, 540, 720, 960])}
+                  sizes="(min-width: 769px) 28vw, 42vw"
                   alt="Warm natural material detail used as an architectural reference."
                   className="studio-detail-image h-full w-full object-cover"
                   loading="lazy"
