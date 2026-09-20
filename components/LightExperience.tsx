@@ -86,7 +86,9 @@ export function LightExperience() {
     const paint = () => {
       raf = 0;
       const y = Math.min(window.scrollY, window.innerHeight * 1.15);
-      root.style.setProperty("--hero-y", reduced ? "0px" : `${(y * 0.055).toFixed(1)}px`);
+      const mobile = window.innerWidth <= 768;
+      root.style.setProperty("--hero-y", reduced ? "0px" : `${(y * (mobile ? 0.018 : 0.055)).toFixed(1)}px`);
+      root.style.setProperty("--hero-copy-y", reduced || mobile ? "0px" : `${(-y * 0.01).toFixed(1)}px`);
       root.style.setProperty("--hero-px", reduced ? "0px" : `${px.toFixed(1)}px`);
       root.style.setProperty("--hero-py", reduced ? "0px" : `${py.toFixed(1)}px`);
       root.dataset.scrolled = window.scrollY > 36 ? "true" : "false";
@@ -116,6 +118,7 @@ export function LightExperience() {
       hero?.removeEventListener("pointerleave", onLeave);
       root.removeAttribute("data-scrolled");
       root.style.removeProperty("--hero-y");
+      root.style.removeProperty("--hero-copy-y");
       root.style.removeProperty("--hero-px");
       root.style.removeProperty("--hero-py");
     };
