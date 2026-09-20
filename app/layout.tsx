@@ -6,6 +6,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { LiquidEngine } from "@/components/LiquidEngine";
 import { Choreography } from "@/components/Choreography";
+import { WebflowV31Bridge } from "@/components/WebflowV31Bridge";
 
 const display = Fraunces({ subsets: ["latin"], variable: "--font-fraunces", display: "swap" });
 const sans = Outfit({ subsets: ["latin"], variable: "--font-outfit", display: "swap" });
@@ -27,10 +28,23 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable} antialiased`}>
-      <body className="min-h-dvh bg-bone font-sans text-ink">
+    <html lang="en" className={`${display.variable} ${sans.variable} antialiased terrane-v31`}>
+      <head>
+        <link rel="preconnect" href="https://images.unsplash.com" />
+        <link
+          rel="preload"
+          as="image"
+          href="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2400&q=88"
+          fetchPriority="high"
+        />
+        <link rel="stylesheet" href="/terrane-webflow.css?v=native-v31" />
+        <link rel="stylesheet" href="/terrane-frontend-v2.css?v=native-v31" />
+        <link rel="stylesheet" href="/terrane-v31-polish.css?v=native-v31" />
+      </head>
+      <body className="terrane-v2 min-h-dvh bg-bone font-sans text-ink">
         <LiquidEngine />
         <Choreography />
+        <WebflowV31Bridge />
         <Header />
         {children}
         <Footer />
