@@ -26,7 +26,7 @@ export function CaseChoreography() {
       gsap.registerPlugin(ScrollTrigger);
       const ctx = gsap.context(() => {
         const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
-        tl.fromTo(".case-hero-media", { clipPath: "inset(4% 7% 8% 34%)" }, { clipPath: "inset(0 0 0 0)", duration: 1.25 }, 0)
+        tl.fromTo(".case-hero-media", { clipPath: "inset(4% 7% 8% 34% round 44px)" }, { clipPath: "inset(0 0 0 0 round 44px)", duration: 1.25 }, 0)
           .fromTo(".case-cover", { scale: 1.13 }, { scale: 1.02, duration: 1.45, ease: "power3.out" }, 0)
           .fromTo(".case-kicker", { x: -28, opacity: 0 }, { x: 0, opacity: 1, duration: .5 }, .25)
           .fromTo(".case-title", { y: 58, opacity: 0 }, { y: 0, opacity: 1, duration: .78 }, .35)
@@ -53,7 +53,7 @@ export function CaseChoreography() {
           gsap.from(".case-response", { x: 52, y: 18, opacity: 0, duration: .82, scrollTrigger: { trigger: ".case-intro", start: "top 78%", once: true } });
           document.querySelectorAll<HTMLElement>(".case-gallery-item").forEach((item, i) => {
             const image = item.querySelector<HTMLElement>(".case-gallery-image");
-            gsap.fromTo(item, { clipPath: i % 2 ? "inset(0 0 0 100%)" : "inset(0 100% 0 0)" }, { clipPath: "inset(0 0 0 0)", duration: .95, ease: "power3.out", scrollTrigger: { trigger: item, start: "top 83%", once: true } });
+            gsap.fromTo(item, { clipPath: i % 2 ? "inset(0 0 0 100% round 32px)" : "inset(0 100% 0 0 round 32px)" }, { clipPath: "inset(0 0 0 0 round 32px)", duration: .95, ease: "power3.out", scrollTrigger: { trigger: item, start: "top 83%", once: true } });
             if (image) gsap.fromTo(image, { scale: 1.09 }, { scale: 1.01, duration: 1.1, ease: "power2.out", scrollTrigger: { trigger: item, start: "top 84%", once: true } });
             if (image) gsap.to(image, { yPercent: i % 2 ? 4 : -4, ease: "none", scrollTrigger: { trigger: item, start: "top bottom", end: "bottom top", scrub: 1 } });
           });
