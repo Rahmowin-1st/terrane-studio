@@ -74,6 +74,53 @@ export function LightExperience() {
     };
   }, [pathname]);
 
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const hero = document.querySelector<HTMLElement>(".hero-scene");
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let raf = 0;
+    let py = 0;
+    let px = 0;
+
+    const paint = () => {
+      raf = 0;
+      const y = Math.min(window.scrollY, window.innerHeight * 1.15);
+      root.style.setProperty("--hero-y", reduced ? "0px" : `${(y * 0.055).toFixed(1)}px`);
+      root.style.setProperty("--hero-px", reduced ? "0px" : `${px.toFixed(1)}px`);
+      root.style.setProperty("--hero-py", reduced ? "0px" : `${py.toFixed(1)}px`);
+      root.dataset.scrolled = window.scrollY > 36 ? "true" : "false";
+    };
+    const schedule = () => { if (!raf) raf = requestAnimationFrame(paint); };
+    const onScroll = () => schedule();
+    const onPointer = (event: PointerEvent) => {
+      if (reduced || !hero || !matchMedia("(pointer:fine)").matches) return;
+      const r = hero.getBoundingClientRect();
+      if (event.clientY < r.top || event.clientY > r.bottom) return;
+      const nx = (event.clientX - (r.left + r.width / 2)) / Math.max(r.width, 1);
+      const ny = (event.clientY - (r.top + r.height / 2)) / Math.max(r.height, 1);
+      px = Math.max(-7, Math.min(7, nx * 12));
+      py = Math.max(-5, Math.min(5, ny * 9));
+      schedule();
+    };
+    const onLeave = () => { px = 0; py = 0; schedule(); };
+
+    paint();
+    addEventListener("scroll", onScroll, { passive: true });
+    hero?.addEventListener("pointermove", onPointer, { passive: true });
+    hero?.addEventListener("pointerleave", onLeave, { passive: true });
+    return () => {
+      if (raf) cancelAnimationFrame(raf);
+      removeEventListener("scroll", onScroll);
+      hero?.removeEventListener("pointermove", onPointer);
+      hero?.removeEventListener("pointerleave", onLeave);
+      root.removeAttribute("data-scrolled");
+      root.style.removeProperty("--hero-y");
+      root.style.removeProperty("--hero-px");
+      root.style.removeProperty("--hero-py");
+    };
+  }, [pathname]);
+
   useEffect(() => {
     if (pathname !== "/") return;
     const onClick = (event: MouseEvent) => {
@@ -112,16 +159,19 @@ export function LightExperience() {
       projects.forEach((project) => router.prefetch(`/work/${project.slug}`));
       if (constrained) return;
 
-      const firstImages = projects.map((project) => project.cover);
-      for (const src of firstImages) {
+      const primary = projects.map((project) => project.cover);
+      const secondary = projects.flatMap((project) => project.images.slice(0, 2).map((image) => image.src));
+      const roomy = (nav.deviceMemory ?? 6) >= 4;
+      const queue = roomy ? [...primary, ...secondary] : primary;
+      for (const src of queue) {
         if (cancelled) return;
         const image = new Image();
         image.decoding = "async";
-        image.src = imageAtWidth(src, innerWidth < 720 ? 720 : 1100);
+        image.src = imageAtWidth(src, innerWidth < 720 ? 720 : 1200);
         try {
           await image.decode();
         } catch {}
-        await new Promise<void>((resolve) => setTimeout(resolve, 40));
+        await new Promise<void>((resolve) => setTimeout(resolve, 55));
       }
     };
 
