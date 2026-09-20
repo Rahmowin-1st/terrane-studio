@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="stylesheet" href="/terrane-webflow.css?v=native-v31" />
         <link rel="stylesheet" href="/terrane-frontend-v2.css?v=native-v31" />
         <link rel="stylesheet" href="/terrane-v31-polish.css?v=native-v31" />
-        <link rel="stylesheet" href="/terrane-final-v4.css?v=final-v4" />
+        <link rel="stylesheet" href="/terrane-final-v4.css?v=mobile-clarity-832d0f13" />
       </head>
       <body className="terrane-v2 min-h-dvh bg-bone font-sans text-ink">
         <LiquidEngine />
