@@ -41,8 +41,6 @@ export function Choreography() {
         document.documentElement.dataset.motionTier = "reduced";
         cleanup = () => {
           document.documentElement.removeAttribute("data-motion");
-        document.documentElement.removeAttribute("data-motion-tier");
-          document.documentElement.removeAttribute("data-motion-tier");
         };
         return;
       }
@@ -352,7 +350,7 @@ export function Choreography() {
           gsap.fromTo(
             ".approach-rail-active",
             { scaleY: 0 },
-            { scaleY: 1, ease: "none", scrollTrigger: { trigger: ".approach-track", start: "top 82%", end: "bottom 65%", scrub: true } },
+            { scaleY: 1, ease: "none", scrollTrigger: { trigger: ".approach-track", start: "top 82%", end: "bottom 65%", scrub: 0.3 } },
           );
         });
 
