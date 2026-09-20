@@ -452,22 +452,13 @@ html.terrane-v5 .case-next a{border-color:var(--v5-line)!important}
 html.terrane-v5 .case-next a span{color:var(--v5-ink)!important}
 
 /* Motion: one restrained system, no stacked parallax. */
-html.terrane-v5 :is(
-  .hero-primary-copy,.hero-meta,.practice-intro,.practice-proof,.work-intro,.project-story,
-  .expertise-head,.discipline-row,.control-layout,.control-step,.approach-sticky,.approach-step,
-  .studio-media,.studio-copy,.commission-copy,.commission-form-wrap,.case-hero-copy,
-  .case-brief,.case-response,.case-gallery-item,.case-material>*,.case-next>*
-){
+html.terrane-v5 .will-reveal{
   opacity:0;
   transform:translate3d(0,22px,0);
   transition:opacity .72s ease,transform .82s var(--v5-ease);
 }
-html.terrane-v5 :is(
-  .hero-primary-copy,.hero-meta,.practice-intro,.practice-proof,.work-intro,.project-story,
-  .expertise-head,.discipline-row,.control-layout,.control-step,.approach-sticky,.approach-step,
-  .studio-media,.studio-copy,.commission-copy,.commission-form-wrap,.case-hero-copy,
-  .case-brief,.case-response,.case-gallery-item,.case-material>*,.case-next>*
-).is-visible{
+html.terrane-v5 .will-reveal.is-visible,
+html.terrane-v5 .is-visible{
   opacity:1;
   transform:none;
 }
@@ -563,10 +554,5 @@ html.terrane-v5 .project-image{transition:opacity .5s ease,transform .9s var(--v
 @media(prefers-reduced-motion:reduce){
   html.terrane-v5{scroll-behavior:auto!important}
   html.terrane-v5 *{animation:none!important;transition:none!important}
-  html.terrane-v5 :is(
-    .hero-primary-copy,.hero-meta,.practice-intro,.practice-proof,.work-intro,.project-story,
-    .expertise-head,.discipline-row,.control-layout,.control-step,.approach-sticky,.approach-step,
-    .studio-media,.studio-copy,.commission-copy,.commission-form-wrap,.case-hero-copy,
-    .case-brief,.case-response,.case-gallery-item,.case-material>*,.case-next>*
-  ){opacity:1!important;transform:none!important}
+  html.terrane-v5 .will-reveal{opacity:1!important;transform:none!important}
 }
