@@ -1011,3 +1011,29 @@ html.terrane-final :is(.work-intro,.project-sequence,.studio-grid,.commission-la
     height:1.5px;
   }
 }
+
+
+/* Resilient geometry authority. */
+html.terrane-final .hero-media-shell>.resilient-image-shell{
+  position:absolute;
+  inset:0;
+}
+html.terrane-final .studio-main-image>.resilient-image-shell{
+  aspect-ratio:4/3;
+}
+html.terrane-final .studio-main-image>.resilient-image-shell>img{
+  width:100%;
+  height:100%;
+}
+html.terrane-final .studio-material-card .resilient-image-shell{
+  height:100%;
+  min-height:100%;
+}
+html.terrane-final .case-hero-media>.resilient-image-shell{
+  position:absolute;
+  inset:0;
+}
+html.terrane-final .case-gallery-item .resilient-image-shell{
+  width:100%;
+  height:100%;
+}
