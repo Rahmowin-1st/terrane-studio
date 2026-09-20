@@ -1,0 +1,778 @@
+/* TERRANE FINAL — warm editorial architecture, cinematic depth, zero dark sections. */
+:root{
+  --tf-bg:#b9ad9f;
+  --tf-bone:#f5efe7;
+  --tf-ivory:#fbf8f2;
+  --tf-paper:#eee4d7;
+  --tf-sage:#e5eadf;
+  --tf-sage-deep:#d4dccf;
+  --tf-sand:#dfcfba;
+  --tf-clay:#a97855;
+  --tf-moss:#566653;
+  --tf-ink:#191714;
+  --tf-muted:#6b6259;
+  --tf-line:rgba(25,23,20,.11);
+  --tf-white-line:rgba(255,255,255,.62);
+  --tf-radius-xl:clamp(34px,4vw,52px);
+  --tf-radius-lg:clamp(24px,3vw,36px);
+  --tf-radius-md:22px;
+  --tf-gap:clamp(10px,1.1vw,16px);
+  --tf-shadow:0 28px 90px rgba(40,30,22,.12),0 6px 24px rgba(40,30,22,.06);
+  --tf-shadow-soft:0 18px 55px rgba(40,30,22,.08);
+  --tf-ease:cubic-bezier(.16,1,.3,1);
+  --hero-y:0px;
+  --hero-px:0px;
+  --hero-py:0px;
+}
+html.terrane-final{
+  scroll-behavior:smooth;
+  scroll-padding-top:92px;
+  background:var(--tf-bg);
+}
+html.terrane-final body{
+  min-height:100%;
+  isolation:isolate;
+  background:
+    radial-gradient(80rem 56rem at 4% 0%,rgba(243,218,187,.72),transparent 60%),
+    radial-gradient(70rem 50rem at 96% 24%,rgba(129,148,121,.32),transparent 64%),
+    linear-gradient(180deg,#c7bbad 0%,#b5a899 58%,#a99c8e 100%)!important;
+  color:var(--tf-ink)!important;
+}
+html.terrane-final body::before{
+  content:"";
+  position:fixed;
+  z-index:-1;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(45rem 30rem at 50% 10%,rgba(255,255,255,.22),transparent 70%),
+    linear-gradient(115deg,rgba(255,255,255,.07),transparent 32%,transparent 72%,rgba(71,86,67,.08));
+}
+html.terrane-final ::selection{background:#d7bda2;color:#171513}
+html.terrane-final :focus-visible{
+  outline:0!important;
+  box-shadow:0 0 0 3px rgba(169,120,85,.25)!important;
+}
+html.terrane-final img{
+  -webkit-user-select:none;
+  user-select:none;
+  -webkit-touch-callout:none;
+}
+html.terrane-final :is(a,button){-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+
+/* PAGE RHYTHM */
+html.terrane-final #main:not(.case-page){
+  display:flex;
+  flex-direction:column;
+  gap:var(--tf-gap);
+  padding:var(--tf-gap);
+}
+html.terrane-final #main:not(.case-page)>section{
+  position:relative;
+  overflow:clip;
+  border:1px solid rgba(255,255,255,.30);
+  border-radius:var(--tf-radius-xl)!important;
+  box-shadow:var(--tf-shadow-soft);
+}
+html.terrane-final footer{
+  margin:0 var(--tf-gap) var(--tf-gap);
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.28)!important;
+  border-radius:var(--tf-radius-xl)!important;
+  box-shadow:var(--tf-shadow-soft);
+}
+
+/* HEADER */
+html.terrane-final .site-header{pointer-events:none}
+html.terrane-final .site-header-inner{
+  pointer-events:auto;
+  color:var(--tf-ink)!important;
+  background:rgba(251,248,242,.82)!important;
+  border:1px solid rgba(255,255,255,.80)!important;
+  box-shadow:0 14px 42px rgba(42,32,24,.10),inset 0 1px rgba(255,255,255,.88)!important;
+  backdrop-filter:blur(18px) saturate(132%)!important;
+  -webkit-backdrop-filter:blur(18px) saturate(132%)!important;
+  transition:background .28s ease,box-shadow .28s ease,transform .28s var(--tf-ease);
+}
+html.terrane-final[data-scrolled="true"] .site-header-inner{
+  background:rgba(251,248,242,.94)!important;
+  box-shadow:0 12px 36px rgba(42,32,24,.13),inset 0 1px rgba(255,255,255,.9)!important;
+}
+html.terrane-final .site-header nav a{
+  color:var(--tf-ink)!important;
+  opacity:.62!important;
+  transition:opacity .22s ease,transform .22s var(--tf-ease)!important;
+}
+html.terrane-final .site-header nav a:hover{opacity:1!important;transform:translateY(-1px)}
+html.terrane-final .site-header a[href*="commission"]{
+  background:var(--tf-moss)!important;
+  color:#fff!important;
+  border:1px solid rgba(86,102,83,.18)!important;
+  box-shadow:0 8px 22px rgba(66,82,63,.14)!important;
+}
+html.terrane-final #index-menu{
+  background:
+    radial-gradient(32rem 24rem at 84% 12%,rgba(223,207,186,.55),transparent 70%),
+    linear-gradient(180deg,#fbf8f2,#efe7dc)!important;
+  color:var(--tf-ink)!important;
+  border:1px solid rgba(255,255,255,.72)!important;
+}
+html.terrane-final #index-menu nav a{
+  color:var(--tf-ink)!important;
+  border-color:var(--tf-line)!important;
+}
+html.terrane-final #index-menu p{color:var(--tf-muted)!important}
+
+/* HERO */
+html.terrane-final .hero-scene{
+  min-height:calc(100svh - 2*var(--tf-gap));
+  background:
+    radial-gradient(44rem 34rem at 4% 8%,rgba(255,255,255,.86),transparent 72%),
+    radial-gradient(40rem 30rem at 44% 82%,rgba(217,186,153,.20),transparent 70%),
+    linear-gradient(145deg,#f6f0e7,#e8ddd0 74%,#e1d6c9)!important;
+}
+html.terrane-final .hero-frame{
+  min-height:max(46rem,calc(100svh - 2*var(--tf-gap)))!important;
+  overflow:hidden!important;
+  background:transparent!important;
+  color:var(--tf-ink)!important;
+}
+html.terrane-final .hero-media-shell{
+  left:47%!important;
+  top:1rem!important;
+  right:1rem!important;
+  bottom:1rem!important;
+  overflow:hidden!important;
+  clip-path:none!important;
+  border:1px solid rgba(255,255,255,.46)!important;
+  border-radius:clamp(28px,3vw,42px)!important;
+  box-shadow:0 34px 100px rgba(52,39,28,.15),inset 0 1px rgba(255,255,255,.28)!important;
+}
+html.terrane-final .hero-media{
+  filter:brightness(1.08) saturate(.80) contrast(.97)!important;
+  transform:translate3d(var(--hero-px),calc(var(--hero-y) + var(--hero-py)),0) scale(1.035)!important;
+  transition:transform .18s linear,filter .35s ease!important;
+}
+html.terrane-final .hero-shade{
+  z-index:1;
+  background:
+    radial-gradient(40rem 32rem at 14% 30%,rgba(248,243,236,.96),transparent 78%),
+    linear-gradient(90deg,#f5efe7 0%,rgba(245,239,231,.98) 36%,rgba(245,239,231,.52) 52%,transparent 67%)!important;
+}
+html.terrane-final .hero-vignette{
+  z-index:1;
+  background:
+    radial-gradient(32rem 24rem at 82% 18%,rgba(255,234,208,.16),transparent 68%),
+    linear-gradient(180deg,rgba(255,255,255,.06),transparent 62%,rgba(104,77,56,.08))!important;
+}
+html.terrane-final .hero-grid,
+html.terrane-final .hero-plan{display:none!important}
+html.terrane-final .hero-copy{
+  z-index:5!important;
+  transform:translate3d(0,calc(var(--hero-y) * -.18),0);
+}
+html.terrane-final .hero-copy-grid{align-items:end!important}
+html.terrane-final .hero-kicker{color:var(--tf-clay)!important}
+html.terrane-final .hero-title{
+  color:var(--tf-ink)!important;
+  font-size:clamp(4.4rem,8.5vw,8.5rem)!important;
+  line-height:.79!important;
+  letter-spacing:-.058em!important;
+  text-wrap:balance;
+}
+html.terrane-final .hero-line-accent{color:var(--tf-moss)!important;font-style:italic}
+html.terrane-final .hero-lead{color:rgba(25,23,20,.68)!important;max-width:34rem!important}
+html.terrane-final .hero-primary-cta{
+  background:var(--tf-moss)!important;
+  color:#fff!important;
+  border:1px solid rgba(86,102,83,.16)!important;
+  box-shadow:0 12px 28px rgba(72,87,69,.16)!important;
+}
+html.terrane-final .hero-secondary-cta{
+  color:var(--tf-ink)!important;
+  background:rgba(255,255,255,.45)!important;
+  border:1px solid rgba(25,23,20,.11)!important;
+  border-radius:999px!important;
+  padding:.78rem 1.2rem!important;
+  backdrop-filter:blur(10px);
+}
+html.terrane-final .hero-meta{
+  align-self:end;
+  justify-self:end;
+  width:min(18rem,100%);
+  padding:1.15rem 1.2rem;
+  color:var(--tf-ink)!important;
+  background:rgba(250,247,240,.70);
+  border:1px solid rgba(255,255,255,.65);
+  border-radius:22px;
+  box-shadow:0 14px 40px rgba(39,30,23,.09),inset 0 1px rgba(255,255,255,.76);
+  backdrop-filter:blur(13px);
+  -webkit-backdrop-filter:blur(13px);
+}
+html.terrane-final .hero-meta-rule{background:var(--tf-line)!important}
+html.terrane-final .hero-meta p,
+html.terrane-final .hero-meta span{color:var(--tf-muted)!important}
+html.terrane-final .hero-meta .font-display{color:var(--tf-ink)!important}
+html.terrane-final .hero-footer-line{
+  color:var(--tf-muted)!important;
+  border-color:var(--tf-line)!important;
+}
+
+/* SECTION SURFACES */
+html.terrane-final .practice-scene{
+  background:
+    radial-gradient(42rem 30rem at 88% 10%,rgba(255,255,255,.70),transparent 70%),
+    radial-gradient(34rem 28rem at 6% 92%,rgba(199,151,110,.12),transparent 72%),
+    linear-gradient(180deg,#f8f3ec,#eee5da)!important;
+}
+html.terrane-final .work-scene{
+  background:
+    radial-gradient(52rem 34rem at 8% 3%,rgba(255,248,237,.62),transparent 70%),
+    radial-gradient(44rem 32rem at 94% 88%,rgba(132,151,125,.15),transparent 70%),
+    linear-gradient(180deg,#e5d9ca,#d8cbbb)!important;
+}
+html.terrane-final .expertise-scene{
+  background:
+    radial-gradient(46rem 32rem at 90% 12%,rgba(255,255,255,.48),transparent 72%),
+    radial-gradient(34rem 28rem at 8% 88%,rgba(170,122,85,.10),transparent 70%),
+    linear-gradient(180deg,#e8ede3,#dce4d7)!important;
+  color:var(--tf-ink)!important;
+}
+html.terrane-final .control-scene{
+  background:
+    radial-gradient(48rem 34rem at 92% 8%,rgba(255,255,255,.76),transparent 68%),
+    linear-gradient(180deg,#f0e8dc,#e6dacb)!important;
+}
+html.terrane-final .approach-scene{
+  background:
+    radial-gradient(50rem 34rem at 6% 8%,rgba(255,255,255,.72),transparent 70%),
+    radial-gradient(38rem 28rem at 94% 82%,rgba(170,122,85,.09),transparent 72%),
+    linear-gradient(180deg,#f7f2ea,#eee6dc)!important;
+}
+html.terrane-final .studio-scene{
+  background:
+    radial-gradient(46rem 32rem at 92% 8%,rgba(255,255,255,.54),transparent 70%),
+    radial-gradient(40rem 28rem at 8% 88%,rgba(103,126,98,.14),transparent 72%),
+    linear-gradient(180deg,#e8eadf,#dde2d6)!important;
+}
+html.terrane-final .commission-scene{
+  background:
+    radial-gradient(44rem 32rem at 88% 12%,rgba(255,255,255,.60),transparent 68%),
+    radial-gradient(38rem 28rem at 8% 92%,rgba(112,137,105,.16),transparent 72%),
+    linear-gradient(145deg,#e7ddd0,#dbe2d5)!important;
+  color:var(--tf-ink)!important;
+}
+html.terrane-final :is(.practice-title,.work-heading,.expertise-title,.control-title,.approach-title,.studio-title,.commission-title){
+  color:var(--tf-ink)!important;
+  letter-spacing:-.04em!important;
+}
+html.terrane-final :is(.practice-kicker,.work-eyebrow,.expertise-kicker,.control-kicker,.approach-kicker,.studio-kicker,.commission-kicker){
+  color:var(--tf-clay)!important;
+}
+html.terrane-final :is(.practice-copy,.work-note,.expertise-note,.control-lead,.approach-lead,.studio-lead,.commission-lead){
+  color:var(--tf-muted)!important;
+}
+
+/* PRACTICE */
+html.terrane-final .practice-rule{background:var(--tf-line)!important}
+html.terrane-final .practice-grid{
+  gap:12px!important;
+  border:0!important;
+}
+html.terrane-final .practice-proof{
+  min-height:18.5rem!important;
+  padding:1.5rem!important;
+  overflow:hidden;
+  background:
+    radial-gradient(22rem 18rem at 84% 8%,rgba(255,255,255,.66),transparent 70%),
+    rgba(255,255,255,.34)!important;
+  border:1px solid rgba(255,255,255,.62)!important;
+  border-radius:28px!important;
+  box-shadow:0 14px 38px rgba(45,34,25,.07),inset 0 1px rgba(255,255,255,.72)!important;
+}
+html.terrane-final .practice-proof::before{display:none!important}
+html.terrane-final .practice-proof-title{color:var(--tf-ink)!important}
+html.terrane-final .practice-proof-copy,
+html.terrane-final .practice-caption{color:var(--tf-muted)!important}
+html.terrane-final .practice-proof-mark{box-shadow:0 0 0 7px rgba(169,120,85,.10)!important}
+
+/* WORK — premium project canvases, never dark. */
+html.terrane-final .project-sequence{
+  display:grid!important;
+  gap:clamp(12px,1.5vw,20px)!important;
+}
+html.terrane-final .project-story,
+html.terrane-final .project-story:nth-child(even){
+  position:relative;
+  min-height:0!important;
+  width:100%!important;
+  margin:0!important;
+  padding:clamp(1.1rem,2.2vw,2rem)!important;
+  border:1px solid rgba(255,255,255,.38)!important;
+  border-radius:clamp(30px,3vw,42px)!important;
+  box-shadow:0 22px 66px rgba(43,32,24,.09),inset 0 1px rgba(255,255,255,.35)!important;
+  color:var(--tf-ink)!important;
+  overflow:hidden!important;
+}
+html.terrane-final .project-story:nth-child(odd){
+  background:
+    radial-gradient(36rem 26rem at 88% 8%,rgba(255,255,255,.50),transparent 72%),
+    linear-gradient(145deg,rgba(243,235,224,.92),rgba(224,211,194,.90))!important;
+}
+html.terrane-final .project-story:nth-child(even){
+  background:
+    radial-gradient(34rem 24rem at 8% 88%,rgba(255,255,255,.36),transparent 72%),
+    linear-gradient(145deg,rgba(226,232,220,.94),rgba(208,220,204,.92))!important;
+}
+html.terrane-final .project-number,
+html.terrane-final .project-stage-index{display:none!important}
+html.terrane-final .project-layout{
+  grid-template-columns:minmax(0,1.52fr) minmax(20rem,.62fr)!important;
+  gap:clamp(1.4rem,3.5vw,3.8rem)!important;
+  align-items:center!important;
+}
+html.terrane-final .project-story.is-reverse .project-stage-wrap{order:2!important}
+html.terrane-final .project-story.is-reverse .project-copy{order:1!important}
+html.terrane-final .project-stage-wrap{position:relative!important;top:auto!important}
+html.terrane-final .project-stage,
+html.terrane-final .project-story:nth-child(3) .project-stage,
+html.terrane-final .project-story:nth-child(4) .project-stage{
+  aspect-ratio:1.34/1!important;
+  overflow:hidden!important;
+  background:#d8cec1!important;
+  border:1px solid rgba(255,255,255,.42)!important;
+  border-radius:clamp(24px,2.6vw,36px)!important;
+  box-shadow:0 28px 82px rgba(40,30,22,.14),inset 0 1px rgba(255,255,255,.28)!important;
+}
+html.terrane-final .project-media-shade{
+  background:linear-gradient(180deg,transparent 72%,rgba(37,29,23,.22))!important;
+}
+html.terrane-final .project-image{
+  filter:brightness(1.03) saturate(.82) contrast(.99)!important;
+}
+html.terrane-final .project-image.is-active{transform:scale(1.018)!important}
+html.terrane-final .project-copy,
+html.terrane-final .project-story:nth-child(even) .project-copy{
+  padding:clamp(.5rem,1.2vw,1rem)!important;
+  color:var(--tf-ink)!important;
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+html.terrane-final .project-copy-rule{
+  display:block!important;
+  width:5rem!important;
+  background:rgba(25,23,20,.22)!important;
+}
+html.terrane-final .project-kicker{color:var(--tf-clay)!important}
+html.terrane-final .project-title{
+  color:var(--tf-ink)!important;
+  font-size:clamp(2.8rem,4.8vw,5.25rem)!important;
+  line-height:.91!important;
+}
+html.terrane-final .project-excerpt{color:rgba(25,23,20,.68)!important}
+html.terrane-final .project-facts,
+html.terrane-final .project-story:nth-child(even) .project-facts{
+  color:var(--tf-muted)!important;
+  background:transparent!important;
+  border-color:rgba(25,23,20,.11)!important;
+  border-radius:0!important;
+  padding:1rem 0!important;
+}
+html.terrane-final .project-link{
+  color:var(--tf-ink)!important;
+  background:rgba(255,255,255,.40)!important;
+  border:1px solid rgba(25,23,20,.10)!important;
+  border-radius:999px!important;
+  padding:.8rem 1.15rem!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.55);
+}
+html.terrane-final .project-link::after{display:none!important}
+html.terrane-final .project-controls{
+  inset:auto .8rem .8rem!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+}
+html.terrane-final .project-counter,
+html.terrane-final .project-arrow{
+  min-height:2.45rem;
+  color:var(--tf-ink)!important;
+  background:rgba(250,247,241,.87)!important;
+  border:1px solid rgba(255,255,255,.74)!important;
+  box-shadow:0 8px 22px rgba(34,27,21,.11)!important;
+  backdrop-filter:blur(12px)!important;
+  -webkit-backdrop-filter:blur(12px)!important;
+}
+html.terrane-final .project-counter{padding:.55rem .78rem!important}
+html.terrane-final .project-arrow{
+  width:auto!important;
+  min-width:4.1rem!important;
+  height:2.45rem!important;
+  padding:0 .9rem!important;
+  font-size:.72rem!important;
+  font-weight:600;
+  letter-spacing:.04em;
+}
+html.terrane-final .work-disclosure{
+  margin-top:.25rem;
+  padding:1rem .2rem 0!important;
+  color:rgba(25,23,20,.56)!important;
+  background:transparent!important;
+  border-color:rgba(25,23,20,.12)!important;
+}
+
+/* EXPERTISE */
+html.terrane-final .expertise-grid{display:none!important}
+html.terrane-final .expertise-note,
+html.terrane-final .discipline-copy{color:var(--tf-muted)!important}
+html.terrane-final .expertise-list{border-color:rgba(25,23,20,.12)!important}
+html.terrane-final .discipline-row{
+  margin:.4rem 0!important;
+  padding:1.35rem .3rem!important;
+  color:var(--tf-ink)!important;
+  background:transparent!important;
+  border-color:rgba(25,23,20,.12)!important;
+  border-radius:0!important;
+  transition:padding .32s var(--tf-ease),background .25s ease!important;
+}
+html.terrane-final .discipline-title{color:var(--tf-ink)!important;transform:none!important}
+html.terrane-final .discipline-copy{color:var(--tf-muted)!important}
+html.terrane-final .discipline-row:hover{
+  padding-left:1rem!important;
+  padding-right:1rem!important;
+  background:rgba(255,255,255,.22)!important;
+}
+
+/* CONTROL */
+html.terrane-final .control-orbit{display:none!important}
+html.terrane-final .control-steps{display:grid;gap:10px}
+html.terrane-final .control-step{
+  margin:0!important;
+  padding:1.2rem 1.25rem!important;
+  background:rgba(255,255,255,.36)!important;
+  border:1px solid rgba(255,255,255,.56)!important;
+  border-radius:24px!important;
+  box-shadow:0 12px 34px rgba(40,31,23,.06),inset 0 1px rgba(255,255,255,.64)!important;
+}
+html.terrane-final .control-step:hover{transform:translateY(-2px)!important;background:rgba(255,255,255,.50)!important}
+html.terrane-final .control-step p,
+html.terrane-final .control-footer{color:var(--tf-muted)!important}
+
+/* APPROACH */
+html.terrane-final .approach-rail{background:rgba(25,23,20,.10)!important}
+html.terrane-final .approach-rail-active{background:linear-gradient(180deg,var(--tf-clay),var(--tf-moss))!important}
+html.terrane-final .approach-dot{
+  color:var(--tf-clay)!important;
+  background:rgba(251,248,242,.94)!important;
+  border:1px solid rgba(25,23,20,.12)!important;
+  box-shadow:0 8px 22px rgba(40,31,23,.08)!important;
+}
+html.terrane-final .approach-step-copy{
+  padding:1.25rem 0 0!important;
+  color:var(--tf-ink)!important;
+  background:transparent!important;
+  border:0!important;
+  border-top:1px solid rgba(25,23,20,.12)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+html.terrane-final .approach-step p{color:var(--tf-muted)!important}
+
+/* STUDIO */
+html.terrane-final .studio-main-image{
+  overflow:hidden!important;
+  border:1px solid rgba(255,255,255,.48)!important;
+  border-radius:clamp(28px,3vw,40px)!important;
+  box-shadow:0 28px 88px rgba(40,31,23,.13)!important;
+}
+html.terrane-final .studio-image{filter:brightness(1.05) saturate(.79) contrast(.98)!important}
+html.terrane-final .studio-material-card{
+  display:block!important;
+  width:min(38%,18rem)!important;
+  right:-1rem!important;
+  bottom:-1.2rem!important;
+  padding:.7rem!important;
+  background:rgba(247,243,235,.92)!important;
+  border:1px solid rgba(255,255,255,.72)!important;
+  border-radius:24px!important;
+  box-shadow:0 22px 60px rgba(40,31,23,.14)!important;
+  color:var(--tf-ink)!important;
+}
+html.terrane-final .studio-material-card>div:first-child{border-radius:17px!important;overflow:hidden}
+html.terrane-final .studio-material-card>div:last-child{color:var(--tf-muted)!important}
+html.terrane-final .studio-copy{
+  padding:0!important;
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+html.terrane-final .studio-copy p,
+html.terrane-final .studio-facts{color:var(--tf-muted)!important;border-color:rgba(25,23,20,.12)!important}
+
+/* COMMISSION */
+html.terrane-final .commission-grid,
+html.terrane-final .commission-orbit{display:none!important}
+html.terrane-final .commission-copy,
+html.terrane-final .commission-lead,
+html.terrane-final .commission-responsibility,
+html.terrane-final .commission-form-cap{color:var(--tf-muted)!important}
+html.terrane-final .commission-title{color:var(--tf-ink)!important}
+html.terrane-final .commission-responsibility,
+html.terrane-final .commission-form-cap{border-color:rgba(25,23,20,.12)!important}
+html.terrane-final .consultation-plane{
+  color:var(--tf-ink)!important;
+  background:
+    radial-gradient(30rem 22rem at 86% 0%,rgba(255,255,255,.82),transparent 72%),
+    linear-gradient(145deg,#fbf8f2,#f0e8dc)!important;
+  border:1px solid rgba(255,255,255,.72)!important;
+  border-radius:clamp(28px,3vw,38px)!important;
+  box-shadow:0 30px 90px rgba(40,31,23,.11),inset 0 1px rgba(255,255,255,.82)!important;
+}
+html.terrane-final .consultation-plane-shine{display:none!important}
+html.terrane-final .form-label{color:var(--tf-muted)!important}
+html.terrane-final .form-control{color:var(--tf-ink)!important;border-color:rgba(25,23,20,.18)!important}
+html.terrane-final .consultation-submit{
+  background:var(--tf-moss)!important;
+  color:#fff!important;
+  box-shadow:0 10px 26px rgba(72,87,69,.14)!important;
+}
+html.terrane-final .consultation-status{
+  background:rgba(239,233,222,.82)!important;
+  backdrop-filter:blur(12px)!important;
+}
+html.terrane-final .consultation-status-card{
+  color:var(--tf-ink)!important;
+  background:#fbf8f2!important;
+  border:1px solid rgba(25,23,20,.10)!important;
+  border-radius:26px!important;
+  box-shadow:var(--tf-shadow)!important;
+}
+html.terrane-final .consultation-status-card p{color:var(--tf-muted)!important}
+
+/* FOOTER */
+html.terrane-final footer{
+  color:var(--tf-ink)!important;
+  background:
+    radial-gradient(38rem 26rem at 88% 10%,rgba(255,255,255,.45),transparent 72%),
+    linear-gradient(180deg,#ddd6cc,#d2cabf)!important;
+}
+html.terrane-final footer *{border-color:rgba(25,23,20,.10)!important}
+html.terrane-final footer p,
+html.terrane-final footer a,
+html.terrane-final footer span{color:var(--tf-muted)!important}
+html.terrane-final footer .font-display{color:var(--tf-ink)!important}
+
+/* CASE STUDIES */
+html.terrane-final .case-page{
+  display:block!important;
+  padding:var(--tf-gap)!important;
+  background:transparent!important;
+}
+html.terrane-final .case-page>article{
+  display:grid;
+  gap:var(--tf-gap);
+}
+html.terrane-final .case-page>article>header,
+html.terrane-final .case-page>article>section{
+  overflow:clip;
+  border:1px solid rgba(255,255,255,.34)!important;
+  border-radius:var(--tf-radius-xl)!important;
+  box-shadow:var(--tf-shadow-soft);
+}
+html.terrane-final .case-hero{
+  min-height:82svh!important;
+  color:var(--tf-ink)!important;
+  background:#ddd2c5!important;
+  box-shadow:var(--tf-shadow)!important;
+}
+html.terrane-final .case-cover{filter:brightness(1.06) saturate(.80) contrast(.98)!important}
+html.terrane-final .case-hero-shade{
+  background:
+    linear-gradient(180deg,rgba(250,247,241,.02),rgba(250,247,241,.12) 40%,rgba(245,239,231,.92) 100%),
+    radial-gradient(36rem 24rem at 12% 84%,rgba(245,239,231,.72),transparent 72%)!important;
+}
+html.terrane-final .case-grid{display:none!important}
+html.terrane-final .case-hero-copy,
+html.terrane-final .case-hero-copy *{color:var(--tf-ink)!important}
+html.terrane-final .case-kicker{color:var(--tf-clay)!important}
+html.terrane-final .case-hero-copy>div{border-color:rgba(25,23,20,.12)!important}
+html.terrane-final .case-intro,
+html.terrane-final .case-material{
+  background:
+    radial-gradient(38rem 26rem at 88% 8%,rgba(255,255,255,.60),transparent 72%),
+    linear-gradient(180deg,#f7f2ea,#eee5da)!important;
+}
+html.terrane-final .case-gallery{
+  padding-top:clamp(1rem,2.5vw,2rem)!important;
+  padding-bottom:clamp(1rem,2.5vw,2rem)!important;
+  background:linear-gradient(180deg,#e4d8c8,#d9ccbb)!important;
+}
+html.terrane-final .case-gallery-item{
+  overflow:hidden!important;
+  border-radius:clamp(22px,2.5vw,32px)!important;
+  box-shadow:0 18px 54px rgba(40,31,23,.09)!important;
+}
+html.terrane-final .case-gallery-image{filter:brightness(1.03) saturate(.82)!important}
+html.terrane-final .case-gallery figcaption{
+  color:var(--tf-muted)!important;
+  background:#f6f1e9!important;
+  border-color:rgba(25,23,20,.10)!important;
+}
+html.terrane-final .case-disclosure{
+  color:var(--tf-muted)!important;
+  background:#eee7dd!important;
+  border-color:rgba(25,23,20,.10)!important;
+}
+html.terrane-final .case-next{
+  color:var(--tf-ink)!important;
+  background:
+    radial-gradient(34rem 24rem at 88% 10%,rgba(255,255,255,.48),transparent 72%),
+    linear-gradient(145deg,#e5eadf,#d7dfd2)!important;
+}
+html.terrane-final .case-next a{border-color:rgba(25,23,20,.12)!important}
+html.terrane-final .case-next a span{color:var(--tf-ink)!important}
+
+/* MOTION — visually rich, transform/opacity only. */
+html.terrane-final .will-reveal{
+  opacity:0;
+  transform:translate3d(0,30px,0) scale(.992);
+  transition:opacity .78s ease,transform .92s var(--tf-ease);
+}
+html.terrane-final .project-story.will-reveal{transform:translate3d(0,46px,0) scale(.985)}
+html.terrane-final .discipline-row.will-reveal{transform:translate3d(-24px,0,0)}
+html.terrane-final .control-step.will-reveal{transform:translate3d(24px,16px,0)}
+html.terrane-final .approach-step.will-reveal{transform:translate3d(22px,18px,0)}
+html.terrane-final .will-reveal.is-visible,
+html.terrane-final .is-visible{opacity:1;transform:none}
+html.terrane-final .project-image{transition:opacity .56s ease,transform 1.1s var(--tf-ease)!important}
+@media(hover:hover) and (pointer:fine){
+  html.terrane-final .hero-primary-cta:hover,
+  html.terrane-final .consultation-submit:hover{transform:translateY(-3px)}
+  html.terrane-final .hero-secondary-cta:hover,
+  html.terrane-final .project-link:hover{transform:translateY(-2px);background:rgba(255,255,255,.68)!important}
+  html.terrane-final .project-stage:hover .project-image.is-active{transform:scale(1.045)!important}
+  html.terrane-final .practice-proof:hover{transform:translateY(-5px)}
+  html.terrane-final .studio-main-image:hover .studio-image{transform:scale(1.025)}
+}
+html.terrane-final .studio-image{transition:transform 1.2s var(--tf-ease),filter .4s ease}
+
+/* MOBILE */
+@media(max-width:768px){
+  :root{--tf-gap:8px;--tf-radius-xl:28px;--tf-radius-lg:24px}
+  html.terrane-final{scroll-padding-top:76px}
+  html.terrane-final #main:not(.case-page){padding:var(--tf-gap);gap:var(--tf-gap)}
+  html.terrane-final footer{margin:0 var(--tf-gap) var(--tf-gap)}
+  html.terrane-final .site-header{padding-left:.5rem!important;padding-right:.5rem!important}
+  html.terrane-final .site-header-inner{
+    height:3.55rem!important;
+    padding:0 .55rem 0 .7rem!important;
+    backdrop-filter:blur(12px) saturate(120%)!important;
+    -webkit-backdrop-filter:blur(12px) saturate(120%)!important;
+  }
+  html.terrane-final .hero-frame{min-height:780px!important}
+  html.terrane-final .hero-media-shell{
+    left:.7rem!important;
+    right:.7rem!important;
+    top:4.8rem!important;
+    bottom:auto!important;
+    height:45%!important;
+    border-radius:24px!important;
+  }
+  html.terrane-final .hero-media{
+    transform:translate3d(0,calc(var(--hero-y) * .35),0) scale(1.035)!important;
+  }
+  html.terrane-final .hero-shade{
+    background:linear-gradient(180deg,transparent 0 36%,rgba(245,239,231,.20) 49%,rgba(245,239,231,.93) 67%,#f5efe7 78%)!important;
+  }
+  html.terrane-final .hero-vignette{display:none!important}
+  html.terrane-final .hero-copy{
+    bottom:0!important;
+    padding:0 1.05rem 1.35rem!important;
+    transform:none!important;
+  }
+  html.terrane-final .hero-copy-grid{display:block!important}
+  html.terrane-final .hero-meta{display:none!important}
+  html.terrane-final .hero-kicker{font-size:9px!important}
+  html.terrane-final .hero-title{
+    margin-top:.7rem!important;
+    font-size:clamp(3.45rem,16.5vw,4.85rem)!important;
+    line-height:.83!important;
+  }
+  html.terrane-final .hero-lead{margin-top:1rem!important;font-size:.95rem!important;line-height:1.56!important}
+  html.terrane-final .hero-actions{margin-top:1.15rem!important;gap:.55rem!important}
+  html.terrane-final .hero-primary-cta,
+  html.terrane-final .hero-secondary-cta{min-height:2.8rem!important;font-size:9px!important}
+  html.terrane-final .hero-footer-line{margin-top:1.2rem!important;padding-top:.75rem!important}
+  html.terrane-final .practice-title,
+  html.terrane-final .work-heading,
+  html.terrane-final .expertise-title,
+  html.terrane-final .control-title,
+  html.terrane-final .approach-title,
+  html.terrane-final .studio-title{font-size:clamp(2.65rem,11.5vw,3.45rem)!important;line-height:.95!important}
+  html.terrane-final .commission-title{font-size:clamp(3.25rem,14vw,4.5rem)!important}
+  html.terrane-final .practice-grid{display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important}
+  html.terrane-final .practice-proof{
+    min-height:15rem!important;
+    padding:1rem!important;
+    border-radius:20px!important;
+  }
+  html.terrane-final .practice-proof>div{margin-top:4.6rem!important}
+  html.terrane-final .practice-proof-title{font-size:1.45rem!important}
+  html.terrane-final .practice-proof-copy{font-size:.78rem!important;line-height:1.5!important}
+  html.terrane-final .work-intro{padding:4rem 1rem 2rem!important}
+  html.terrane-final .project-sequence{padding:0 .75rem 3.5rem!important;gap:10px!important}
+  html.terrane-final .project-story,
+  html.terrane-final .project-story:nth-child(even){
+    padding:.72rem!important;
+    border-radius:24px!important;
+  }
+  html.terrane-final .project-layout{display:block!important}
+  html.terrane-final .project-story.is-reverse .project-stage-wrap,
+  html.terrane-final .project-story.is-reverse .project-copy{order:initial!important}
+  html.terrane-final .project-stage,
+  html.terrane-final .project-story:nth-child(3) .project-stage,
+  html.terrane-final .project-story:nth-child(4) .project-stage{
+    aspect-ratio:4/3!important;
+    border-radius:19px!important;
+    box-shadow:0 16px 44px rgba(40,31,23,.10)!important;
+  }
+  html.terrane-final .project-controls{inset:auto .55rem .55rem!important}
+  html.terrane-final .project-counter{min-height:2.1rem!important;padding:.4rem .65rem!important;font-size:.58rem!important}
+  html.terrane-final .project-arrow{min-width:3.6rem!important;height:2.1rem!important;min-height:2.1rem!important;padding:0 .7rem!important;font-size:.66rem!important}
+  html.terrane-final .project-copy{padding:1.15rem .35rem .5rem!important}
+  html.terrane-final .project-copy-rule{width:3.5rem!important}
+  html.terrane-final .project-kicker{font-size:8px!important;line-height:1.5!important}
+  html.terrane-final .project-title{margin-top:.55rem!important;font-size:clamp(2.5rem,11.5vw,3.35rem)!important}
+  html.terrane-final .project-excerpt{margin-top:.8rem!important;font-size:.92rem!important;line-height:1.58!important}
+  html.terrane-final .project-facts{margin-top:1rem!important;gap:.8rem!important;font-size:.82rem!important}
+  html.terrane-final .project-link{margin-top:1rem!important}
+  html.terrane-final .discipline-row{padding:1.2rem 0!important}
+  html.terrane-final .discipline-title{font-size:2.25rem!important}
+  html.terrane-final .control-step{border-radius:20px!important}
+  html.terrane-final .approach-step-copy{padding-top:1rem!important}
+  html.terrane-final .studio-main-image{border-radius:22px!important}
+  html.terrane-final .studio-material-card{
+    display:none!important;
+  }
+  html.terrane-final .consultation-plane{border-radius:22px!important;box-shadow:0 14px 40px rgba(40,31,23,.07)!important}
+  html.terrane-final .case-page{padding:var(--tf-gap)!important}
+  html.terrane-final .case-hero{min-height:72svh!important}
+  html.terrane-final .case-page>article>header,
+  html.terrane-final .case-page>article>section{border-radius:26px!important}
+  html.terrane-final .case-gallery-item{border-radius:20px!important}
+}
+@media(max-width:420px){
+  html.terrane-final .practice-grid{grid-template-columns:1fr!important}
+  html.terrane-final .practice-proof{min-height:0!important}
+  html.terrane-final .practice-proof>div{margin-top:3.5rem!important}
+}
+@media(prefers-reduced-motion:reduce){
+  html.terrane-final{scroll-behavior:auto!important}
+  html.terrane-final *{animation:none!important;transition:none!important}
+  html.terrane-final .will-reveal{opacity:1!important;transform:none!important}
+  html.terrane-final .hero-media,
+  html.terrane-final .hero-copy{transform:none!important}
+}
