@@ -43,7 +43,7 @@ export function WebflowV31Bridge() {
     if (header) {
       header.classList.add("tv3-liquid");
 
-      const darkSelectors = [".hero-scene", ".expertise-scene", ".commission-scene", ".case-hero", ".case-material", "footer"];
+      const darkSelectors = [".hero-scene", ".expertise-scene", ".commission-scene", ".case-hero", ".case-next", "footer"];
       const updateTone = () => {
         const r = header.getBoundingClientRect();
         const y = r.top + r.height * 0.56;
@@ -131,12 +131,14 @@ export function WebflowV31Bridge() {
       cancelAnimationFrame(progressRaf);
     });
 
-    const navLinks = qa<HTMLAnchorElement>('.site-header nav a[href^="#"]');
+    const navLinks = qa<HTMLAnchorElement>('.site-header nav a[href*="#"]');
     const navMap = new Map<Element, HTMLAnchorElement>();
     navLinks.forEach((link) => {
-      const id = link.getAttribute("href");
-      if (!id) return;
-      const section = q(id);
+      const href = link.getAttribute("href") || "";
+      const hashIndex = href.indexOf("#");
+      const hash = hashIndex >= 0 ? href.slice(hashIndex) : "";
+      if (!hash || hash === "#") return;
+      const section = q(hash);
       if (section) navMap.set(section, link);
     });
     const navObserver = new IntersectionObserver(
