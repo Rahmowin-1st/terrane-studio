@@ -6,7 +6,7 @@ import { useReducedMotion } from "motion/react";
 import { projects } from "@/lib/site";
 import { imageSrcSet } from "@/lib/media";
 
-function Stage({ images, title, priority = false }: { images: { src: string; alt: string }[]; title: string; priority?: boolean }) {
+function Stage({ images, title }: { images: { src: string; alt: string }[]; title: string }) {
   const slides = images.slice(0, 3);
   const [i, setI] = useState(0);
   const [inView, setInView] = useState(false);
@@ -140,8 +140,8 @@ function Stage({ images, title, priority = false }: { images: { src: string; alt
             sizes="(min-width: 769px) 64vw, 100vw"
             alt={img.alt}
             className={"project-image absolute inset-0 h-full w-full object-cover " + (idx === i ? "is-active" : "")}
-            loading={priority && idx === 0 ? "eager" : "lazy"}
-            fetchPriority={priority && idx === 0 ? "high" : "auto"}
+            loading="lazy"
+            fetchPriority="auto"
             decoding="async"
             aria-hidden={idx !== i}
           />
@@ -187,7 +187,7 @@ export function Work() {
             <div className="project-number" aria-hidden="true">{project.index}</div>
             <div className="project-layout">
               <div className="project-stage-wrap">
-                <Stage images={[{ src: project.cover, alt: project.coverAlt }, ...project.images].slice(0, 3)} title={project.title} priority={idx === 0} />
+                <Stage images={[{ src: project.cover, alt: project.coverAlt }, ...project.images].slice(0, 3)} title={project.title} />
               </div>
               <div className="project-copy">
                 <div className="project-copy-rule" />
