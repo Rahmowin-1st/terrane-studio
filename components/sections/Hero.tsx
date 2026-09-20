@@ -1,19 +1,22 @@
 import { site } from "@/lib/site";
 import { imageSrcSet } from "@/lib/media";
+import { ResilientImage } from "@/components/ResilientImage";
 
 export function Hero() {
   return (
     <section id="home" className="hero-scene relative" aria-label="Introduction">
       <div className="hero-frame relative min-h-[100svh] overflow-hidden bg-paper text-ink">
         <div className="hero-media-shell absolute inset-0 overflow-hidden">
-          <img
+          <ResilientImage
             src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2400&q=88"
             srcSet={imageSrcSet("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2400&q=88")}
             sizes="100vw"
             alt="Courtyard house with deep eaves and warm masonry in late light."
             className="hero-media h-full w-full origin-center object-cover"
+            fallbackClassName="hero-fallback"
             width={2400}
             height={1600}
+            loading="eager"
             fetchPriority="high"
           />
         </div>
@@ -42,14 +45,14 @@ export function Hero() {
                 <span className="hero-line hero-line-accent"><span>Duration.</span></span>
               </h1>
               <p className="hero-lead mt-6 max-w-[34rem] text-[15px] leading-[1.65] text-ink/70 sm:text-base md:text-[18px]">
-                Houses, interiors and landscapes resolved as one material condition — drawn from climate, proportion and the lives already on the site.
+                Houses, interiors and landscapes shaped by climate, proportion and material.
               </p>
               <div className="hero-actions mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
                 <a href="#commission" className="hero-primary-cta group inline-flex min-h-12 items-center gap-5 rounded-full bg-moss px-6 text-[10px] font-semibold tracking-[0.18em] text-ink uppercase sm:px-7 sm:text-[11px]">
-                  Begin a commission <span aria-hidden="true" className="h-2 w-2 rounded-full bg-current opacity-55" />
+                  Start a project <span aria-hidden="true" className="h-2 w-2 rounded-full bg-current opacity-55" />
                 </a>
                 <a href="#work" className="hero-secondary-cta inline-flex min-h-12 items-center gap-3 px-2 text-[10px] font-semibold tracking-[0.18em] text-bone uppercase sm:text-[11px]">
-                  Selected work <span aria-hidden="true" className="h-2 w-2 rounded-full bg-current opacity-55" />
+                  View work <span aria-hidden="true" className="h-2 w-2 rounded-full bg-current opacity-55" />
                 </a>
               </div>
             </div>
@@ -58,21 +61,21 @@ export function Hero() {
               <div className="hero-meta-rule" />
               <p className="text-[10px] tracking-[0.2em] text-sand uppercase">Practice</p>
               <p className="mt-3 max-w-[15rem] font-display text-[1.55rem] leading-[1.08] font-light text-bone">
-                Architecture of ground, light, and duration.
+                Ground, light and material.
               </p>
               <div className="mt-7 grid grid-cols-2 gap-x-8 gap-y-5 text-[10px] tracking-[0.16em] text-bone/60 uppercase">
-                <span>01—05 studies</span>
-                <span>Central Asia</span>
-                <span>Architecture</span>
-                <span>Interior / land</span>
+                <span>Homes</span>
+                <span>Interiors</span>
+                <span>Landscape</span>
+                <span>Reuse</span>
               </div>
             </aside>
           </div>
 
           <div className="hero-footer-line mt-9 flex items-center justify-between gap-5 border-t border-ink/10 pt-4 text-[9px] tracking-[0.18em] text-ink/50 uppercase sm:text-[10px]">
-            <span>No polished brief needed.</span>
-            <span className="hidden sm:inline">Scroll to enter the work</span>
-            <span>01 / 08</span>
+            <span>Start with the site.</span>
+            <span className="hidden sm:inline">Explore selected work</span>
+            <span>Tashkent / Central Asia</span>
           </div>
         </div>
       </div>
