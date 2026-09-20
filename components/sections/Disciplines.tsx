@@ -7,13 +7,13 @@ export function Disciplines() {
       <div className="mx-auto max-w-[1280px] px-5 py-20 sm:px-7 md:px-10 md:py-28 lg:px-12 lg:py-32">
         <div className="expertise-head grid gap-8 md:grid-cols-12 md:items-end">
           <div className="md:col-span-7">
-            <p className="expertise-kicker text-[10px] font-semibold tracking-[0.2em] text-clay uppercase">Expertise / one practice</p>
+            <p className="expertise-kicker text-[10px] font-semibold tracking-[0.2em] text-clay uppercase">Expertise</p>
             <h2 id="disc-heading" className="expertise-title mt-4 font-display text-[2.9rem] leading-none font-light tracking-[-0.035em] sm:text-6xl md:text-[5rem]">
-              What we design.
+              Four scales. One approach.
             </h2>
           </div>
           <p className="expertise-note md:col-span-4 md:col-start-9 text-sm leading-[1.7] text-ink/60">
-            Houses, rooms, land and existing fabric — held by the same rules: climate first, proportion second, decoration last.
+            Homes, interiors, landscape and reuse — all resolved through the same design logic.
           </p>
         </div>
 
