@@ -192,7 +192,15 @@ export function WebflowV31Bridge() {
       const stage = q<HTMLElement>(".project-stage", story);
       if (!stage) return;
 
-      if (!q(".tv2-stage-frame", stage)) {
+      const instrumented = fine && !reduce && window.innerWidth >= 900;
+
+      if (!instrumented) {
+        q(".tv2-stage-frame", stage)?.remove();
+        q(".tv2-project-dossier", stage)?.remove();
+        q(".tv2-crosshair", stage)?.remove();
+      }
+
+      if (instrumented && !q(".tv2-stage-frame", stage)) {
         const frame = document.createElement("div");
         frame.className = "tv2-stage-frame";
         frame.setAttribute("aria-hidden", "true");
@@ -200,7 +208,7 @@ export function WebflowV31Bridge() {
         stage.appendChild(frame);
       }
 
-      if (!q(".tv2-project-dossier", stage)) {
+      if (instrumented && !q(".tv2-project-dossier", stage)) {
         const dossier = document.createElement("div");
         dossier.className = "tv2-project-dossier";
         dossier.setAttribute("aria-hidden", "true");
@@ -212,7 +220,7 @@ export function WebflowV31Bridge() {
       }
 
       let cross = q<HTMLElement>(".tv2-crosshair", stage);
-      if (!cross) {
+      if (instrumented && !cross) {
         cross = document.createElement("div");
         cross.className = "tv2-crosshair";
         cross.setAttribute("aria-hidden", "true");
@@ -220,7 +228,7 @@ export function WebflowV31Bridge() {
         stage.appendChild(cross);
       }
 
-      if (fine && !reduce) {
+      if (instrumented) {
         let touchedImage: HTMLElement | null = null;
         let raf = 0;
         let clientX = 0;
@@ -241,9 +249,9 @@ export function WebflowV31Bridge() {
 
           const px = clamp((clientX - r.left) / Math.max(1, r.width) * 100, 0, 100);
           const py = clamp((clientY - r.top) / Math.max(1, r.height) * 100, 0, 100);
-          cross!.style.setProperty("--x", px.toFixed(1) + "%");
-          cross!.style.setProperty("--y", py.toFixed(1) + "%");
-          const read = q<HTMLElement>("span", cross!);
+          cross?.style.setProperty("--x", px.toFixed(1) + "%");
+          cross?.style.setProperty("--y", py.toFixed(1) + "%");
+          const read = cross ? q<HTMLElement>("span", cross) : null;
           if (read) read.textContent = Math.round(px) + " / " + Math.round(py);
         };
 
