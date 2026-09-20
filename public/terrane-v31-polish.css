@@ -1,9 +1,9 @@
-/* TERRANE V3.1 — VeroSpace-level polish layer
-   Non-destructive overrides for Webflow master. */
+/* TERRANE V3.1 — conflict-free polish hotfix
+   Stable V3 remains authoritative for layout, liquid header, navigation,
+   approach state, carousel motion and responsive geometry. */
 :root{
   --v31-ease:cubic-bezier(.16,1,.3,1);
   --v31-shadow:0 28px 78px rgba(20,18,16,.12);
-  --v31-shadow-deep:0 36px 100px rgba(10,9,8,.18);
   --v31-line:rgba(20,18,16,.12);
 }
 html{scroll-padding-top:96px}
@@ -14,88 +14,74 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   outline-offset:4px;
 }
 
-/* Header — optical liquid glass, not blur-heavy */
-.site-header{will-change:transform}
-.site-header-inner{
-  position:relative;
-  isolation:isolate;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,.5);
-  box-shadow:0 18px 48px rgba(15,13,11,.12),inset 0 1px 0 rgba(255,255,255,.68),inset 0 -1px 0 rgba(65,52,41,.08);
-  transition:height .38s var(--v31-ease),padding .38s var(--v31-ease),box-shadow .28s ease,border-color .28s ease,background .28s ease;
+/* Header: only refine canonical V3 states. Do not replace its pseudo-elements. */
+html.terrane-v31 body.terrane-v2 .site-header{will-change:transform}
+html.terrane-v31 body.terrane-v2 .site-header-inner.tv3-liquid{
+  transition:
+    height .38s var(--v31-ease),
+    padding .38s var(--v31-ease),
+    box-shadow .28s ease,
+    border-color .28s ease,
+    background .28s ease!important;
 }
-.site-header-inner::before{
-  content:"";
-  position:absolute;
-  z-index:-1;
-  inset:-1px;
-  border-radius:inherit;
-  pointer-events:none;
-  background:
-    radial-gradient(420px circle at var(--v31-glass-x,72%) var(--v31-glass-y,20%),rgba(255,255,255,.36),transparent 44%),
-    linear-gradient(112deg,transparent 12%,rgba(255,255,255,.13) 25%,rgba(255,255,255,.34) 40%,rgba(180,138,98,.08) 65%,transparent 82%);
-  opacity:.92;
-  transition:opacity .22s ease;
+html.terrane-v31 body.terrane-v2 .site-header-inner.tv3-liquid[data-tv3-scrolled="true"]{
+  box-shadow:0 14px 40px rgba(15,13,11,.16),inset 0 1px 0 rgba(255,255,255,.58)!important;
 }
-.site-header-inner::after{
-  content:"";
-  position:absolute;
-  z-index:-1;
-  left:7%;right:7%;top:6px;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.72),transparent);
-  pointer-events:none;
-}
-.site-header.is-v31-scrolled .site-header-inner{
-  box-shadow:0 14px 38px rgba(15,13,11,.16),inset 0 1px 0 rgba(255,255,255,.58);
-}
-.site-header nav a{
-  transition:opacity .2s ease,transform .24s var(--v31-ease),color .2s ease;
-}
-.site-header nav a.is-v31-active{opacity:1!important;transform:translateY(-1px)}
-.site-header nav a.is-v31-active::after{transform:scaleX(1)!important}
 
-/* Hero — more depth without changing TERRANE identity */
-.hero-frame::before{
+/* Hero depth: additive overlays only. */
+html.terrane-v31 body.terrane-v2 .hero-frame::before{
   content:"";
   position:absolute;
   z-index:2;
   inset:0;
   pointer-events:none;
   background:
-    radial-gradient(65% 58% at 68% 34%,rgba(255,225,190,.08),transparent 72%),
-    linear-gradient(180deg,rgba(8,7,6,.06),rgba(8,7,6,.18));
+    radial-gradient(65% 58% at 68% 34%,rgba(255,225,190,.07),transparent 72%),
+    linear-gradient(180deg,rgba(8,7,6,.04),rgba(8,7,6,.14));
   mix-blend-mode:screen;
-  opacity:.7;
+  opacity:.62;
 }
-.hero-frame::after{
+html.terrane-v31 body.terrane-v2 .hero-frame::after{
   content:"";
   position:absolute;
   z-index:3;
   inset:auto 0 0;
-  height:18vh;
+  height:16vh;
   pointer-events:none;
-  background:linear-gradient(180deg,transparent,rgba(11,10,9,.16));
+  background:linear-gradient(180deg,transparent,rgba(11,10,9,.13));
 }
-.hero-media{
-  transform:scale(1.008);
-  filter:saturate(.94) contrast(1.02);
-  transition:filter .7s var(--v31-ease);
+html.terrane-v31 body.terrane-v2 .hero-copy{
+  filter:drop-shadow(0 9px 30px rgba(0,0,0,.16));
 }
-.hero-copy{filter:drop-shadow(0 9px 30px rgba(0,0,0,.18))}
-.hero-title{letter-spacing:-.045em;text-wrap:balance}
-.hero-lead{text-wrap:pretty}
-.hero-primary-cta,.hero-secondary-cta,.project-link,.consultation-submit,.project-arrow{
-  transition:transform .22s var(--v31-ease),box-shadow .22s ease,opacity .2s ease,background .2s ease!important;
-}
-.hero-primary-cta:hover,.consultation-submit:hover{transform:translateY(-2px)}
-.hero-primary-cta{box-shadow:0 12px 30px rgba(0,0,0,.16)}
-.v31-pressing{transform:translateY(1px) scale(.975)!important}
+html.terrane-v31 body.terrane-v2 .hero-title{letter-spacing:-.045em;text-wrap:balance}
+html.terrane-v31 body.terrane-v2 .hero-lead{text-wrap:pretty}
 
-/* Editorial rhythm */
-.practice-scene,.work-scene,.approach-scene,.studio-scene,.expertise-scene,.control-scene,.commission-scene{
+/* Tactile controls. Delegated JS makes this work for dynamically loaded case pages too. */
+html.terrane-v31 body.terrane-v2 .v31-pressing{
+  transform:translateY(1px) scale(.975)!important;
+}
+html.terrane-v31 body.terrane-v2 .hero-primary-cta,
+html.terrane-v31 body.terrane-v2 .hero-secondary-cta,
+html.terrane-v31 body.terrane-v2 .project-link,
+html.terrane-v31 body.terrane-v2 .consultation-submit,
+html.terrane-v31 body.terrane-v2 .project-arrow{
+  transition:
+    transform .22s var(--v31-ease),
+    box-shadow .22s ease,
+    opacity .2s ease,
+    background .2s ease!important;
+}
+
+/* Editorial separators: never touch the layout/sticky transforms. */
+html.terrane-v31 body.terrane-v2 .practice-scene,
+html.terrane-v31 body.terrane-v2 .work-scene,
+html.terrane-v31 body.terrane-v2 .approach-scene,
+html.terrane-v31 body.terrane-v2 .studio-scene{
   position:relative;
 }
-.practice-scene::after,.work-scene::after,.approach-scene::after,.studio-scene::after{
+html.terrane-v31 body.terrane-v2 .work-scene::after,
+html.terrane-v31 body.terrane-v2 .approach-scene::after,
+html.terrane-v31 body.terrane-v2 .studio-scene::after{
   content:"";
   position:absolute;
   left:50%;
@@ -106,128 +92,105 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   background:linear-gradient(90deg,transparent,rgba(20,18,16,.13),transparent);
   pointer-events:none;
 }
-.practice-proof,.control-step,.approach-step,.discipline-row{
-  transition:transform .26s var(--v31-ease),background-color .24s ease,border-color .24s ease,opacity .24s ease;
+
+/* Practice / expertise hover polish on fine pointers only. */
+html.terrane-v31 body.terrane-v2 .practice-proof,
+html.terrane-v31 body.terrane-v2 .control-step,
+html.terrane-v31 body.terrane-v2 .discipline-row{
+  transition:
+    transform .26s var(--v31-ease),
+    background-color .24s ease,
+    border-color .24s ease,
+    opacity .24s ease;
 }
 @media (hover:hover) and (pointer:fine){
-  .practice-proof:hover{transform:translateY(-4px)}
-  .discipline-row:hover{transform:translateX(6px)}
-  .control-step:hover{transform:translateX(5px)}
+  html.terrane-v31 body.terrane-v2 .practice-proof:hover{transform:translateY(-4px)}
+  html.terrane-v31 body.terrane-v2 .discipline-row:hover{transform:translateX(6px)}
+  html.terrane-v31 body.terrane-v2 .control-step:hover{transform:translateX(5px)}
 }
 
-/* Projects — weight, depth, tactile media */
-.project-story{transition:transform .36s var(--v31-ease)}
-.project-stage-wrap{
-  position:relative;
-  border-radius:1.5rem;
-  transition:transform .38s var(--v31-ease),box-shadow .38s ease;
+/* Canonical V3 approach state = .is-current. */
+html.terrane-v31 body.terrane-v2 .approach-dot{
+  transition:transform .3s var(--v31-ease),box-shadow .3s ease,border-color .3s ease;
 }
-.project-stage{
-  border-radius:1.5rem;
-  box-shadow:0 18px 52px rgba(20,18,16,.10);
+html.terrane-v31 body.terrane-v2 .approach-step.is-current .approach-dot{
+  box-shadow:0 0 0 7px rgba(180,138,98,.09),0 10px 28px rgba(20,18,16,.08);
+  transform:scale(1.04);
 }
-.project-stage::after{
+
+/* Project surface polish without translating the sticky wrapper. */
+html.terrane-v31 body.terrane-v2 .project-stage{
+  transition:transform .25s ease,box-shadow .35s ease;
+}
+html.terrane-v31 body.terrane-v2 .project-stage::after{
   content:"";
   position:absolute;
   inset:0;
   z-index:2;
   pointer-events:none;
-  background:linear-gradient(145deg,rgba(255,255,255,.09),transparent 28%,transparent 72%,rgba(0,0,0,.08));
-  opacity:.72;
+  background:linear-gradient(145deg,rgba(255,255,255,.07),transparent 28%,transparent 72%,rgba(0,0,0,.06));
+  opacity:.62;
 }
-.project-image{transition:opacity .6s ease,transform .85s var(--v31-ease),filter .6s ease!important}
-.project-story:hover .project-image.is-active{transform:scale(1.025)}
-.project-story:hover .project-stage-wrap{transform:translateY(-5px);box-shadow:var(--v31-shadow)}
-.project-arrow{
-  box-shadow:0 9px 28px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.16);
-}
-.project-copy-rule{transition:transform .6s var(--v31-ease)}
-.project-story:hover .project-copy-rule{transform:scaleX(.96)}
-.project-title{text-wrap:balance}
+html.terrane-v31 body.terrane-v2 .project-copy-rule{transition:transform .6s var(--v31-ease)}
+html.terrane-v31 body.terrane-v2 .project-story:hover .project-copy-rule{transform:scaleX(.96)}
+html.terrane-v31 body.terrane-v2 .project-title{text-wrap:balance}
 
-/* Expertise + approach state */
-.discipline-row::after{
-  content:"";
-  position:absolute;
-  left:0;right:0;bottom:-1px;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(180,138,98,.55),transparent);
-  transform:scaleX(0);
-  transition:transform .42s var(--v31-ease);
+/* Studio / consultation. */
+html.terrane-v31 body.terrane-v2 .studio-main-image{
+  box-shadow:0 24px 70px rgba(20,18,16,.10);
 }
-.discipline-row:hover::after{transform:scaleX(1)}
-.approach-step{opacity:.68}
-.approach-step.is-v31-active{opacity:1}
-.approach-step.is-v31-active .approach-dot{
-  border-color:rgba(180,138,98,.66)!important;
-  box-shadow:0 0 0 7px rgba(180,138,98,.09),0 10px 28px rgba(20,18,16,.08);
-  transform:scale(1.04);
+html.terrane-v31 body.terrane-v2 .commission-scene{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
 }
-.approach-dot{transition:transform .3s var(--v31-ease),box-shadow .3s ease,border-color .3s ease}
-
-/* Studio / closing scene */
-.studio-main-image,.studio-material-card{border-radius:1.25rem}
-.studio-main-image{box-shadow:0 24px 70px rgba(20,18,16,.10)}
-.studio-image,.studio-detail-image{transition:transform 1s var(--v31-ease),filter .6s ease}
-@media (hover:hover) and (pointer:fine){
-  .studio-media:hover .studio-image{transform:scale(1.025)}
-  .studio-material-card:hover .studio-detail-image{transform:scale(1.04)}
-}
-.commission-scene{box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
-.consultation-plane{
-  border:1px solid rgba(255,255,255,.38);
+html.terrane-v31 body.terrane-v2 .consultation-plane{
+  border-color:rgba(255,255,255,.38);
   box-shadow:0 32px 88px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.54);
 }
-.form-control{
+html.terrane-v31 body.terrane-v2 .form-control{
   transition:border-color .18s ease,box-shadow .18s ease,background-color .18s ease,transform .18s var(--v31-ease)!important;
 }
-.form-control:focus{
+html.terrane-v31 body.terrane-v2 .form-control:focus{
   border-color:rgba(180,138,98,.7)!important;
   box-shadow:0 0 0 4px rgba(180,138,98,.10)!important;
   transform:translateY(-1px);
 }
-.consultation-submit{box-shadow:0 12px 30px rgba(0,0,0,.16)}
 
-/* Footer */
-.footer-inner{position:relative}
-.footer-inner::before{
-  content:"";
-  position:absolute;
-  top:0;left:5%;right:5%;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);
+/* Dynamic case study content. */
+html.terrane-v31 body.terrane-v2 #terrane-case-root a,
+html.terrane-v31 body.terrane-v2 #terrane-case-root button{
+  transition:transform .22s var(--v31-ease),opacity .2s ease,box-shadow .22s ease;
 }
 
-/* Work/case page compatibility */
-#terrane-case-root img{transition:transform .8s var(--v31-ease),filter .5s ease}
-#terrane-case-root a,#terrane-case-root button{transition:transform .22s var(--v31-ease),opacity .2s ease,box-shadow .22s ease}
-@media (hover:hover) and (pointer:fine){
-  #terrane-case-root a:hover,#terrane-case-root button:hover{transform:translateY(-2px)}
-}
-
-/* Mobile: keep hierarchy, remove expensive depth */
 @media(max-width:767px){
   html{scroll-padding-top:82px}
-  .site-header-inner{box-shadow:0 10px 30px rgba(15,13,11,.12),inset 0 1px 0 rgba(255,255,255,.55)}
-  .hero-frame::before{opacity:.45}
-  .hero-frame::after{height:12vh}
-  .hero-media{transform:none}
-  .project-stage-wrap,.project-stage{border-radius:1rem}
-  .project-story:hover .project-stage-wrap{transform:none;box-shadow:none}
-  .practice-scene::after,.work-scene::after,.approach-scene::after,.studio-scene::after{width:calc(100% - 24px)}
-  .approach-step{opacity:1}
-  .consultation-plane{box-shadow:0 18px 54px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.5)}
+  html.terrane-v31 body.terrane-v2 .hero-frame::before{opacity:.42}
+  html.terrane-v31 body.terrane-v2 .hero-frame::after{height:11vh}
+  html.terrane-v31 body.terrane-v2 .work-scene::after,
+  html.terrane-v31 body.terrane-v2 .approach-scene::after,
+  html.terrane-v31 body.terrane-v2 .studio-scene::after{width:calc(100% - 24px)}
+  html.terrane-v31 body.terrane-v2 .consultation-plane{
+    box-shadow:0 18px 54px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.5);
+  }
 }
 @media(max-width:390px){
-  .hero-copy{padding-left:1rem!important;padding-right:1rem!important}
-  .hero-actions{gap:.55rem!important}
-  .project-stage{border-radius:.9rem}
+  html.terrane-v31 body.terrane-v2 .hero-copy{
+    padding-left:1rem!important;
+    padding-right:1rem!important;
+  }
+  html.terrane-v31 body.terrane-v2 .hero-actions{gap:.55rem!important}
 }
 @media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{scroll-behavior:auto!important}
-  .site-header-inner,.hero-media,.hero-primary-cta,.hero-secondary-cta,.project-link,.consultation-submit,.project-arrow,
-  .practice-proof,.control-step,.approach-step,.discipline-row,.project-story,.project-stage-wrap,.project-image,
-  .studio-image,.studio-detail-image,.form-control,#terrane-case-root img,#terrane-case-root a,#terrane-case-root button{
+  html.terrane-v31 body.terrane-v2 .hero-primary-cta,
+  html.terrane-v31 body.terrane-v2 .hero-secondary-cta,
+  html.terrane-v31 body.terrane-v2 .project-link,
+  html.terrane-v31 body.terrane-v2 .consultation-submit,
+  html.terrane-v31 body.terrane-v2 .project-arrow,
+  html.terrane-v31 body.terrane-v2 .practice-proof,
+  html.terrane-v31 body.terrane-v2 .control-step,
+  html.terrane-v31 body.terrane-v2 .discipline-row,
+  html.terrane-v31 body.terrane-v2 .form-control,
+  html.terrane-v31 body.terrane-v2 #terrane-case-root a,
+  html.terrane-v31 body.terrane-v2 #terrane-case-root button{
     transition:none!important;
   }
-  .project-story:hover .project-stage-wrap,.project-story:hover .project-image.is-active,
-  .studio-media:hover .studio-image,.studio-material-card:hover .studio-detail-image{transform:none!important}
 }
