@@ -40,15 +40,12 @@ export function LightExperience() {
   const router = useRouter();
 
   useEffect(() => {
-    const root = document.documentElement;
-    root.classList.add("terrane-v5");
-
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const nodes = Array.from(document.querySelectorAll<HTMLElement>(REVEAL_SELECTORS));
 
     if (reduced) {
       nodes.forEach((node) => node.classList.add("is-visible"));
-      return () => root.classList.remove("terrane-v5");
+      return;
     }
 
     const observer = new IntersectionObserver(
@@ -66,7 +63,6 @@ export function LightExperience() {
 
     return () => {
       observer.disconnect();
-      root.classList.remove("terrane-v5");
     };
   }, [pathname]);
 
