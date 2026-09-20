@@ -191,11 +191,11 @@ export function Work() {
           <div className="md:col-span-8">
             <p className="work-eyebrow text-[10px] font-semibold tracking-[0.2em] text-umber uppercase">Selected work / 01—05</p>
             <h2 id="work-heading" className="work-heading mt-4 max-w-[52rem] font-display text-[2.8rem] leading-[0.98] font-light tracking-[-0.035em] sm:text-6xl md:text-[5.2rem]">
-              Five studies. Five different spatial moves.
+              Selected projects.
             </h2>
           </div>
           <p className="work-note md:col-span-4 md:pb-2 text-sm leading-[1.65] text-umber">
-            Architecture, interior and landscape studies told through proportion, material and use. Photography is licensed reference, not claimed client work.
+            Five studies across houses, interiors, landscape and reuse.
           </p>
         </div>
       </div>
@@ -230,8 +230,8 @@ export function Work() {
         ))}
 
         <div className="work-disclosure flex flex-col gap-2 border-t border-ink/15 pt-5 text-[11px] leading-relaxed text-umber sm:flex-row sm:justify-between">
-          <span>Portfolio study / visual references licensed from Unsplash.</span>
-          <span>Not presented as completed client commissions.</span>
+          <span>Visual references used for this portfolio concept.</span>
+          <span>Concept work, not claimed built commissions.</span>
         </div>
       </div>
     </section>
