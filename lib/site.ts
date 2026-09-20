@@ -7,9 +7,9 @@ export const site = {
   email: "studio@terrane.uz",
   founded: 2016,
   tagline: "Architecture of ground, light, and duration.",
-  promise: "Houses, interiors, and landscapes of lasting proportion.",
+  promise: "Houses, interiors and landscapes built around climate and proportion.",
   description:
-    "Terrane is an architecture studio in Tashkent. We design houses, interiors, and landscapes as one material condition — quiet, site-specific, and made to last.",
+    "Terrane designs houses, interiors and landscapes around climate, proportion and material.",
 } as const;
 
 export const nav = [
@@ -24,22 +24,22 @@ export const trust = [
   {
     index: "01",
     title: "Scope first",
-    text: "Agree what changes. Styling comes after the ground, the lives, and the constraints are named.",
+    text: "Define what changes before choosing how it looks.",
   },
   {
     index: "02",
     title: "Approval gates",
-    text: "Layout, material and cost wait for review. Nothing irreversible moves without a pause.",
+    text: "Approve layout, material and cost before commitment.",
   },
   {
     index: "03",
     title: "Change control",
-    text: "New ideas are measured against the brief before they quietly enlarge the work.",
+    text: "Test every change against the brief.",
   },
   {
     index: "04",
     title: "Held after handover",
-    text: "Final notes and open items stay documented. The project does not vanish at the last joint.",
+    text: "Leave decisions and open items documented.",
   },
 ] as const;
 
@@ -47,22 +47,22 @@ export const disciplines = [
   {
     index: "01",
     title: "Houses",
-    text: "New dwellings and careful extensions. Courtyard houses, hillside rooms, and compact urban homes organised around shade, air, and the day’s slow movement.",
+    text: "Homes shaped by shade, air, privacy and daily movement.",
   },
   {
     index: "02",
     title: "Interiors",
-    text: "Rooms drawn as architecture, not decoration. Millwork, light wells, and the placement of a table. We keep what is already true and cut what is not.",
+    text: "Interiors built from light, proportion and useful joinery.",
   },
   {
     index: "03",
     title: "Landscapes",
-    text: "Walled gardens, courts, and dry-climate planting. Water is used sparingly and given a job: to cool, to reflect, to mark a threshold.",
+    text: "Courts and gardens designed for shade, water and dry climates.",
   },
   {
     index: "04",
     title: "Reuse",
-    text: "Warehouses, mahalla houses, and civic rooms given a second life. The existing fabric is the brief. We add only what the building cannot already do.",
+    text: "Existing buildings kept where they work and changed only where needed.",
   },
 ] as const;
 
@@ -70,27 +70,27 @@ export const approach = [
   {
     index: "01",
     title: "Site",
-    text: "We begin on the ground. Climate, slope, neighbours, the tree that must stay, the lives already moving through the plot.",
+    text: "Read climate, access, neighbours, trees and daily use.",
   },
   {
     index: "02",
     title: "Measure",
-    text: "Survey, light studies, and material samples from the region — rammed earth, lime, brick, mulberry, walnut. Proportion is found, not applied.",
+    text: "Measure the site, light and material before fixing proportion.",
   },
   {
     index: "03",
     title: "Draw",
-    text: "Plans and sections first. Few images until the plan is true. Details at 1:20 so the builder can hold the idea in the hand.",
+    text: "Resolve plans and sections before visual polish.",
   },
   {
     index: "04",
     title: "Build",
-    text: "We remain through construction. Joints, levels, and the colour of a wall are decided on site, in the light the rooms will actually receive.",
+    text: "Carry key details through construction and site decisions.",
   },
   {
     index: "05",
     title: "Handover",
-    text: "A decision log, material summary, and open-item list stay with the work so later questions have a place to land.",
+    text: "Hand over the project with decisions, materials and open items clear.",
   },
 ] as const;
 
@@ -147,10 +147,10 @@ export const projects: Project[] = [
       },
     ],
     excerpt:
-      "A family house re-drawn as four courts: arrival, water, kitchen, and sleep. Rammed earth, lime, and mulberry timber.",
-    goal: "Hold three generations without spectacle. Shade, air, and usable courts before display.",
+      "A family house organised as four courts for shade, air and privacy.",
+    goal: "Fit three generations around usable courts.",
     space: "Edge-of-city plot, long south face, neighbour to the west. Dust and noon heat first.",
-    design: "A chain of courts rather than a single object. Arrival gravel; water under a tree; kitchen to a working yard.",
+    design: "Four linked courts organise arrival, water, kitchen and rest.",
     materials: ["Rammed earth walls", "Lime wash", "Mulberry timber roofs", "Still pool", "Deep openings"],
     decisions: [
       "Keep walking lines free of storage",
@@ -188,10 +188,10 @@ export const projects: Project[] = [
       },
     ],
     excerpt:
-      "A neighbourhood library made from a brick warehouse. Long tables, north light, and rooms that invite staying.",
-    goal: "A civic room that still feels like the neighbourhood — not a photographed set.",
+      "A brick warehouse reused as a calm neighbourhood reading room.",
+    goal: "Make a useful civic room that still feels local.",
     space: "Former warehouse beside the Qorasuv canal. Good bones, poor light at the back.",
-    design: "Keep brick, arched windows, timber roof. Tables run with the light. Shelves as furniture.",
+    design: "Keep the shell; align tables and shelves with daylight.",
     materials: ["Existing brick", "Oak tables", "Lime at the rear wall", "Warm 2700K lighting"],
     decisions: ["Open the rear only where structure already wanted it", "No decorative library language"],
     brief:
@@ -225,7 +225,7 @@ export const projects: Project[] = [
       },
     ],
     excerpt:
-      "Ninety-two square metres reorganised around a light well. A small inner court, oak millwork, and rooms that share air.",
+      "A compact apartment reorganised around a new light well.",
     goal: "More calm than square metres. Light in the centre, not only at the street.",
     space: "Late-Soviet block near Chorsu. Corridor of small rooms.",
     design: "Cut a light well and treat it as a court. Millwork holds books, beds, a folding table.",
