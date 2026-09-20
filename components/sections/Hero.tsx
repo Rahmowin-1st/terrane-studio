@@ -37,7 +37,7 @@ export function Hero() {
           <div className="hero-copy-grid">
             <div className="hero-primary-copy">
               <p className="hero-kicker text-[10px] font-medium tracking-[0.24em] text-clay uppercase sm:text-[11px]">
-                Architecture / {site.city} / 41.31°N
+                Architecture / {site.city}
               </p>
               <h1 className="hero-title mt-4 font-display font-light text-ink">
                 <span className="hero-line"><span>Ground.</span></span>
