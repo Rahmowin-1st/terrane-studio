@@ -24,6 +24,7 @@
   --hero-copy-y:0px;
   --hero-px:0px;
   --hero-py:0px;
+  --page-progress:0;
 }
 html.terrane-final{
   scroll-behavior:smooth;
@@ -949,5 +950,64 @@ html.terrane-final :is(.practice-caption,.control-footer){
   }
   html.terrane-final .project-story:nth-child(even){
     background:rgba(222,229,217,.84)!important;
+  }
+}
+
+
+/* Navigation state: subtle, useful, not dashboard-like. */
+html.terrane-final .site-header-inner{
+  position:relative;
+  overflow:hidden;
+}
+html.terrane-final .site-header-inner::after{
+  content:"";
+  position:absolute;
+  left:1.15rem;
+  right:1.15rem;
+  bottom:2px;
+  height:2px;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--tf-moss),var(--tf-clay));
+  transform-origin:left center;
+  transform:scaleX(var(--page-progress));
+  opacity:.52;
+  pointer-events:none;
+}
+html.terrane-final .site-header nav a[data-active="true"]{
+  opacity:1!important;
+}
+html.terrane-final .site-header nav a[data-active="true"]>span:first-child{
+  opacity:1!important;
+  background:var(--tf-clay)!important;
+}
+
+/* Case media never collapses to a broken-image surface. */
+html.terrane-final .case-hero-fallback .resilient-image-fallback{
+  background:
+    radial-gradient(32rem 24rem at 74% 20%,rgba(255,244,224,.38),transparent 70%),
+    linear-gradient(90deg,transparent 0 22%,rgba(255,255,255,.14) 22% 23%,transparent 23% 68%,rgba(57,70,57,.13) 68% 70%,transparent 70%),
+    linear-gradient(145deg,#b7a591,#697765);
+}
+html.terrane-final .case-gallery-fallback .resilient-image-fallback{
+  background:
+    linear-gradient(115deg,transparent 0 42%,rgba(255,255,255,.16) 42% 44%,transparent 44%),
+    radial-gradient(24rem 18rem at 70% 22%,rgba(255,255,255,.34),transparent 72%),
+    linear-gradient(145deg,#c1b09d,#7e8b78);
+}
+html.terrane-final .case-gallery-item .resilient-image-shell{
+  min-height:100%;
+}
+
+/* Keep background photography behind content only. */
+html.terrane-final :is(.work-intro,.project-sequence,.studio-grid,.commission-layout){
+  position:relative;
+  z-index:2;
+}
+
+@media(max-width:768px){
+  html.terrane-final .site-header-inner::after{
+    left:.85rem;
+    right:.85rem;
+    height:1.5px;
   }
 }
