@@ -36,7 +36,7 @@ export function Footer() {
             <div>
               <p className="text-[9px] font-semibold tracking-[0.18em] text-bone/40 uppercase">Commission</p>
               <p className="mt-5 text-sm text-bone/72">{site.email}</p>
-              <a href="/#commission" className="mt-4 inline-flex min-h-10 items-center text-[10px] font-semibold tracking-[0.16em] text-bone uppercase underline decoration-bone/25 underline-offset-4">Open brief ↗</a>
+              <a href="/#commission" className="mt-4 inline-flex min-h-10 items-center text-[10px] font-semibold tracking-[0.16em] text-bone uppercase underline decoration-bone/25 underline-offset-4">Open brief</a>
               <p className="mt-5 text-sm leading-relaxed text-bone/48">{site.city}<br />{site.country}</p>
             </div>
           </div>
