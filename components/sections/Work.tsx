@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "motion/react";
 import { projects } from "@/lib/site";
 
-function Stage({ images, title }: { images: { src: string; alt: string }[]; title: string }) {
+function Stage({ images, title, priority = false }: { images: { src: string; alt: string }[]; title: string; priority?: boolean }) {
   const slides = images.slice(0, 3);
   const [i, setI] = useState(0);
   const [inView, setInView] = useState(false);
@@ -13,6 +13,24 @@ function Stage({ images, title }: { images: { src: string; alt: string }[]; titl
   const reduce = useReducedMotion();
   const rootRef = useRef<HTMLDivElement>(null);
   const pointer = useRef<{ id: number; x: number; y: number; t: number } | null>(null);
+  const hovered = useRef(false);
+  const focused = useRef(false);
+  const resumeTimer = useRef<number | null>(null);
+
+  const clearResume = () => {
+    if (resumeTimer.current !== null) {
+      window.clearTimeout(resumeTimer.current);
+      resumeTimer.current = null;
+    }
+  };
+
+  const resumeWhenIdle = () => {
+    clearResume();
+    resumeTimer.current = window.setTimeout(() => {
+      resumeTimer.current = null;
+      if (!hovered.current && !focused.current) setPaused(false);
+    }, 650);
+  };
 
   const go = (n: number) => setI((v) => (v + n + slides.length) % slides.length);
 
@@ -32,6 +50,8 @@ function Stage({ images, title }: { images: { src: string; alt: string }[]; titl
     const timer = window.setInterval(() => go(1), 5000);
     return () => window.clearInterval(timer);
   }, [inView, paused, reduce, slides.length]);
+
+  useEffect(() => () => clearResume(), []);
 
   const onPointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
@@ -56,7 +76,7 @@ function Stage({ images, title }: { images: { src: string; alt: string }[]; titl
       go(dx < 0 ? 1 : -1);
     }
 
-    window.setTimeout(() => setPaused(false), 650);
+    resumeWhenIdle();
   };
 
   return (
@@ -71,13 +91,27 @@ function Stage({ images, title }: { images: { src: string; alt: string }[]; titl
       onPointerUp={onPointerUp}
       onPointerCancel={() => {
         pointer.current = null;
-        window.setTimeout(() => setPaused(false), 650);
+        resumeWhenIdle();
       }}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocus={() => setPaused(true)}
+      onMouseEnter={() => {
+        hovered.current = true;
+        clearResume();
+        setPaused(true);
+      }}
+      onMouseLeave={() => {
+        hovered.current = false;
+        if (!focused.current) setPaused(false);
+      }}
+      onFocus={() => {
+        focused.current = true;
+        clearResume();
+        setPaused(true);
+      }}
       onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) setPaused(false);
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+          focused.current = false;
+          if (!hovered.current) setPaused(false);
+        }
       }}
       onKeyDown={(event) => {
         if (event.key === "ArrowRight") {
@@ -103,7 +137,8 @@ function Stage({ images, title }: { images: { src: string; alt: string }[]; titl
             src={img.src}
             alt={img.alt}
             className={"project-image absolute inset-0 h-full w-full object-cover " + (idx === i ? "is-active" : "")}
-            loading={idx === 0 ? "eager" : "lazy"}
+            loading={priority && idx === 0 ? "eager" : "lazy"}
+            fetchPriority={priority && idx === 0 ? "high" : "auto"}
             decoding="async"
             aria-hidden={idx !== i}
           />
@@ -149,7 +184,7 @@ export function Work() {
             <div className="project-number" aria-hidden="true">{project.index}</div>
             <div className="project-layout">
               <div className="project-stage-wrap">
-                <Stage images={[{ src: project.cover, alt: project.coverAlt }, ...project.images].slice(0, 3)} title={project.title} />
+                <Stage images={[{ src: project.cover, alt: project.coverAlt }, ...project.images].slice(0, 3)} title={project.title} priority={idx === 0} />
               </div>
               <div className="project-copy">
                 <div className="project-copy-rule" />
