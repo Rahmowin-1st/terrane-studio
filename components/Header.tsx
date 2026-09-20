@@ -3,18 +3,20 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { usePathname } from "next/navigation";
 import { Logo } from "./Logo";
 import { nav, site } from "@/lib/site";
 
 export function Header() {
   const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
-  const [tone, setTone] = useState<"light" | "dark">("dark");
   const reduce = useReducedMotion();
+  const pathname = usePathname();
   const glassRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    let last = 0;
+    let last = window.scrollY;
     let ticking = false;
     const onScroll = () => {
       if (ticking) return;
@@ -26,7 +28,6 @@ export function Header() {
           else if (y > last + 12) setHidden(true);
           else if (y < last - 12) setHidden(false);
         }
-        setTone(y < window.innerHeight * 0.68 ? "dark" : "light");
         last = y;
         ticking = false;
       });
@@ -34,6 +35,21 @@ export function Header() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, [open]);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setOpen(false);
+      requestAnimationFrame(() => menuButtonRef.current?.focus());
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
   useEffect(() => {
@@ -85,7 +101,7 @@ export function Header() {
     <>
       <a href="#main" className="skip-link">Skip to content</a>
       <header className={`site-header fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-[max(0.7rem,env(safe-area-inset-top))] transition-transform duration-500 ${hidden ? "-translate-y-[130%]" : "translate-y-0"}`}>
-        <div ref={glassRef} className="liquid-glass site-header-inner flex h-14 w-full max-w-[1180px] items-center justify-between rounded-full px-3 md:h-[4.15rem] md:px-5" data-tone={tone}>
+        <div ref={glassRef} className="liquid-glass site-header-inner flex h-14 w-full max-w-[1180px] items-center justify-between rounded-full px-3 md:h-[4.15rem] md:px-5" data-tone="dark">
           <Link href="/" className="flex items-center gap-2.5 pl-1 text-current" aria-label={`${site.name} home`}>
             <Logo className="h-8 w-8" />
             <span className="font-display text-[1.15rem] tracking-[0.08em]">{site.name}</span>
@@ -103,7 +119,7 @@ export function Header() {
 
           <div className="flex items-center gap-2">
             <a href="/#commission" className="hidden min-h-10 items-center rounded-full bg-ink px-4 text-[10px] font-semibold tracking-[0.16em] text-bone uppercase transition-transform duration-300 hover:-translate-y-0.5 md:inline-flex">Begin a commission</a>
-            <button type="button" className="min-h-11 min-w-11 text-[10px] font-semibold tracking-[0.18em] uppercase lg:hidden" aria-expanded={open} aria-controls="index-menu" onClick={() => setOpen((v) => !v)}>{open ? "Close" : "Index"}</button>
+            <button ref={menuButtonRef} type="button" className="min-h-11 min-w-11 text-[10px] font-semibold tracking-[0.18em] uppercase lg:hidden" aria-expanded={open} aria-controls="index-menu" onClick={() => setOpen((v) => !v)}>{open ? "Close" : "Index"}</button>
           </div>
         </div>
       </header>
