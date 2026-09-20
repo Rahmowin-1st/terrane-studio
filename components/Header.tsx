@@ -57,8 +57,8 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <a href="/#commission" className="hidden min-h-10 items-center rounded-full bg-ink px-4 text-[10px] font-semibold tracking-[0.16em] text-bone uppercase transition-transform duration-300 hover:-translate-y-0.5 md:inline-flex">Begin a commission</a>
-            <button ref={menuButtonRef} type="button" className="min-h-11 min-w-11 text-[10px] font-semibold tracking-[0.18em] uppercase lg:hidden" aria-expanded={open} aria-controls="index-menu" onClick={() => setOpen((v) => !v)}>{open ? "Close" : "Index"}</button>
+            <a href="/#commission" className="hidden min-h-10 items-center rounded-full bg-ink px-4 text-[10px] font-semibold tracking-[0.16em] text-bone uppercase transition-transform duration-300 hover:-translate-y-0.5 md:inline-flex">Start a project</a>
+            <button ref={menuButtonRef} type="button" className="min-h-11 min-w-11 text-[10px] font-semibold tracking-[0.18em] uppercase lg:hidden" aria-expanded={open} aria-controls="index-menu" onClick={() => setOpen((v) => !v)}>{open ? "Close" : "Menu"}</button>
           </div>
         </div>
       </header>
@@ -74,7 +74,7 @@ export function Header() {
             className="fixed inset-3 z-40 overflow-y-auto rounded-[28px] bg-bone px-5 pt-24 text-ink shadow-2xl sm:px-7 lg:hidden"
           >
             <div className="mx-auto max-w-xl">
-              <p className="text-[9px] font-semibold tracking-[0.2em] text-umber uppercase">Terrane / index</p>
+              <p className="text-[9px] font-semibold tracking-[0.2em] text-umber uppercase">Terrane / menu</p>
               <nav className="mt-7 flex flex-col" aria-label="Mobile">
                 {nav.map((item, i) => (
                   <motion.a key={item.id} href={item.href} onClick={() => setOpen(false)} initial={reduce ? false : { x: -22, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: reduce ? 0 : .08 + i * .045, duration: .45, ease: [0.16, 1, 0.3, 1] }} className="flex items-end justify-between gap-4 border-b border-ink/10 py-5 font-display text-[2.7rem] leading-none font-light">
@@ -83,8 +83,8 @@ export function Header() {
                 ))}
               </nav>
               <div className="mt-10 flex items-center justify-between gap-5 border-t border-ink/10 pt-6">
-                <p className="max-w-[14rem] text-xs leading-relaxed text-ink/58">Architecture of ground, light, and duration.</p>
-                <a href="/#commission" onClick={() => setOpen(false)} className="inline-flex min-h-12 items-center rounded-full bg-moss px-5 text-[9px] font-semibold tracking-[0.16em] text-bone uppercase">Start brief</a>
+                <p className="max-w-[14rem] text-xs leading-relaxed text-ink/58">Architecture shaped by climate, proportion and material.</p>
+                <a href="/#commission" onClick={() => setOpen(false)} className="inline-flex min-h-12 items-center rounded-full bg-moss px-5 text-[9px] font-semibold tracking-[0.16em] text-bone uppercase">Start project</a>
               </div>
             </div>
           </motion.aside>
