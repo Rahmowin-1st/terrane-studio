@@ -1,0 +1,512 @@
+/* TERRANE V4 FINAL — rounded architecture, ambient depth, precise interaction. */
+:root{
+  --v4-radius-xxl:clamp(34px,4vw,58px);
+  --v4-radius-xl:clamp(28px,3vw,44px);
+  --v4-radius-lg:28px;
+  --v4-radius-md:20px;
+  --v4-gap:clamp(10px,1.2vw,18px);
+  --v4-border-light:rgba(255,255,255,.52);
+  --v4-border-dark:rgba(255,255,255,.12);
+  --v4-shadow-soft:0 24px 70px rgba(32,24,18,.10),0 5px 18px rgba(32,24,18,.05);
+  --v4-shadow-deep:0 36px 120px rgba(14,12,10,.22),0 8px 30px rgba(14,12,10,.12);
+  --v4-scroll:0;
+  --v4-scroll-shift:0px;
+  --v4-mx:50%;
+  --v4-my:28%;
+}
+html.terrane-v4{
+  scroll-behavior:smooth;
+  scrollbar-gutter:stable;
+  background:#cfc4b5;
+}
+html.terrane-v4 body.terrane-v2{
+  background:
+    radial-gradient(90rem 60rem at 8% 0%,rgba(225,204,178,.92),transparent 58%),
+    radial-gradient(75rem 55rem at 92% 20%,rgba(112,126,105,.30),transparent 62%),
+    linear-gradient(180deg,#cfc4b5 0%,#bfb3a3 48%,#a89c8e 100%);
+  min-height:100%;
+  isolation:isolate;
+}
+
+/* Ambient depth is fixed and very cheap: transforms only change on actual scroll/pointer input. */
+.terrane-v4-atmosphere{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  overflow:hidden;
+  pointer-events:none;
+  contain:strict;
+}
+.terrane-v4-orb{
+  position:absolute;
+  border-radius:999px;
+  filter:blur(70px);
+  opacity:.42;
+  transform:translate3d(0,0,0);
+}
+.terrane-v4-orb-a{
+  width:min(72vw,920px);
+  aspect-ratio:1;
+  left:-28vw;
+  top:calc(-20vh + var(--v4-scroll-shift));
+  background:radial-gradient(circle,rgba(255,222,180,.82),rgba(213,161,110,.18) 58%,transparent 72%);
+}
+.terrane-v4-orb-b{
+  width:min(68vw,840px);
+  aspect-ratio:1;
+  right:-24vw;
+  top:calc(18vh - var(--v4-scroll-shift));
+  background:radial-gradient(circle,rgba(139,157,132,.68),rgba(64,78,62,.16) 60%,transparent 74%);
+}
+.terrane-v4-orb-c{
+  width:min(58vw,720px);
+  aspect-ratio:1;
+  left:calc(var(--v4-mx) - 29vw);
+  top:calc(var(--v4-my) - 29vw);
+  background:radial-gradient(circle,rgba(247,234,214,.42),rgba(180,138,98,.08) 60%,transparent 75%);
+  filter:blur(92px);
+  opacity:.32;
+}
+.terrane-v4-veil{
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(115deg,rgba(255,255,255,.18),transparent 28%,transparent 68%,rgba(43,51,41,.12)),
+    radial-gradient(circle at 50% 40%,transparent 0 40%,rgba(47,39,32,.10) 100%);
+}
+.terrane-v4-vignette{
+  position:absolute;
+  inset:-2px;
+  box-shadow:inset 0 0 150px rgba(30,24,19,.18);
+}
+
+/* Framed page rhythm. Every major surface has a soft, continuous silhouette. */
+html.terrane-v4 body.terrane-v2 #main:not(.case-page){
+  display:flex;
+  flex-direction:column;
+  gap:var(--v4-gap);
+  padding:var(--v4-gap);
+}
+html.terrane-v4 body.terrane-v2 #main:not(.case-page)>section{
+  position:relative;
+  overflow:clip;
+  border-radius:var(--v4-radius-xxl)!important;
+  border:1px solid rgba(255,255,255,.24);
+  box-shadow:var(--v4-shadow-soft);
+  transform:translateZ(0);
+}
+html.terrane-v4 body.terrane-v2 .hero-frame{
+  border-radius:var(--v4-radius-xxl)!important;
+  overflow:hidden;
+  box-shadow:var(--v4-shadow-deep)!important;
+}
+html.terrane-v4 body.terrane-v2 footer{
+  margin:0 var(--v4-gap) var(--v4-gap);
+  border-radius:var(--v4-radius-xxl);
+  box-shadow:var(--v4-shadow-deep);
+  border:1px solid rgba(255,255,255,.10);
+}
+
+/* No pointed blueprint geometry. Replace it with soft round light texture. */
+html.terrane-v4 body.terrane-v2 .hero-plan{display:none!important}
+html.terrane-v4 body.terrane-v2 .hero-grid{
+  opacity:.22!important;
+  background-image:
+    radial-gradient(circle,rgba(242,236,226,.18) 0 1px,transparent 1.6px),
+    radial-gradient(circle at 72% 28%,rgba(211,195,170,.14),transparent 38%)!important;
+  background-size:28px 28px,100% 100%!important;
+  -webkit-mask-image:linear-gradient(90deg,#000,rgba(0,0,0,.5) 58%,transparent)!important;
+  mask-image:linear-gradient(90deg,#000,rgba(0,0,0,.5) 58%,transparent)!important;
+}
+html.terrane-v4 body.terrane-v2 .hero-shade{
+  background:
+    radial-gradient(70rem 45rem at 72% 32%,rgba(192,145,99,.14),transparent 60%),
+    linear-gradient(90deg,rgba(10,9,8,.94) 0%,rgba(10,9,8,.80) 31%,rgba(10,9,8,.34) 58%,rgba(10,9,8,.12) 100%)!important;
+}
+html.terrane-v4 body.terrane-v2 .hero-vignette{
+  background:
+    radial-gradient(circle at 72% 34%,rgba(255,235,204,.10),transparent 28%),
+    linear-gradient(180deg,rgba(9,8,7,.26),transparent 34%,rgba(9,8,7,.16) 62%,rgba(9,8,7,.76) 100%)!important;
+}
+
+/* Stronger section atmospheres without noisy gradients. */
+html.terrane-v4 body.terrane-v2 .practice-scene{
+  background:
+    radial-gradient(52rem 34rem at 84% 10%,rgba(255,255,255,.62),transparent 62%),
+    radial-gradient(44rem 30rem at 8% 90%,rgba(196,154,112,.13),transparent 68%),
+    linear-gradient(180deg,#f5efe6,#ece2d5)!important;
+}
+html.terrane-v4 body.terrane-v2 .work-scene{
+  background:
+    radial-gradient(58rem 42rem at 6% 7%,rgba(255,245,229,.46),transparent 62%),
+    radial-gradient(50rem 34rem at 92% 72%,rgba(154,113,79,.16),transparent 68%),
+    linear-gradient(180deg,#ded3c4,#cfc1af)!important;
+}
+html.terrane-v4 body.terrane-v2 .expertise-scene{
+  background:
+    radial-gradient(44rem 36rem at 84% 12%,rgba(111,134,108,.22),transparent 66%),
+    radial-gradient(50rem 38rem at 14% 82%,rgba(180,138,98,.16),transparent 68%),
+    linear-gradient(145deg,#151410,#0e0e0c 60%,#111510)!important;
+}
+html.terrane-v4 body.terrane-v2 .control-scene{
+  background:
+    radial-gradient(50rem 36rem at 88% 16%,rgba(255,255,255,.72),transparent 62%),
+    radial-gradient(38rem 28rem at 12% 90%,rgba(163,186,156,.16),transparent 66%),
+    linear-gradient(180deg,#eee6da,#e4d9ca)!important;
+}
+html.terrane-v4 body.terrane-v2 .approach-scene{
+  background:
+    radial-gradient(58rem 34rem at 9% 15%,rgba(255,255,255,.68),transparent 64%),
+    radial-gradient(38rem 28rem at 90% 80%,rgba(190,143,98,.13),transparent 66%),
+    linear-gradient(180deg,#f2ece2,#e8dfd3)!important;
+}
+html.terrane-v4 body.terrane-v2 .studio-scene{
+  background:
+    radial-gradient(50rem 34rem at 88% 8%,rgba(255,255,255,.54),transparent 64%),
+    radial-gradient(44rem 34rem at 8% 80%,rgba(102,123,97,.12),transparent 66%),
+    linear-gradient(180deg,#e8ded0,#dcd0c0)!important;
+}
+html.terrane-v4 body.terrane-v2 .commission-scene{
+  background:
+    radial-gradient(48rem 34rem at 82% 10%,rgba(180,138,98,.20),transparent 62%),
+    radial-gradient(42rem 34rem at 8% 88%,rgba(82,108,78,.24),transparent 64%),
+    linear-gradient(145deg,#151410,#0a0b09 64%,#111510)!important;
+}
+
+/* Rounded content cards. */
+html.terrane-v4 body.terrane-v2 .practice-grid{
+  gap:12px!important;
+  border:0!important;
+}
+html.terrane-v4 body.terrane-v2 .practice-proof{
+  grid-column:auto!important;
+  transform:none!important;
+  min-height:20rem!important;
+  border:1px solid rgba(20,18,16,.08)!important;
+  border-radius:var(--v4-radius-lg)!important;
+  padding:1.65rem!important;
+  background:rgba(255,255,255,.36);
+  box-shadow:0 14px 42px rgba(34,27,21,.07),inset 0 1px rgba(255,255,255,.55);
+  overflow:hidden;
+}
+html.terrane-v4 body.terrane-v2 .practice-proof::after{
+  border-radius:inherit;
+  background:radial-gradient(circle at 80% 8%,rgba(180,138,98,.16),transparent 48%)!important;
+}
+html.terrane-v4 body.terrane-v2 .discipline-row{
+  margin:.55rem 0!important;
+  padding:1.3rem 1.35rem!important;
+  border:1px solid rgba(255,255,255,.08)!important;
+  border-radius:var(--v4-radius-lg)!important;
+  background:rgba(255,255,255,.035);
+  box-shadow:inset 0 1px rgba(255,255,255,.05);
+  overflow:hidden;
+}
+html.terrane-v4 body.terrane-v2 .discipline-sweep,
+html.terrane-v4 body.terrane-v2 .discipline-arrow{display:none!important}
+html.terrane-v4 body.terrane-v2 .discipline-row:hover{
+  background:rgba(255,255,255,.065)!important;
+  transform:translateY(-2px)!important;
+}
+html.terrane-v4 body.terrane-v2 .discipline-row:hover .discipline-title{
+  transform:none!important;
+}
+html.terrane-v4 body.terrane-v2 .control-step{
+  margin:.55rem 0;
+  padding:1.15rem 1.2rem!important;
+  border:1px solid rgba(20,18,16,.08)!important;
+  border-radius:var(--v4-radius-lg)!important;
+  background:rgba(255,255,255,.34)!important;
+  box-shadow:0 14px 38px rgba(27,22,18,.06),inset 0 1px rgba(255,255,255,.56);
+}
+html.terrane-v4 body.terrane-v2 .control-step:hover{
+  transform:translateY(-2px)!important;
+}
+html.terrane-v4 body.terrane-v2 .approach-step-copy{
+  border:1px solid rgba(20,18,16,.08)!important;
+  border-radius:var(--v4-radius-lg);
+  background:rgba(255,255,255,.32);
+  padding:1.45rem 1.5rem!important;
+  box-shadow:0 12px 34px rgba(31,24,19,.055),inset 0 1px rgba(255,255,255,.5);
+}
+html.terrane-v4 body.terrane-v2 .approach-dot{
+  border-radius:999px!important;
+  border:1px solid rgba(180,138,98,.24)!important;
+  box-shadow:0 8px 24px rgba(43,33,25,.08),inset 0 1px rgba(255,255,255,.7);
+}
+
+/* Work becomes a sequence of soft framed objects instead of hard editorial slabs. */
+html.terrane-v4 body.terrane-v2 .project-sequence{
+  display:grid;
+  gap:var(--v4-gap);
+}
+html.terrane-v4 body.terrane-v2 .project-story,
+html.terrane-v4 body.terrane-v2 .project-story:nth-child(even){
+  width:100%!important;
+  min-height:92svh;
+  margin:0!important;
+  padding:clamp(2rem,4vw,4.8rem)!important;
+  border:1px solid rgba(255,255,255,.24)!important;
+  border-radius:var(--v4-radius-xxl)!important;
+  overflow:clip;
+  box-shadow:0 24px 74px rgba(29,23,18,.11),inset 0 1px rgba(255,255,255,.18);
+}
+html.terrane-v4 body.terrane-v2 .project-story:nth-child(odd){
+  background:
+    radial-gradient(42rem 30rem at 82% 8%,rgba(255,255,255,.40),transparent 62%),
+    linear-gradient(145deg,rgba(245,237,225,.78),rgba(220,207,189,.82))!important;
+}
+html.terrane-v4 body.terrane-v2 .project-story:nth-child(even){
+  background:
+    radial-gradient(38rem 28rem at 78% 10%,rgba(180,138,98,.13),transparent 64%),
+    radial-gradient(32rem 24rem at 10% 86%,rgba(86,108,82,.14),transparent 68%),
+    linear-gradient(145deg,#181713,#10110f)!important;
+}
+html.terrane-v4 body.terrane-v2 .project-stage{
+  border-radius:clamp(26px,3vw,40px)!important;
+  overflow:hidden!important;
+  border:1px solid rgba(255,255,255,.20);
+  box-shadow:0 30px 90px rgba(20,18,16,.18),inset 0 1px rgba(255,255,255,.18)!important;
+}
+html.terrane-v4 body.terrane-v2 .project-stage::before,
+html.terrane-v4 body.terrane-v2 .project-stage::after{
+  border-radius:inherit;
+}
+html.terrane-v4 body.terrane-v2 .project-copy{
+  border-radius:var(--v4-radius-xl)!important;
+  padding:clamp(1.35rem,2.5vw,2.2rem)!important;
+  background:rgba(255,255,255,.26);
+  border:1px solid rgba(255,255,255,.34);
+  box-shadow:0 18px 54px rgba(26,21,17,.08),inset 0 1px rgba(255,255,255,.38);
+}
+html.terrane-v4 body.terrane-v2 .project-story:nth-child(even) .project-copy{
+  background:rgba(255,255,255,.045);
+  border-color:rgba(255,255,255,.10);
+  box-shadow:0 18px 54px rgba(0,0,0,.15),inset 0 1px rgba(255,255,255,.05);
+}
+html.terrane-v4 body.terrane-v2 .project-copy-rule{display:none}
+html.terrane-v4 body.terrane-v2 .project-facts{
+  border:0!important;
+  border-radius:var(--v4-radius-md);
+  padding:1rem!important;
+  background:rgba(255,255,255,.22);
+}
+html.terrane-v4 body.terrane-v2 .project-story:nth-child(even) .project-facts{
+  background:rgba(255,255,255,.045);
+}
+html.terrane-v4 body.terrane-v2 .work-disclosure{
+  border:1px solid rgba(20,18,16,.08)!important;
+  border-radius:var(--v4-radius-lg);
+  padding:1rem 1.2rem!important;
+  background:rgba(255,255,255,.26);
+}
+
+/* Media and consultation surfaces. */
+html.terrane-v4 body.terrane-v2 .studio-main-image,
+html.terrane-v4 body.terrane-v2 .studio-material-card{
+  border-radius:var(--v4-radius-xl)!important;
+}
+html.terrane-v4 body.terrane-v2 .studio-copy{
+  border-radius:var(--v4-radius-xl);
+  padding:clamp(1.25rem,2.4vw,2rem);
+  background:rgba(255,255,255,.28);
+  border:1px solid rgba(255,255,255,.44);
+  box-shadow:0 18px 52px rgba(31,24,18,.08),inset 0 1px rgba(255,255,255,.46);
+}
+html.terrane-v4 body.terrane-v2 .consultation-plane{
+  border-radius:var(--v4-radius-xl)!important;
+}
+html.terrane-v4 body.terrane-v2 .form-field{
+  border-radius:18px!important;
+}
+html.terrane-v4 body.terrane-v2 .consultation-status,
+html.terrane-v4 body.terrane-v2 .consultation-status-card{
+  border-radius:var(--v4-radius-xl)!important;
+}
+
+/* Controls are deliberately pill-shaped; no sharp icons or hit-area ambiguity. */
+html.terrane-v4 body.terrane-v2 :is(a,button,input,select,textarea){
+  -webkit-tap-highlight-color:transparent;
+}
+html.terrane-v4 body.terrane-v2 :is(a,button){
+  touch-action:manipulation;
+}
+html.terrane-v4 body.terrane-v2 :is(
+  .hero-primary-cta,.hero-secondary-cta,.project-link,.project-arrow,
+  .consultation-submit,.case-back,.case-next a,
+  .site-header-inner a[href*="commission"],.site-header-inner button
+){
+  border-radius:999px!important;
+}
+html.terrane-v4 body.terrane-v2 .hero-secondary-cta,
+html.terrane-v4 body.terrane-v2 .project-link{
+  padding:.8rem 1.1rem!important;
+  border:1px solid currentColor;
+  border-color:color-mix(in srgb,currentColor 18%,transparent);
+  background:color-mix(in srgb,currentColor 4%,transparent);
+}
+html.terrane-v4 body.terrane-v2 .project-arrow{
+  width:auto!important;
+  min-width:3.2rem;
+  padding:0 .9rem;
+}
+
+/* Decorative/display text never becomes an accidental touch target or selection popup. */
+html.terrane-v4 body.terrane-v2 :is(
+  .hero-title,.practice-title,.work-heading,.project-title,.expertise-title,
+  .discipline-title,.control-title,.approach-title,.studio-title,.commission-title,
+  .case-title,.project-number,.tv2-hero-coordinate,.tv2-project-dossier,.terrane-chrome
+){
+  -webkit-user-select:none;
+  user-select:none;
+  -webkit-touch-callout:none;
+}
+html.terrane-v4 body.terrane-v2 img{
+  -webkit-user-select:none;
+  user-select:none;
+  -webkit-touch-callout:none;
+}
+html.terrane-v4 body.terrane-v2 :is(.hero-title,.project-number,.expertise-grid,.commission-grid,.control-orbit,.commission-orbit){
+  pointer-events:none;
+}
+
+/* Header and menu get a round floating identity. */
+html.terrane-v4 body.terrane-v2 .site-header-inner.tv3-liquid{
+  border-radius:999px!important;
+  box-shadow:0 20px 64px rgba(12,10,8,.18),0 6px 20px rgba(12,10,8,.08),inset 0 1px rgba(255,255,255,.48)!important;
+}
+html.terrane-v4 body.terrane-v2 #index-menu{
+  inset:var(--v4-gap)!important;
+  border-radius:var(--v4-radius-xxl);
+  box-shadow:0 36px 120px rgba(0,0,0,.38);
+}
+html.terrane-v4 body.terrane-v2 #index-menu nav a{
+  border-radius:999px!important;
+  border:1px solid rgba(255,255,255,.08);
+  margin:.3rem 0!important;
+  padding:1rem 1.2rem!important;
+  background:rgba(255,255,255,.035);
+}
+
+/* Case studies use the same rounded language. */
+html.terrane-v4 body.terrane-v2 .case-page{
+  padding:var(--v4-gap);
+  background:transparent!important;
+}
+html.terrane-v4 body.terrane-v2 .case-page>article{
+  display:grid;
+  gap:var(--v4-gap);
+}
+html.terrane-v4 body.terrane-v2 .case-page>article>header,
+html.terrane-v4 body.terrane-v2 .case-page>article>section{
+  border-radius:var(--v4-radius-xxl)!important;
+  overflow:clip;
+  border:1px solid rgba(255,255,255,.24);
+  box-shadow:var(--v4-shadow-soft);
+}
+html.terrane-v4 body.terrane-v2 .case-hero{
+  box-shadow:var(--v4-shadow-deep)!important;
+}
+html.terrane-v4 body.terrane-v2 .case-intro,
+html.terrane-v4 body.terrane-v2 .case-material{
+  background:
+    radial-gradient(44rem 30rem at 86% 12%,rgba(255,255,255,.58),transparent 64%),
+    linear-gradient(180deg,#f3ece2,#e7dccd);
+}
+html.terrane-v4 body.terrane-v2 .case-gallery{
+  padding-top:clamp(1.2rem,3vw,2.6rem);
+  padding-bottom:clamp(1.2rem,3vw,2.6rem);
+  background:linear-gradient(180deg,#ded2c2,#d4c7b5);
+}
+html.terrane-v4 body.terrane-v2 .case-gallery-item{
+  border-radius:var(--v4-radius-xl)!important;
+}
+html.terrane-v4 body.terrane-v2 .case-disclosure{
+  background:rgba(247,241,231,.86)!important;
+}
+html.terrane-v4 body.terrane-v2 .case-next{
+  background:
+    radial-gradient(36rem 26rem at 82% 10%,rgba(180,138,98,.18),transparent 66%),
+    linear-gradient(145deg,#171612,#0d0e0c)!important;
+}
+html.terrane-v4 body.terrane-v2 .case-next a{
+  border-color:rgba(255,255,255,.12)!important;
+  background:rgba(255,255,255,.05)!important;
+}
+
+/* Focus is clear but soft. */
+html.terrane-v4 body.terrane-v2 :focus-visible{
+  outline:0!important;
+  box-shadow:0 0 0 3px rgba(180,138,98,.28),0 0 0 6px rgba(255,255,255,.62)!important;
+}
+
+/* Scroll depth polish. */
+html.terrane-v4 body.terrane-v2 .terrane-chrome__progress{
+  width:3px;
+  border-radius:999px;
+  left:7px;
+  top:10vh;
+  height:80vh;
+  background:linear-gradient(180deg,#e6c69f,#a97850);
+  box-shadow:0 0 18px rgba(180,138,98,.34);
+}
+html.terrane-v4 body.terrane-v2 .terrane-chrome__rule{border-radius:999px}
+html.terrane-v4 body.terrane-v2 .tv3-hero-island,
+html.terrane-v4 body.terrane-v2 .tv2-project-dossier{
+  border-radius:999px!important;
+}
+
+/* Never animate layout-critical properties on touch devices. */
+@media(hover:none),(pointer:coarse){
+  .terrane-v4-orb-c{display:none}
+  html.terrane-v4 body.terrane-v2 :is(.practice-proof,.discipline-row,.control-step,.project-copy){
+    transform:none!important;
+  }
+}
+
+/* Mobile: same richness, less blur and less GPU pressure. */
+@media(max-width:768px){
+  :root{
+    --v4-radius-xxl:30px;
+    --v4-radius-xl:24px;
+    --v4-radius-lg:20px;
+    --v4-gap:8px;
+  }
+  .terrane-v4-orb{filter:blur(54px);opacity:.28}
+  .terrane-v4-vignette{box-shadow:inset 0 0 80px rgba(30,24,19,.12)}
+  html.terrane-v4 body.terrane-v2 #main:not(.case-page){padding-top:8px}
+  html.terrane-v4 body.terrane-v2 .project-story,
+  html.terrane-v4 body.terrane-v2 .project-story:nth-child(even){
+    min-height:auto;
+    padding:1rem!important;
+  }
+  html.terrane-v4 body.terrane-v2 .project-copy{
+    padding:1.15rem!important;
+  }
+  html.terrane-v4 body.terrane-v2 .practice-grid{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+  }
+  html.terrane-v4 body.terrane-v2 .practice-proof{
+    min-height:auto!important;
+  }
+  html.terrane-v4 body.terrane-v2 .approach-step-copy{padding:1.1rem!important}
+  html.terrane-v4 body.terrane-v2 .terrane-chrome__left,
+  html.terrane-v4 body.terrane-v2 .terrane-chrome__right{display:none}
+  html.terrane-v4 body.terrane-v2 .terrane-chrome__progress{
+    left:4px;
+    top:15vh;
+    height:70vh;
+    width:2px;
+  }
+}
+
+/* Reduced motion keeps every frame intact with no hidden content. */
+@media(prefers-reduced-motion:reduce){
+  .terrane-v4-orb{transform:none!important}
+  html.terrane-v4{scroll-behavior:auto}
+  html.terrane-v4 body.terrane-v2 :is(.practice-proof,.discipline-row,.control-step,.project-copy,.project-stage){
+    transition:none!important;
+    transform:none!important;
+  }
+}
