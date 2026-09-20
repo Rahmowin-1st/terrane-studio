@@ -1,4 +1,4 @@
-import { site, trust } from "@/lib/site";
+import { trust } from "@/lib/site";
 
 export function Trust() {
   return (
