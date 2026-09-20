@@ -98,7 +98,7 @@ export function FinalExperience() {
         behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
         block: "start",
       });
-      history.replaceState(null, "", hash);
+      history.replaceState(history.state, "", hash);
     };
 
     document.addEventListener("click", onClick);
