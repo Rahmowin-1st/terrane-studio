@@ -1,14 +1,28 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 export function CaseChoreography() {
+  const pathname = usePathname();
+
   useEffect(() => {
+    if (!pathname.startsWith("/work/")) return;
     let disposed = false;
     let cleanup: (() => void) | undefined;
     const run = async () => {
       const [{ default: gsap }, { ScrollTrigger }] = await Promise.all([import("gsap"), import("gsap/ScrollTrigger")]);
       if (disposed || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const nav = navigator as Navigator & {
+        deviceMemory?: number;
+        connection?: { saveData?: boolean };
+      };
+      const lite =
+        window.matchMedia("(pointer: coarse)").matches ||
+        (nav.hardwareConcurrency > 0 && nav.hardwareConcurrency <= 4) ||
+        (typeof nav.deviceMemory === "number" && nav.deviceMemory <= 4) ||
+        Boolean(nav.connection?.saveData) ||
+        window.innerWidth < 900;
       gsap.registerPlugin(ScrollTrigger);
       const ctx = gsap.context(() => {
         const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
@@ -20,6 +34,20 @@ export function CaseChoreography() {
 
         const mm = gsap.matchMedia();
         mm.add("(min-width: 769px)", () => {
+          if (lite) {
+            [".case-brief", ".case-response", ".case-gallery-item", ".case-material > *", ".case-next a"].forEach((selector) => {
+              document.querySelectorAll<HTMLElement>(selector).forEach((el) => {
+                gsap.from(el, {
+                  y: 22,
+                  opacity: 0,
+                  duration: .56,
+                  ease: "power3.out",
+                  scrollTrigger: { trigger: el, start: "top 90%", once: true },
+                });
+              });
+            });
+            return;
+          }
           gsap.to(".case-cover", { yPercent: 7, scale: 1.08, ease: "none", scrollTrigger: { trigger: ".case-hero", start: "top top", end: "bottom top", scrub: .9 } });
           gsap.from(".case-brief", { x: -48, opacity: 0, duration: .8, scrollTrigger: { trigger: ".case-intro", start: "top 78%", once: true } });
           gsap.from(".case-response", { x: 52, y: 18, opacity: 0, duration: .82, scrollTrigger: { trigger: ".case-intro", start: "top 78%", once: true } });
@@ -45,6 +73,6 @@ export function CaseChoreography() {
     };
     run();
     return () => { disposed = true; cleanup?.(); };
-  }, []);
+  }, [pathname]);
   return null;
 }
