@@ -194,3 +194,129 @@ html.terrane-v31 body.terrane-v2 #terrane-case-root button{
     transition:none!important;
   }
 }
+
+
+/* ==========================================================================
+   TERRANE FINAL — zero-Google typography + adaptive premium rendering
+   ========================================================================== */
+:root{
+  --font-fraunces:"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Georgia,"Times New Roman",serif;
+  --font-outfit:"Avenir Next",Avenir,"Segoe UI","Helvetica Neue",Helvetica,Arial,ui-sans-serif,system-ui,sans-serif;
+  --tv3-ui:var(--font-outfit);
+}
+html,body{
+  font-synthesis:none;
+  font-kerning:normal;
+}
+
+/* Keep only the currently visible project image promoted to a GPU layer. */
+body.terrane-v2 .project-image{will-change:auto!important}
+body.terrane-v2 .project-image.is-active{will-change:transform,opacity!important}
+body.terrane-v2 .project-stage{contain:paint}
+body.terrane-v2 .case-gallery-item,
+body.terrane-v2 .studio-main-image{contain:paint}
+
+/* The native route no longer uses #terrane-case-root. */
+html.terrane-v31 body.terrane-v2 .case-page a,
+html.terrane-v31 body.terrane-v2 .case-page button{
+  transition:transform .22s var(--v31-ease),opacity .2s ease,box-shadow .22s ease;
+}
+
+/* Ultra tier: premium kinetic depth without permanent compositor load. */
+html[data-motion-tier="ultra"] body.terrane-v2 .hero-primary-cta,
+html[data-motion-tier="ultra"] body.terrane-v2 .consultation-submit{
+  box-shadow:0 14px 34px rgba(20,18,16,.18),inset 0 1px rgba(255,255,255,.16);
+}
+html[data-motion-tier="ultra"] body.terrane-v2 .project-stage{
+  transform:
+    perspective(1400px)
+    rotateX(var(--tv2-rx,0deg))
+    rotateY(var(--tv2-ry,0deg))
+    translateZ(0);
+  transform-style:preserve-3d;
+}
+html[data-motion-tier="ultra"] body.terrane-v2 .project-stage::before{
+  content:"";
+  position:absolute;
+  z-index:3;
+  inset:-1px;
+  pointer-events:none;
+  border-radius:inherit;
+  background:linear-gradient(125deg,rgba(255,255,255,.16),transparent 24%,transparent 72%,rgba(255,255,255,.05));
+  mix-blend-mode:screen;
+  opacity:.52;
+}
+html[data-motion-tier="ultra"] body.terrane-v2 .project-copy{
+  transition:transform .55s var(--v31-ease),opacity .35s ease;
+}
+@media(hover:hover) and (pointer:fine){
+  html[data-motion-tier="ultra"] body.terrane-v2 .project-story:hover .project-copy{
+    transform:translateY(-5px);
+  }
+  html[data-motion-tier="ultra"] body.terrane-v2 .hero-primary-cta:hover,
+  html[data-motion-tier="ultra"] body.terrane-v2 .consultation-submit:hover{
+    box-shadow:0 18px 46px rgba(20,18,16,.24),inset 0 1px rgba(255,255,255,.18);
+  }
+}
+
+/* Lite tier: same composition, fewer expensive pixels. */
+html[data-motion-tier="lite"] body.terrane-v2::before,
+html[data-motion-tier="reduced"] body.terrane-v2::before{
+  display:none!important;
+}
+html[data-motion-tier="lite"] body.terrane-v2 .project-stage,
+html[data-motion-tier="reduced"] body.terrane-v2 .project-stage{
+  transform:none!important;
+}
+html[data-motion-tier="lite"] body.terrane-v2 .liquid-glass,
+html[data-motion-tier="lite"] body.terrane-v2 .consultation-plane,
+html[data-motion-tier="lite"] body.terrane-v2 .consultation-status{
+  backdrop-filter:blur(12px) saturate(118%)!important;
+  -webkit-backdrop-filter:blur(12px) saturate(118%)!important;
+}
+html[data-motion-tier="lite"] body.terrane-v2 .hero-media,
+html[data-motion-tier="lite"] body.terrane-v2 .studio-image,
+html[data-motion-tier="lite"] body.terrane-v2 .studio-detail-image,
+html[data-motion-tier="lite"] body.terrane-v2 .case-gallery-image{
+  will-change:auto!important;
+}
+
+/* Robust fallbacks when blur/filter support is weak. */
+@supports not ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))){
+  body.terrane-v2 .site-header-inner.tv3-liquid{
+    background:rgba(239,231,219,.96)!important;
+  }
+  body.terrane-v2 .site-header-inner.tv3-liquid[data-tv3-tone="dark"]{
+    background:rgba(18,17,15,.94)!important;
+  }
+  body.terrane-v2 .consultation-plane{
+    background:#eee5d8!important;
+  }
+}
+
+/* Mobile rendering budget: avoid large fixed-noise and oversized blur surfaces. */
+@media(max-width:768px){
+  body.terrane-v2::before{display:none!important}
+  body.terrane-v2 .hero-media,
+  body.terrane-v2 .project-image,
+  body.terrane-v2 .studio-image,
+  body.terrane-v2 .studio-detail-image,
+  body.terrane-v2 .case-gallery-image{
+    will-change:auto!important;
+  }
+  body.terrane-v2 .site-header-inner.tv3-liquid{
+    backdrop-filter:blur(14px) saturate(125%)!important;
+    -webkit-backdrop-filter:blur(14px) saturate(125%)!important;
+  }
+  body.terrane-v2 .consultation-plane,
+  body.terrane-v2 .consultation-status{
+    backdrop-filter:blur(10px) saturate(112%)!important;
+    -webkit-backdrop-filter:blur(10px) saturate(112%)!important;
+  }
+}
+
+/* Stable animation ownership: no transitions on hidden carousel slides. */
+body.terrane-v2 .project-image:not(.is-active){
+  pointer-events:none;
+  transform:scale(1.025)!important;
+}
