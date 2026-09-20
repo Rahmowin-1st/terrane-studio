@@ -84,32 +84,32 @@ export function Commission() {
         <div className="commission-layout grid gap-12 md:grid-cols-12 md:gap-10">
           <div className="commission-copy md:col-span-5 md:flex md:min-h-[44rem] md:flex-col md:justify-between">
             <div>
-              <p className="commission-kicker text-[10px] font-semibold tracking-[0.2em] text-clay uppercase">Commission / start with the real problem</p>
+              <p className="commission-kicker text-[10px] font-semibold tracking-[0.2em] text-clay uppercase">Start a project</p>
               <h2 id="commission-heading" className="commission-title mt-5 font-display text-[3.25rem] leading-[0.92] font-light tracking-[-0.045em] text-ink sm:text-7xl md:text-[5.2rem]">
-                Start with<br />the site.
+                Tell us<br />the essentials.
               </h2>
               <p className="commission-lead mt-7 max-w-md text-[15px] leading-[1.78] text-ink/66">
-                Send the place, what must change, the budget range and the timing. No polished deck is required. The form is the recorded path: a success state appears only after the server has accepted and stored the brief.
+                Share the site, scope, budget and timing. A few clear lines are enough.
               </p>
             </div>
 
             <div className="commission-responsibility mt-10 border-t border-ink/10 pt-6 md:mt-16">
-              <p className="text-[9px] font-semibold tracking-[0.18em] text-clay uppercase">What this surface guarantees</p>
+              <p className="text-[9px] font-semibold tracking-[0.18em] text-clay uppercase">What to include</p>
               <div className="mt-5 grid gap-4 text-[11px] leading-[1.55] text-ink/62 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
-                <span>Server-confirmed success</span>
-                <span>Idempotent request path</span>
-                <span>Input retained on failure</span>
-                <span>No mailing list</span>
+                <span>Site or city</span>
+                <span>What should change</span>
+                <span>Budget range</span>
+                <span>Timing</span>
               </div>
               <p className="mt-7 text-[11px] leading-relaxed text-ink/48">
-                Brand correspondence: <span className="text-ink/76">{site.email}</span>. This address is brand copy and is not presented as proof of notification delivery.
+                Contact: <span className="text-ink/76">{site.email}</span>
               </p>
             </div>
           </div>
 
           <div className="commission-form-wrap relative md:col-span-7">
             <div className="commission-form-cap mb-4 flex items-center justify-between gap-4 text-[9px] tracking-[0.16em] text-ink/48 uppercase">
-              <span>Project brief / secure recorded path</span><span>02nd portfolio system</span>
+              <span>Project brief</span><span>Tashkent</span>
             </div>
             <form onSubmit={onSubmit} className="consultation-plane relative grid gap-x-6 gap-y-6 overflow-hidden rounded-[1.75rem] px-5 py-7 text-ink sm:px-7 md:grid-cols-2 md:px-9 md:py-10" noValidate>
               <div className="consultation-plane-shine absolute inset-0" aria-hidden="true" />
@@ -126,9 +126,9 @@ export function Commission() {
               </label>
 
               <div className="md:col-span-2 mt-1 flex flex-col gap-5 border-t border-ink/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
-                <p className="max-w-xs text-[11px] leading-[1.5] text-umber">No polished brief needed. Critical decisions stay documented.</p>
+                <p className="max-w-xs text-[11px] leading-[1.5] text-umber">A short brief is enough.</p>
                 <button type="submit" disabled={status === "sending"} className="consultation-submit group inline-flex min-h-13 items-center justify-center gap-5 rounded-full bg-ink px-7 text-[10px] font-semibold tracking-[0.18em] text-bone uppercase disabled:cursor-wait disabled:opacity-60">
-                  Request consultation <span className="h-2 w-2 rounded-full bg-bone/60" aria-hidden="true" />
+                  Send brief <span className="h-2 w-2 rounded-full bg-bone/60" aria-hidden="true" />
                 </button>
               </div>
             </form>
@@ -147,24 +147,24 @@ export function Commission() {
                 >
                   <div className="consultation-status-card w-full max-w-md border border-ink/10 bg-ink/94 px-7 py-10 text-center text-bone shadow-2xl backdrop-blur-xl sm:px-9">
                     <p className="text-[9px] font-semibold tracking-[0.18em] text-clay uppercase">
-                      {status === "sending" ? "Recording brief" : status === "success" ? "Server confirmed" : "Not recorded"}
+                      {status === "sending" ? "Sending" : status === "success" ? "Received" : "Could not send"}
                     </p>
                     <p className="mt-4 font-display text-[2.6rem] leading-none font-light">
-                      {status === "sending" && "Holding the note."}
+                      {status === "sending" && "Sending."}
                       {status === "success" && "Received."}
                       {status === "failed" && "Not held yet."}
                       {status === "offline" && "Offline."}
                     </p>
                     <p className="mx-auto mt-5 max-w-xs text-sm leading-[1.65] text-ink/62">
-                      {status === "sending" && "The studio path is validating and storing your brief."}
-                      {status === "success" && "The server accepted and stored the brief. Notification delivery depends on the configured owner channel."}
-                      {status === "failed" && "Your words remain in the form. Return and try again."}
-                      {status === "offline" && "Reconnect and send again. Your entered text remains in place."}
+                      {status === "sending" && "Sending your project brief."}
+                      {status === "success" && "Your brief was received."}
+                      {status === "failed" && "Your text is still here. Try again."}
+                      {status === "offline" && "Reconnect and send again. Your text is still here."}
                     </p>
                     {status === "sending" ? (
                       <div className="consultation-progress mx-auto mt-8 h-px w-36 overflow-hidden bg-bone/15"><span className="block h-full w-1/2 bg-clay" /></div>
                     ) : (
-                      <button type="button" className="mt-8 min-h-10 text-[10px] font-semibold tracking-[0.18em] uppercase underline decoration-bone/30 underline-offset-4" onClick={() => setStatus("idle")}>Return to brief</button>
+                      <button type="button" className="mt-8 min-h-10 text-[10px] font-semibold tracking-[0.18em] uppercase underline decoration-bone/30 underline-offset-4" onClick={() => setStatus("idle")}>Back</button>
                     )}
                   </div>
                 </motion.div>
