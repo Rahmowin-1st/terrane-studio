@@ -540,3 +540,23 @@ html.terrane-v4 body.terrane-v2 .site-header nav a[data-active="true"]{
 html.terrane-v4 body.terrane-v2 .site-header-inner[data-tv3-tone="light"] nav a[data-active="true"]{
   background:rgba(20,18,16,.075)!important;
 }
+
+
+/* Final layout authority: four balanced proof cards on desktop. */
+html.terrane-v4 body.terrane-v2 .practice-grid{
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+}
+html.terrane-v4 body.terrane-v2 .hero-meta{
+  border-radius:var(--v4-radius-lg)!important;
+  overflow:hidden;
+}
+html.terrane-v4 body.terrane-v2 .expertise-note,
+html.terrane-v4 body.terrane-v2 .control-lead,
+html.terrane-v4 body.terrane-v2 .approach-lead{
+  border-radius:var(--v4-radius-md);
+}
+@media(max-width:768px){
+  html.terrane-v4 body.terrane-v2 .practice-grid{
+    grid-template-columns:1fr!important;
+  }
+}
