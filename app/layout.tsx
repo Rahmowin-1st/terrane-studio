@@ -24,7 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className="antialiased">
       <head>
         <link rel="preconnect" href="https://images.unsplash.com" />
-        <link rel="stylesheet" href="/terrane-v5-light.css?v=v5-clean-1" />
+        <link rel="stylesheet" href="/terrane-v5-light.css?v=v5-final-light-2" />
       </head>
       <body className="min-h-dvh bg-bone font-sans text-ink">
         <LightExperience />
