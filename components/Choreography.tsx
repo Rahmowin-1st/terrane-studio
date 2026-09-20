@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 /**
  * TERRANE V2 motion authority.
@@ -8,7 +9,10 @@ import { useEffect } from "react";
  * GSAP owns cinematic page/scroll choreography.
  */
 export function Choreography() {
+  const pathname = usePathname();
+
   useEffect(() => {
+    if (pathname !== "/") return;
     let disposed = false;
     let cleanup: (() => void) | undefined;
 
@@ -21,11 +25,29 @@ export function Choreography() {
       gsap.registerPlugin(ScrollTrigger);
 
       const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const coarse = window.matchMedia("(pointer: coarse)").matches;
+      const nav = navigator as Navigator & {
+        deviceMemory?: number;
+        connection?: { saveData?: boolean };
+      };
+      const lowPower =
+        (nav.hardwareConcurrency > 0 && nav.hardwareConcurrency <= 4) ||
+        (typeof nav.deviceMemory === "number" && nav.deviceMemory <= 4) ||
+        Boolean(nav.connection?.saveData);
+      const lite = coarse || lowPower || window.innerWidth < 900;
+
       if (reduced) {
         document.documentElement.dataset.motion = "reduced";
+        document.documentElement.dataset.motionTier = "reduced";
+        cleanup = () => {
+          document.documentElement.removeAttribute("data-motion");
+        document.documentElement.removeAttribute("data-motion-tier");
+          document.documentElement.removeAttribute("data-motion-tier");
+        };
         return;
       }
-      document.documentElement.dataset.motion = "terrane-v2";
+      document.documentElement.dataset.motion = "terrane-v3";
+      document.documentElement.dataset.motionTier = lite ? "lite" : "ultra";
 
       const context = gsap.context(() => {
         // Signature opening: mask -> architecture -> copy -> detail.
@@ -66,6 +88,38 @@ export function Choreography() {
         const mm = gsap.matchMedia();
 
         mm.add("(min-width: 769px)", () => {
+          if (lite) {
+            [
+              ".practice-intro",
+              ".project-story",
+              ".expertise-head",
+              ".discipline-row",
+              ".control-title",
+              ".control-step",
+              ".approach-step",
+              ".studio-media",
+              ".studio-copy",
+              ".commission-copy",
+              ".commission-form-wrap",
+              ".footer-inner",
+            ].forEach((selector) => {
+              document.querySelectorAll<HTMLElement>(selector).forEach((el) => {
+                gsap.from(el, {
+                  y: 24,
+                  opacity: 0,
+                  duration: 0.58,
+                  ease: "power3.out",
+                  scrollTrigger: { trigger: el, start: "top 90%", once: true },
+                });
+              });
+            });
+            gsap.fromTo(
+              ".approach-rail-active",
+              { scaleY: 0 },
+              { scaleY: 1, ease: "none", scrollTrigger: { trigger: ".approach-track", start: "top 82%", end: "bottom 62%", scrub: 0.35 } },
+            );
+            return;
+          }
           // Hero release: copy and camera move at different rates.
           gsap.to(".hero-media", {
             yPercent: 8,
@@ -319,7 +373,7 @@ export function Choreography() {
       disposed = true;
       cleanup?.();
     };
-  }, []);
+  }, [pathname]);
 
   return null;
 }
