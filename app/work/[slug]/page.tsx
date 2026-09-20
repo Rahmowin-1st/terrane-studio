@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CaseChoreography } from "@/components/CaseChoreography";
 import { getProject, projects, site } from "@/lib/site";
+import { imageSrcSet } from "@/lib/media";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -26,7 +27,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       <article>
         <header className="case-hero relative min-h-[82svh] overflow-hidden bg-ink text-bone">
           <div className="case-hero-media absolute inset-0">
-            <img src={project.cover} alt={project.coverAlt} className="case-cover h-full w-full object-cover" fetchPriority="high" />
+            <img src={project.cover} srcSet={imageSrcSet(project.cover)} sizes="100vw" alt={project.coverAlt} className="case-cover h-full w-full object-cover" fetchPriority="high" />
           </div>
           <div className="case-hero-shade absolute inset-0" />
           <div className="case-grid absolute inset-0" aria-hidden="true" />
@@ -61,7 +62,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             return (
               <figure key={image.src} className={`case-gallery-item overflow-hidden ${layout}`}>
                 <div className={`overflow-hidden bg-paper ${ratio}`}>
-                  <img src={image.src} alt={image.alt} className="case-gallery-image h-full w-full object-cover" loading="lazy" decoding="async" />
+                  <img src={image.src} srcSet={imageSrcSet(image.src)} sizes={i === 1 ? "(min-width: 769px) 34vw, 100vw" : "(min-width: 769px) 72vw, 100vw"} alt={image.alt} className="case-gallery-image h-full w-full object-cover" loading="lazy" decoding="async" />
                 </div>
                 <figcaption className="flex items-center justify-between gap-4 border-t border-ink/10 bg-bone py-3 text-[9px] tracking-[0.14em] text-umber uppercase">
                   <span>{project.title}</span><span>{String(i + 1).padStart(2, "0")} / {String(project.images.length).padStart(2, "0")}</span>
