@@ -36,6 +36,25 @@ export function LightExperience() {
   const router = useRouter();
 
   useEffect(() => {
+    const isEditable = (target: EventTarget | null) =>
+      target instanceof Element && Boolean(target.closest('input,textarea,[contenteditable="true"]'));
+
+    const onSelectStart = (event: Event) => {
+      if (!isEditable(event.target)) event.preventDefault();
+    };
+    const onContextMenu = (event: MouseEvent) => {
+      if (!isEditable(event.target)) event.preventDefault();
+    };
+
+    document.addEventListener("selectstart", onSelectStart);
+    document.addEventListener("contextmenu", onContextMenu);
+    return () => {
+      document.removeEventListener("selectstart", onSelectStart);
+      document.removeEventListener("contextmenu", onContextMenu);
+    };
+  }, []);
+
+  useEffect(() => {
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const nodes = Array.from(document.querySelectorAll<HTMLElement>(REVEAL_SELECTORS));
 
