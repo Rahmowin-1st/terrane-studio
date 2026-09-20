@@ -6,6 +6,7 @@ import { Footer } from "@/components/Footer";
 import { LiquidEngine } from "@/components/LiquidEngine";
 import { Choreography } from "@/components/Choreography";
 import { WebflowV31Bridge } from "@/components/WebflowV31Bridge";
+import { FinalExperience } from "@/components/FinalExperience";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://terrane-studio.vercel.app"),
@@ -30,11 +31,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="stylesheet" href="/terrane-webflow.css?v=native-v31" />
         <link rel="stylesheet" href="/terrane-frontend-v2.css?v=native-v31" />
         <link rel="stylesheet" href="/terrane-v31-polish.css?v=native-v31" />
+        <link rel="stylesheet" href="/terrane-final-v4.css?v=final-v4" />
       </head>
       <body className="terrane-v2 min-h-dvh bg-bone font-sans text-ink">
         <LiquidEngine />
         <Choreography />
         <WebflowV31Bridge />
+        <FinalExperience />
         <Header />
         {children}
         <Footer />
