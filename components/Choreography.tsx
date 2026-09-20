@@ -53,8 +53,8 @@ export function Choreography() {
         load
           .fromTo(
             ".hero-media-shell",
-            { clipPath: "inset(5% 7% 5% 43% round 2px)" },
-            { clipPath: "inset(0% 0% 0% 0% round 0px)", duration: 1.35 },
+            { clipPath: "inset(5% 7% 5% 43% round 46px)" },
+            { clipPath: "inset(0% 0% 0% 0% round 46px)", duration: 1.35 },
             0,
           )
           .fromTo(
@@ -67,8 +67,8 @@ export function Choreography() {
           .fromTo(".hero-kicker", { x: -28, opacity: 0 }, { x: 0, opacity: 1, duration: 0.55 }, 0.26)
           .fromTo(
             ".hero-line > span",
-            { yPercent: 118, rotateX: -10, opacity: 0 },
-            { yPercent: 0, rotateX: 0, opacity: 1, duration: 0.82, stagger: 0.095 },
+            { yPercent: 118, scale: .985, opacity: 0 },
+            { yPercent: 0, scale: 1, opacity: 1, duration: 0.82, stagger: 0.095 },
             0.3,
           )
           .fromTo(".hero-lead", { x: 32, opacity: 0 }, { x: 0, opacity: 1, duration: 0.65 }, 0.58)
@@ -160,7 +160,7 @@ export function Choreography() {
           gsap.from(".practice-proof", {
             y: 48,
             opacity: 0,
-            rotationZ: (i) => (i % 2 ? 0.7 : -0.7),
+            scale: 0.985,
             duration: 0.72,
             stagger: 0.08,
             ease: "power3.out",
@@ -181,8 +181,8 @@ export function Choreography() {
             if (stage) {
               tl.fromTo(
                 stage,
-                { clipPath: reversed ? "inset(0 0 0 100%)" : "inset(0 100% 0 0)" },
-                { clipPath: "inset(0 0% 0 0%)", duration: 0.95 },
+                { clipPath: reversed ? "inset(0 0 0 100% round 36px)" : "inset(0 100% 0 0 round 36px)" },
+                { clipPath: "inset(0 0% 0 0% round 36px)", duration: 0.95 },
                 0,
               );
             }
@@ -211,8 +211,7 @@ export function Choreography() {
             gsap.from(row, {
               x: i % 2 ? 55 : -55,
               opacity: 0,
-              rotationY: i % 2 ? -4 : 4,
-              transformPerspective: 1100,
+              scale: .988,
               duration: 0.75,
               ease: "power3.out",
               scrollTrigger: { trigger: row, start: "top 88%", once: true },
@@ -270,8 +269,8 @@ export function Choreography() {
           // Studio: image and statement cross axes; detail crop drifts separately.
           gsap.fromTo(
             ".studio-main-image",
-            { clipPath: "inset(8% 14% 8% 0%)" },
-            { clipPath: "inset(0% 0% 0% 0%)", duration: 1, ease: "power3.out", scrollTrigger: { trigger: ".studio-media", start: "top 78%", once: true } },
+            { clipPath: "inset(8% 14% 8% 0% round 36px)" },
+            { clipPath: "inset(0% 0% 0% 0% round 36px)", duration: 1, ease: "power3.out", scrollTrigger: { trigger: ".studio-media", start: "top 78%", once: true } },
           );
           gsap.from(".studio-copy", {
             x: 58,
@@ -321,7 +320,7 @@ export function Choreography() {
 
         mm.add("(max-width: 768px)", () => {
           // Mobile choreography: purpose-built, fast, no long pinning or heavy scrub.
-          gsap.set(".hero-media-shell", { clipPath: "inset(0 0 0 0)" });
+          gsap.set(".hero-media-shell", { clipPath: "inset(0 0 0 0 round 30px)" });
           const targets = [
             ".practice-title",
             ".practice-copy",
