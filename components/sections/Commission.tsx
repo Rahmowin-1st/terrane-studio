@@ -258,7 +258,7 @@ function CustomSelect({
   return (
     <div ref={wrapRef} className={`form-field custom-select ${open ? "is-open" : ""}`}>
       <span className="form-label">{label}</span>
-      <input type="hidden" name={name} value={value} />
+      <input type="hidden" name={name} value={value} readOnly />
       <button
         ref={buttonRef}
         data-field={name}
