@@ -780,3 +780,652 @@ body.terrane-v2 .tv2-case-index::before{
 @media(prefers-reduced-motion:reduce){
   body.terrane-v2 .project-image.tv2-enter{animation:none}
 }
+
+
+/* ==========================================================================
+   TERRANE V3 FINAL — iPhone / VeroSpace polish layer
+   Premium liquid glass, spatial rhythm, tactile controls, mobile-first finish.
+   ========================================================================== */
+
+:root{
+  --tv3-ui:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Arial,sans-serif;
+  --tv3-radius-xl:34px;
+  --tv3-radius-lg:26px;
+  --tv3-radius-md:18px;
+  --tv3-shadow:0 28px 80px rgba(15,13,11,.16),0 3px 12px rgba(15,13,11,.07);
+  --tv3-hairline:rgba(255,255,255,.46);
+}
+
+body.terrane-v2{
+  --tv3-hero-x:68%;
+  --tv3-hero-y:34%;
+}
+
+/* ---------- Liquid flagship header ---------- */
+body.terrane-v2 .site-header{z-index:80!important;perspective:1200px}
+body.terrane-v2 .site-header-inner.tv3-liquid{
+  --lg-x:50%;
+  --lg-y:18%;
+  --lg-press:0;
+  --lg-opacity:.68;
+  position:relative!important;
+  isolation:isolate;
+  overflow:hidden;
+  max-width:1180px!important;
+  height:4.2rem!important;
+  border-radius:999px!important;
+  padding-inline:1rem!important;
+  background:
+    radial-gradient(150% 240% at var(--lg-x) var(--lg-y),
+      rgba(255,255,255,calc(.32 + var(--lg-press)*.10)),
+      rgba(255,255,255,.10) 35%,
+      rgba(230,220,204,.055) 66%,
+      rgba(20,18,16,.035) 100%)!important;
+  border:1px solid rgba(255,255,255,.38)!important;
+  box-shadow:
+    0 24px 68px rgba(10,9,8,.17),
+    0 4px 16px rgba(10,9,8,.08),
+    inset 0 1px 0 rgba(255,255,255,.56),
+    inset 0 -1px 0 rgba(20,18,16,.08)!important;
+  backdrop-filter:blur(24px) saturate(165%) brightness(1.035)!important;
+  -webkit-backdrop-filter:blur(24px) saturate(165%) brightness(1.035)!important;
+  transition:
+    max-width .55s var(--tv2-ease),
+    height .55s var(--tv2-ease),
+    transform .42s var(--tv2-ease),
+    background .35s ease,
+    border-color .35s ease,
+    box-shadow .35s ease,
+    color .35s ease!important;
+}
+body.terrane-v2 .site-header-inner.tv3-liquid::before{
+  content:"";
+  position:absolute;
+  z-index:0;
+  inset:0;
+  border-radius:inherit;
+  pointer-events:none;
+  background:
+    radial-gradient(52% 210% at var(--lg-x) var(--lg-y),
+      rgba(255,255,255,.52),
+      rgba(255,255,255,.11) 44%,
+      transparent 72%),
+    linear-gradient(112deg,
+      rgba(255,255,255,.15),
+      transparent 28%,
+      transparent 64%,
+      rgba(255,255,255,.09));
+  opacity:.9;
+  mix-blend-mode:screen;
+}
+body.terrane-v2 .site-header-inner.tv3-liquid::after{
+  content:"";
+  position:absolute;
+  z-index:0;
+  inset:6px;
+  border-radius:inherit;
+  border:1px solid rgba(255,255,255,.16);
+  pointer-events:none;
+}
+body.terrane-v2 .site-header-inner.tv3-liquid>*{position:relative;z-index:2}
+body.terrane-v2 .site-header-inner.tv3-liquid[data-tv3-tone="dark"]{
+  color:#fbf7ef!important;
+  background:
+    radial-gradient(160% 240% at var(--lg-x) var(--lg-y),rgba(255,255,255,.22),rgba(24,21,18,.32) 56%,rgba(12,11,9,.46)),
+    linear-gradient(180deg,rgba(255,255,255,.12),rgba(20,18,16,.26))!important;
+  border-color:rgba(255,255,255,.26)!important;
+  box-shadow:
+    0 28px 72px rgba(0,0,0,.24),
+    inset 0 1px 0 rgba(255,255,255,.28),
+    inset 0 -1px 0 rgba(0,0,0,.18)!important;
+}
+body.terrane-v2 .site-header-inner.tv3-liquid[data-tv3-tone="light"]{
+  color:#141210!important;
+  background:
+    radial-gradient(155% 230% at var(--lg-x) var(--lg-y),rgba(255,255,255,.78),rgba(244,237,226,.52) 52%,rgba(230,219,202,.40)),
+    linear-gradient(180deg,rgba(255,255,255,.46),rgba(238,229,215,.30))!important;
+  border-color:rgba(255,255,255,.72)!important;
+  box-shadow:
+    0 24px 62px rgba(20,18,16,.12),
+    inset 0 1px 0 rgba(255,255,255,.88),
+    inset 0 -1px 0 rgba(107,74,52,.08)!important;
+}
+body.terrane-v2 .site-header-inner.tv3-liquid[data-tv3-scrolled="true"]{
+  max-width:960px!important;
+  height:3.72rem!important;
+  transform:translateY(-1px) scale(.992);
+}
+body.terrane-v2 .site-header-inner.tv3-liquid a,
+body.terrane-v2 .site-header-inner.tv3-liquid button{
+  font-family:var(--tv3-ui);
+  -webkit-font-smoothing:antialiased;
+}
+body.terrane-v2 .site-header-inner.tv3-liquid nav{
+  gap:.35rem!important;
+  padding:.3rem;
+  border-radius:999px;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.08);
+}
+body.terrane-v2 .site-header-inner.tv3-liquid nav a{
+  min-height:2.25rem;
+  display:inline-flex;
+  align-items:center;
+  padding:0 .8rem;
+  border-radius:999px;
+  opacity:.68!important;
+  transition:background .25s ease,opacity .25s ease,transform .25s var(--tv2-ease)!important;
+}
+body.terrane-v2 .site-header-inner.tv3-liquid nav a:hover,
+body.terrane-v2 .site-header-inner.tv3-liquid nav a[data-active="true"]{
+  opacity:1!important;
+  background:rgba(255,255,255,.13);
+  transform:none!important;
+}
+body.terrane-v2 .site-header-inner.tv3-liquid[data-tv3-tone="light"] nav a:hover,
+body.terrane-v2 .site-header-inner.tv3-liquid[data-tv3-tone="light"] nav a[data-active="true"]{
+  background:rgba(20,18,16,.07);
+}
+body.terrane-v2 .site-header-inner.tv3-liquid nav a[data-active="true"]::before{display:none!important}
+body.terrane-v2 .site-header-inner.tv3-liquid a[href*="commission"]{
+  border:1px solid rgba(255,255,255,.22);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 8px 20px rgba(0,0,0,.10);
+}
+body.terrane-v2 .site-header-inner.tv3-liquid[data-tv3-tone="dark"] a[href*="commission"]{
+  background:rgba(248,243,234,.94)!important;
+  color:#141210!important;
+}
+body.terrane-v2 .site-header-inner.tv3-liquid[data-tv3-tone="light"] a[href*="commission"]{
+  background:#141210!important;
+  color:#f8f3ea!important;
+}
+body.terrane-v2 .site-header-inner.tv3-liquid.tv3-pressed{
+  transform:translateY(1px) scale(.988);
+  box-shadow:0 14px 40px rgba(10,9,8,.15),inset 0 1px rgba(255,255,255,.60)!important;
+}
+
+/* ---------- Hero / Apple-like first impression ---------- */
+body.terrane-v2 .hero-frame{
+  border-radius:0 0 42px 42px;
+  box-shadow:0 32px 100px rgba(12,10,8,.18);
+}
+body.terrane-v2 .hero-frame::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:4;
+  pointer-events:none;
+  background:
+    radial-gradient(38rem 28rem at var(--tv3-hero-x) var(--tv3-hero-y),
+      rgba(255,244,221,.12),
+      transparent 70%);
+  mix-blend-mode:screen;
+  transition:opacity .35s ease;
+}
+body.terrane-v2 .hero-copy{z-index:12!important}
+body.terrane-v2 .hero-title{
+  text-shadow:0 4px 34px rgba(0,0,0,.28);
+  filter:drop-shadow(0 1px 0 rgba(255,255,255,.025));
+}
+body.terrane-v2 .hero-kicker{
+  font-family:var(--tv3-ui);
+  letter-spacing:.22em!important;
+}
+body.terrane-v2 .hero-actions{gap:.7rem!important}
+body.terrane-v2 .hero-primary-cta,
+body.terrane-v2 .hero-secondary-cta{
+  font-family:var(--tv3-ui);
+  min-height:3.2rem!important;
+  border-radius:999px!important;
+  position:relative;
+  overflow:hidden;
+  transform:translateZ(0);
+}
+body.terrane-v2 .hero-primary-cta{
+  background:rgba(250,246,238,.94)!important;
+  color:#141210!important;
+  border:1px solid rgba(255,255,255,.72);
+  box-shadow:0 13px 30px rgba(0,0,0,.18),inset 0 1px rgba(255,255,255,.92);
+}
+body.terrane-v2 .hero-secondary-cta{
+  padding-inline:1.1rem!important;
+  background:rgba(15,14,12,.24);
+  border:1px solid rgba(255,255,255,.17);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+}
+body.terrane-v2 .hero-primary-cta::before,
+body.terrane-v2 .hero-secondary-cta::before,
+body.terrane-v2 .consultation-submit::after,
+body.terrane-v2 .project-link::before{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  pointer-events:none;
+  background:linear-gradient(105deg,transparent 28%,rgba(255,255,255,.52) 48%,transparent 68%);
+  transform:translateX(-120%);
+  transition:transform .75s var(--tv2-ease);
+}
+body.terrane-v2 .hero-primary-cta:hover::before,
+body.terrane-v2 .hero-secondary-cta:hover::before,
+body.terrane-v2 .consultation-submit:hover::after,
+body.terrane-v2 .project-link:hover::before{transform:translateX(120%)}
+body.terrane-v2 .hero-primary-cta:hover,
+body.terrane-v2 .hero-secondary-cta:hover{transform:translateY(-2px) scale(1.008)!important}
+
+body.terrane-v2 .hero-meta{
+  border-radius:var(--tv3-radius-md);
+  background:
+    radial-gradient(120% 180% at 18% 0,rgba(255,255,255,.15),transparent 46%),
+    rgba(13,12,10,.26)!important;
+  border:1px solid rgba(255,255,255,.16)!important;
+  box-shadow:0 22px 60px rgba(0,0,0,.16),inset 0 1px rgba(255,255,255,.10);
+  backdrop-filter:blur(18px) saturate(125%)!important;
+  -webkit-backdrop-filter:blur(18px) saturate(125%)!important;
+}
+body.terrane-v2 .tv3-hero-island{
+  position:absolute;
+  z-index:13;
+  right:clamp(1rem,4vw,4rem);
+  bottom:clamp(1rem,3vw,2.4rem);
+  display:flex;
+  align-items:center;
+  gap:.72rem;
+  min-height:2.55rem;
+  padding:.55rem .85rem;
+  border-radius:999px;
+  color:rgba(250,246,238,.82);
+  background:rgba(8,8,7,.34);
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 14px 34px rgba(0,0,0,.20),inset 0 1px rgba(255,255,255,.10);
+  backdrop-filter:blur(18px) saturate(130%);
+  -webkit-backdrop-filter:blur(18px) saturate(130%);
+  font-family:var(--tv3-ui);
+  font-size:8px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+body.terrane-v2 .tv3-hero-island i{
+  width:6px;height:6px;border-radius:50%;background:#d7b783;
+  box-shadow:0 0 0 5px rgba(215,183,131,.10);
+}
+body.terrane-v2 .tv3-hero-island__bar{
+  width:46px;height:2px;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.15)
+}
+body.terrane-v2 .tv3-hero-island__bar span{
+  display:block;height:100%;width:var(--tv3-hero-progress,0%);
+  background:#f6ecdc;border-radius:inherit;transition:width .1s linear;
+}
+
+/* ---------- iOS-sheet section transitions ---------- */
+body.terrane-v2 .practice-scene,
+body.terrane-v2 .work-scene,
+body.terrane-v2 .expertise-scene,
+body.terrane-v2 .control-scene,
+body.terrane-v2 .approach-scene,
+body.terrane-v2 .studio-scene,
+body.terrane-v2 .commission-scene{
+  position:relative;
+  z-index:2;
+}
+body.terrane-v2 .practice-scene{
+  margin-top:-28px;
+  border-radius:42px 42px 0 0;
+  box-shadow:0 -22px 70px rgba(10,9,8,.08);
+}
+body.terrane-v2 .expertise-scene,
+body.terrane-v2 .commission-scene{
+  border-radius:42px 42px 0 0;
+  box-shadow:0 -20px 60px rgba(10,9,8,.10);
+}
+body.terrane-v2 .control-scene,
+body.terrane-v2 .studio-scene{
+  border-radius:38px 38px 0 0;
+}
+
+/* ---------- Typography + spacing discipline ---------- */
+body.terrane-v2 .practice-title,
+body.terrane-v2 .work-heading,
+body.terrane-v2 .expertise-title,
+body.terrane-v2 .control-title,
+body.terrane-v2 .approach-title,
+body.terrane-v2 .studio-title,
+body.terrane-v2 .commission-title{
+  text-wrap:balance;
+  letter-spacing:-.055em!important;
+}
+body.terrane-v2 .practice-kicker,
+body.terrane-v2 .work-eyebrow,
+body.terrane-v2 .expertise-kicker,
+body.terrane-v2 .control-kicker,
+body.terrane-v2 .commission-kicker{
+  font-family:var(--tv3-ui);
+}
+
+/* ---------- Project cinema / VeroSpace tactile polish ---------- */
+body.terrane-v2 .project-story{overflow:visible}
+body.terrane-v2 .project-stage-wrap{
+  filter:drop-shadow(0 24px 50px rgba(20,18,16,.09));
+}
+body.terrane-v2 .project-stage{
+  border-radius:30px!important;
+  border:1px solid rgba(255,255,255,.36)!important;
+  box-shadow:
+    0 34px 100px rgba(20,18,16,.18),
+    0 6px 20px rgba(20,18,16,.09),
+    inset 0 1px rgba(255,255,255,.28)!important;
+  background:#111!important;
+}
+body.terrane-v2 .project-stage::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:4;
+  pointer-events:none;
+  border-radius:inherit;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.10),transparent 22%,transparent 72%,rgba(255,255,255,.035)),
+    radial-gradient(70% 100% at 0 0,rgba(255,255,255,.05),transparent 54%);
+}
+body.terrane-v2 .project-media-shade{
+  background:linear-gradient(180deg,transparent 48%,rgba(8,8,7,.07) 66%,rgba(8,8,7,.56))!important;
+}
+body.terrane-v2 .project-controls{
+  z-index:9!important;
+  align-items:center!important;
+}
+body.terrane-v2 .project-counter,
+body.terrane-v2 .project-arrow{
+  font-family:var(--tv3-ui);
+  border:1px solid rgba(255,255,255,.24)!important;
+  background:
+    radial-gradient(130% 180% at 34% 0,rgba(255,255,255,.20),rgba(10,9,8,.42) 65%)!important;
+  box-shadow:0 10px 26px rgba(0,0,0,.18),inset 0 1px rgba(255,255,255,.20)!important;
+  backdrop-filter:blur(18px) saturate(140%)!important;
+  -webkit-backdrop-filter:blur(18px) saturate(140%)!important;
+}
+body.terrane-v2 .project-counter{
+  min-height:2.45rem;
+  display:inline-flex;
+  align-items:center;
+  padding:.55rem .85rem!important;
+}
+body.terrane-v2 .project-arrow{
+  width:2.7rem!important;height:2.7rem!important;
+  transition:transform .22s var(--tv2-ease),background .22s ease!important;
+}
+body.terrane-v2 .project-arrow:hover{transform:translateY(-2px) scale(1.055)!important}
+body.terrane-v2 .project-arrow:active{transform:scale(.94)!important}
+body.terrane-v2 .project-stage-index{
+  z-index:8;
+  padding:.55rem .7rem;
+  border-radius:999px;
+  background:rgba(10,9,8,.28);
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  font-family:var(--tv3-ui);
+}
+body.terrane-v2 .project-copy{
+  border-radius:var(--tv3-radius-lg);
+  transition:transform .35s var(--tv2-ease);
+}
+body.terrane-v2 .project-title{text-wrap:balance}
+body.terrane-v2 .project-link{
+  overflow:hidden;
+  min-height:3rem!important;
+  padding:.8rem 1.05rem!important;
+  border-radius:999px!important;
+  font-family:var(--tv3-ui);
+  isolation:isolate;
+}
+body.terrane-v2 .project-story:nth-child(odd) .project-link{
+  background:rgba(20,18,16,.045);
+}
+body.terrane-v2 .project-story:nth-child(even) .project-link{
+  background:rgba(255,255,255,.06);
+}
+body.terrane-v2 .project-story:hover .project-copy{transform:translateY(-3px)}
+
+/* ---------- Practice / expertise refinement ---------- */
+body.terrane-v2 .practice-proof{
+  border-radius:0;
+}
+body.terrane-v2 .practice-proof-mark{
+  box-shadow:0 0 0 7px rgba(180,138,98,.10),0 0 24px rgba(180,138,98,.18)!important;
+}
+body.terrane-v2 .discipline-row{
+  border-radius:20px;
+  padding-inline:1rem!important;
+  margin-inline:-1rem;
+  transition:background .35s ease,transform .35s var(--tv2-ease)!important;
+}
+body.terrane-v2 .discipline-row:hover{
+  background:rgba(255,255,255,.045);
+  transform:translateX(4px);
+}
+body.terrane-v2 .discipline-row:hover .discipline-title{transform:none!important}
+
+/* ---------- Decision / process ---------- */
+body.terrane-v2 .control-step{
+  border-radius:22px;
+  box-shadow:0 14px 36px rgba(20,18,16,.05),inset 0 1px rgba(255,255,255,.28);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+body.terrane-v2 .approach-dot{
+  box-shadow:0 0 0 6px rgba(20,18,16,.03);
+}
+
+/* ---------- Studio / material ---------- */
+body.terrane-v2 .studio-main-image{
+  border-radius:30px;
+  overflow:hidden;
+  box-shadow:0 35px 100px rgba(20,18,16,.18)!important;
+}
+body.terrane-v2 .studio-material-card{
+  border-radius:24px!important;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.42)!important;
+  box-shadow:0 28px 80px rgba(20,18,16,.20)!important;
+}
+body.terrane-v2 .tv2-material-strip{
+  border-radius:22px;
+  overflow:hidden;
+  background:rgba(255,255,255,.18);
+  box-shadow:inset 0 1px rgba(255,255,255,.32);
+}
+
+/* ---------- Consultation = iPhone/VeroSpace-level form ---------- */
+body.terrane-v2 .consultation-plane{
+  --form-x:80%;
+  --form-y:0%;
+  border-radius:32px!important;
+  padding:2rem!important;
+  background:
+    radial-gradient(42rem 28rem at var(--form-x) var(--form-y),rgba(255,255,255,.88),transparent 58%),
+    linear-gradient(145deg,rgba(249,245,237,.97),rgba(226,215,197,.92))!important;
+  border:1px solid rgba(255,255,255,.78)!important;
+  box-shadow:
+    0 48px 130px rgba(0,0,0,.30),
+    0 6px 20px rgba(0,0,0,.12),
+    inset 0 1px rgba(255,255,255,.92),
+    inset 0 -1px rgba(107,74,52,.08)!important;
+  backdrop-filter:blur(26px) saturate(130%);
+  -webkit-backdrop-filter:blur(26px) saturate(130%);
+}
+body.terrane-v2 .consultation-plane-shine{
+  background:
+    linear-gradient(115deg,rgba(255,255,255,.44),transparent 24%,transparent 70%,rgba(180,138,98,.08))!important;
+}
+body.terrane-v2 .form-field{
+  border:1px solid rgba(20,18,16,.10);
+  border-radius:16px;
+  padding:.78rem .9rem .55rem;
+  background:rgba(255,255,255,.30);
+  box-shadow:inset 0 1px rgba(255,255,255,.48);
+  transition:border-color .25s ease,background .25s ease,box-shadow .25s ease,transform .25s var(--tv2-ease);
+}
+body.terrane-v2 .form-field:focus-within{
+  border-color:rgba(20,18,16,.28);
+  background:rgba(255,255,255,.52);
+  box-shadow:0 0 0 4px rgba(20,18,16,.035),inset 0 1px rgba(255,255,255,.64);
+  transform:translateY(-1px);
+}
+body.terrane-v2 .form-label{
+  font-family:var(--tv3-ui);
+  font-size:8px!important;
+}
+body.terrane-v2 .form-control{
+  border:0!important;
+  box-shadow:none!important;
+  min-height:2.5rem!important;
+  margin-top:.2rem!important;
+  font-family:var(--tv3-ui);
+}
+body.terrane-v2 textarea.form-control{min-height:8.5rem!important}
+body.terrane-v2 .consultation-submit{
+  overflow:hidden;
+  isolation:isolate;
+  min-height:3.15rem!important;
+  border-radius:999px!important;
+  font-family:var(--tv3-ui);
+  background:#141210!important;
+  box-shadow:0 13px 28px rgba(20,18,16,.20),inset 0 1px rgba(255,255,255,.14);
+}
+body.terrane-v2 .consultation-submit:hover{transform:translateY(-2px) scale(1.01)!important}
+body.terrane-v2 .consultation-submit:active{transform:scale(.975)!important}
+body.terrane-v2 .consultation-status{
+  border-radius:32px!important;
+  background:rgba(8,8,7,.54)!important;
+  backdrop-filter:blur(28px) saturate(135%)!important;
+  -webkit-backdrop-filter:blur(28px) saturate(135%)!important;
+}
+body.terrane-v2 .consultation-status-card{
+  border-radius:26px;
+  background:rgba(17,16,14,.90)!important;
+  border:1px solid rgba(255,255,255,.13)!important;
+  box-shadow:0 30px 100px rgba(0,0,0,.34),inset 0 1px rgba(255,255,255,.08);
+}
+
+/* ---------- Case studies ---------- */
+body.terrane-v2 .case-hero{
+  border-radius:0 0 42px 42px;
+  box-shadow:0 30px 90px rgba(12,10,8,.18);
+}
+body.terrane-v2 .case-back{
+  font-family:var(--tv3-ui);
+  min-height:2.65rem;
+  display:inline-flex;
+  align-items:center;
+  background:rgba(8,8,7,.26)!important;
+  box-shadow:0 12px 28px rgba(0,0,0,.16),inset 0 1px rgba(255,255,255,.10);
+  backdrop-filter:blur(18px) saturate(130%)!important;
+  -webkit-backdrop-filter:blur(18px) saturate(130%)!important;
+}
+body.terrane-v2 .case-gallery-item{
+  border-radius:30px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.34);
+  box-shadow:0 38px 110px rgba(20,18,16,.16)!important;
+}
+body.terrane-v2 .case-gallery-item::after{border-radius:22px}
+body.terrane-v2 .case-next a{
+  min-height:3rem;
+  align-items:center;
+  border:1px solid rgba(20,18,16,.18)!important;
+  border-radius:999px;
+  padding:.75rem 1rem!important;
+  background:rgba(255,255,255,.18);
+  font-family:var(--tv3-ui);
+}
+
+/* ---------- Mobile index / iPhone sheet ---------- */
+body.terrane-v2 #index-menu{
+  background:
+    radial-gradient(70% 50% at 50% 0,rgba(180,138,98,.15),transparent 65%),
+    #0d0c0b!important;
+  padding-bottom:max(2rem,env(safe-area-inset-bottom));
+}
+body.terrane-v2 #index-menu::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.035),transparent 22%);
+}
+body.terrane-v2 #index-menu nav a{
+  border-radius:16px;
+  padding-inline:.8rem;
+  margin-inline:-.8rem;
+  transition:background .25s ease,transform .25s var(--tv2-ease);
+}
+body.terrane-v2 #index-menu nav a:active{background:rgba(255,255,255,.06);transform:scale(.985)}
+
+/* ---------- micro-interaction state ---------- */
+body.terrane-v2 .tv3-pressable{
+  transform-origin:center;
+  transition:transform .18s ease!important;
+}
+body.terrane-v2 .tv3-pressable:active{transform:scale(.965)!important}
+
+/* ---------- Breakpoint polish ---------- */
+@media(max-width:991px){
+  body.terrane-v2 .site-header-inner.tv3-liquid{
+    max-width:calc(100vw - 1rem)!important;
+    height:3.65rem!important;
+    padding-inline:.65rem!important;
+  }
+  body.terrane-v2 .site-header-inner.tv3-liquid[data-tv3-scrolled="true"]{
+    max-width:calc(100vw - 1.25rem)!important;
+    height:3.55rem!important;
+  }
+}
+@media(max-width:768px){
+  body.terrane-v2 .hero-frame,
+  body.terrane-v2 .case-hero{border-radius:0 0 30px 30px}
+  body.terrane-v2 .practice-scene,
+  body.terrane-v2 .expertise-scene,
+  body.terrane-v2 .commission-scene{border-radius:30px 30px 0 0}
+  body.terrane-v2 .hero-primary-cta,
+  body.terrane-v2 .hero-secondary-cta{min-height:3rem!important}
+  body.terrane-v2 .tv3-hero-island{
+    left:1rem;right:auto;bottom:1rem;
+    min-height:2.35rem;padding:.48rem .72rem;
+  }
+  body.terrane-v2 .project-stage{
+    border-radius:24px!important;
+    box-shadow:0 24px 64px rgba(20,18,16,.16),inset 0 1px rgba(255,255,255,.24)!important;
+  }
+  body.terrane-v2 .project-stage-index{top:.75rem!important;left:.75rem!important}
+  body.terrane-v2 .project-controls{inset-inline:.75rem!important;bottom:.75rem!important}
+  body.terrane-v2 .project-copy{
+    padding-top:1.4rem!important;
+    transform:none!important;
+  }
+  body.terrane-v2 .consultation-plane{
+    border-radius:24px!important;
+    padding:1rem!important;
+    gap:1rem!important;
+  }
+  body.terrane-v2 .form-field{border-radius:14px}
+  body.terrane-v2 .consultation-status{border-radius:24px!important}
+  body.terrane-v2 .case-gallery-item{border-radius:24px}
+  body.terrane-v2 .studio-main-image{border-radius:24px}
+}
+@media(max-width:420px){
+  body.terrane-v2 .site-header-inner.tv3-liquid{height:3.45rem!important}
+  body.terrane-v2 .site-header-inner.tv3-liquid a[aria-label*="home"] span:last-child{display:none!important}
+  body.terrane-v2 .project-counter{font-size:9px!important}
+  body.terrane-v2 .tv3-hero-island__bar{width:34px}
+}
+@media(prefers-reduced-motion:reduce){
+  body.terrane-v2 .site-header-inner.tv3-liquid,
+  body.terrane-v2 .hero-primary-cta,
+  body.terrane-v2 .hero-secondary-cta,
+  body.terrane-v2 .project-arrow,
+  body.terrane-v2 .project-link,
+  body.terrane-v2 .form-field,
+  body.terrane-v2 .consultation-submit{transition:none!important}
+  body.terrane-v2 .hero-frame::after{display:none}
+}
