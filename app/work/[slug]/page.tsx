@@ -25,16 +25,16 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     <main id="main" className="case-page bg-bone">
       <CaseChoreography />
       <article>
-        <header className="case-hero relative min-h-[82svh] overflow-hidden bg-ink text-bone">
+        <header className="case-hero relative min-h-[82svh] overflow-hidden bg-paper text-ink">
           <div className="case-hero-media absolute inset-0">
             <img src={project.cover} srcSet={imageSrcSet(project.cover)} sizes="100vw" alt={project.coverAlt} className="case-cover h-full w-full object-cover" fetchPriority="high" />
           </div>
           <div className="case-hero-shade absolute inset-0" />
           <div className="case-grid absolute inset-0" aria-hidden="true" />
           <div className="case-hero-copy absolute inset-x-0 bottom-0 z-10 mx-auto max-w-[1280px] px-5 pb-10 sm:px-7 md:px-10 md:pb-14 lg:px-12">
-            <p className="case-kicker text-[10px] font-semibold tracking-[0.2em] text-sand uppercase"><Link href="/#work" className="hover:text-bone">Work</Link> / {project.index} / Design study</p>
+            <p className="case-kicker text-[10px] font-semibold tracking-[0.2em] text-clay uppercase"><Link href="/#work" className="hover:text-ink">Work</Link> / {project.index} / Design study</p>
             <h1 className="case-title mt-4 max-w-[70rem] font-display text-[3.2rem] leading-[0.9] font-light tracking-[-0.045em] sm:text-7xl md:text-[6.3rem]">{project.title}</h1>
-            <div className="mt-7 flex flex-wrap gap-x-8 gap-y-3 border-t border-bone/20 pt-4 text-[9px] font-semibold tracking-[0.16em] text-bone/62 uppercase sm:text-[10px]">
+            <div className="mt-7 flex flex-wrap gap-x-8 gap-y-3 border-t border-ink/10 pt-4 text-[9px] font-semibold tracking-[0.16em] text-ink/62 uppercase sm:text-[10px]">
               <span>{project.type}</span><span>{project.location}</span><span>{project.year}</span><span>{project.discipline}</span>
             </div>
           </div>
@@ -94,10 +94,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           </div>
         </section>
 
-        <section className="case-next bg-ink text-bone">
+        <section className="case-next bg-paper text-ink">
           <div className="mx-auto max-w-[1280px] px-5 py-20 sm:px-7 md:px-10 md:py-28 lg:px-12">
             <p className="text-[10px] font-semibold tracking-[0.18em] text-sand uppercase">Next study / {next.index}</p>
-            <Link href={`/work/${next.slug}`} className="group mt-5 flex items-end justify-between gap-8 border-t border-bone/20 pt-7">
+            <Link href={`/work/${next.slug}`} className="group mt-5 flex items-end justify-between gap-8 border-t border-ink/10 pt-7">
               <span className="max-w-[58rem] font-display text-[2.8rem] leading-none font-light tracking-[-0.035em] sm:text-6xl md:text-[5rem]">{next.title}</span>
               <span className="h-3 w-3 shrink-0 rounded-full bg-clay" aria-hidden="true" />
             </Link>
