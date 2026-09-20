@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import "./case.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { LiquidEngine } from "@/components/LiquidEngine";
-import { Choreography } from "@/components/Choreography";
-import { WebflowV31Bridge } from "@/components/WebflowV31Bridge";
-import { FinalExperience } from "@/components/FinalExperience";
+import { LightExperience } from "@/components/LightExperience";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://terrane-studio.vercel.app"),
@@ -25,19 +21,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="antialiased terrane-v31">
+    <html lang="en" className="antialiased">
       <head>
         <link rel="preconnect" href="https://images.unsplash.com" />
-        <link rel="stylesheet" href="/terrane-webflow.css?v=native-v31" />
-        <link rel="stylesheet" href="/terrane-frontend-v2.css?v=native-v31" />
-        <link rel="stylesheet" href="/terrane-v31-polish.css?v=native-v31" />
-        <link rel="stylesheet" href="/terrane-final-v4.css?v=mobile-clarity-832d0f13" />
+        <link rel="stylesheet" href="/terrane-v5-light.css?v=v5-clean-1" />
       </head>
-      <body className="terrane-v2 min-h-dvh bg-bone font-sans text-ink">
-        <LiquidEngine />
-        <Choreography />
-        <WebflowV31Bridge />
-        <FinalExperience />
+      <body className="min-h-dvh bg-bone font-sans text-ink">
+        <LightExperience />
         <Header />
         {children}
         <Footer />
