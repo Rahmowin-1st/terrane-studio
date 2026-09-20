@@ -44,20 +44,41 @@ export function Header() {
   useEffect(() => {
     const el = glassRef.current;
     if (!el || !window.matchMedia("(pointer:fine)").matches) return;
-    let tx = 48, ty = 38, cx = 48, cy = 38, raf = 0;
-    const tick = () => {
-      cx += (tx - cx) * 0.13; cy += (ty - cy) * 0.13;
-      el.style.setProperty("--lg-x", `${cx}%`); el.style.setProperty("--lg-y", `${cy}%`);
-      raf = requestAnimationFrame(tick);
+
+    let raf = 0;
+    let nextX = 48;
+    let nextY = 38;
+
+    const paint = () => {
+      raf = 0;
+      el.style.setProperty("--lg-x", `${nextX.toFixed(1)}%`);
+      el.style.setProperty("--lg-y", `${nextY.toFixed(1)}%`);
     };
-    const onMove = (e: PointerEvent) => {
+
+    const schedule = () => {
+      if (!raf) raf = requestAnimationFrame(paint);
+    };
+
+    const onMove = (event: PointerEvent) => {
       const r = el.getBoundingClientRect();
-      tx = ((e.clientX - r.left) / Math.max(r.width, 1)) * 100;
-      ty = ((e.clientY - r.top) / Math.max(r.height, 1)) * 100;
+      nextX = Math.max(0, Math.min(100, ((event.clientX - r.left) / Math.max(r.width, 1)) * 100));
+      nextY = Math.max(0, Math.min(100, ((event.clientY - r.top) / Math.max(r.height, 1)) * 100));
+      schedule();
     };
-    raf = requestAnimationFrame(tick);
-    el.addEventListener("pointermove", onMove);
-    return () => { cancelAnimationFrame(raf); el.removeEventListener("pointermove", onMove); };
+
+    const onLeave = () => {
+      nextX = 48;
+      nextY = 38;
+      schedule();
+    };
+
+    el.addEventListener("pointermove", onMove, { passive: true });
+    el.addEventListener("pointerleave", onLeave, { passive: true });
+    return () => {
+      if (raf) cancelAnimationFrame(raf);
+      el.removeEventListener("pointermove", onMove);
+      el.removeEventListener("pointerleave", onLeave);
+    };
   }, []);
 
   return (
