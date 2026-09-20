@@ -6,12 +6,12 @@ export function Approach() {
       <div className="mx-auto grid max-w-[1280px] gap-14 px-5 py-20 sm:px-7 md:grid-cols-12 md:px-10 md:py-28 lg:px-12 lg:py-36">
         <div className="approach-sticky md:col-span-5 md:self-start">
           <div className="md:sticky md:top-32">
-            <p className="approach-kicker text-[10px] font-semibold tracking-[0.2em] text-umber uppercase">Approach / 01—05</p>
+            <p className="approach-kicker text-[10px] font-semibold tracking-[0.2em] text-umber uppercase">Process / 01—05</p>
             <h2 id="approach-heading" className="approach-title mt-5 max-w-[28rem] font-display text-[2.9rem] leading-[0.98] font-light tracking-[-0.035em] sm:text-6xl md:text-[4.6rem]">
-              Know what happens next.
+              Five clear stages.
             </h2>
             <p className="approach-lead mt-7 max-w-sm text-[15px] leading-[1.75] text-ink/70">
-              Five stages. Each one closes a different uncertainty before the next begins. The process should feel as legible as the plan.
+              Each stage closes one set of decisions before the next begins.
             </p>
             <div className="approach-scale mt-10 hidden max-w-sm items-center gap-3 text-[9px] font-semibold tracking-[0.16em] text-umber uppercase md:flex">
               <span>Site</span><span className="h-px flex-1 bg-ink/15" /><span>Handover</span>
