@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./v5.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { LightExperience } from "@/components/LightExperience";
@@ -21,10 +22,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="antialiased">
+    <html lang="en" className="antialiased terrane-v5">
       <head>
         <link rel="preconnect" href="https://images.unsplash.com" />
-        <link rel="stylesheet" href="/terrane-v5-light.css?v=v5-final-light-2" />
       </head>
       <body className="min-h-dvh bg-bone font-sans text-ink">
         <LightExperience />
