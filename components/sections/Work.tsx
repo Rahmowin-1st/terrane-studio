@@ -60,8 +60,10 @@ function Stage({ images, title }: { images: { src: string; alt: string }[]; titl
   }, []);
 
   useEffect(() => {
-    if (reduce || paused || !inView || slides.length < 2) return;
-    const timer = window.setInterval(() => go(1), 5000);
+    const desktop = window.matchMedia("(min-width: 769px)").matches;
+    const saveData = Boolean((navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData);
+    if (!desktop || saveData || reduce || paused || !inView || slides.length < 2) return;
+    const timer = window.setInterval(() => go(1), 6200);
     return () => window.clearInterval(timer);
   }, [inView, paused, reduce, slides.length]);
 
@@ -96,7 +98,7 @@ function Stage({ images, title }: { images: { src: string; alt: string }[]; titl
   return (
     <div
       ref={rootRef}
-      className="project-stage relative overflow-hidden bg-ink"
+      className="project-stage relative overflow-hidden bg-paper"
       role="group"
       aria-roledescription="carousel"
       aria-label={title + " image gallery"}
@@ -168,9 +170,6 @@ function Stage({ images, title }: { images: { src: string; alt: string }[]; titl
         ))}
       </div>
       <div className="project-media-shade absolute inset-0" aria-hidden="true" />
-      <div className="project-stage-index absolute left-4 top-4 text-[9px] font-medium tracking-[0.18em] text-bone/65 uppercase sm:left-5 sm:top-5">
-        Image {String(i + 1).padStart(2, "0")}
-      </div>
       <div className="project-controls absolute inset-x-4 bottom-4 flex items-center justify-between gap-3 sm:inset-x-5 sm:bottom-5">
         <span className="project-counter text-[10px] tracking-[0.16em] text-bone uppercase" aria-live="polite">
           {String(i + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
