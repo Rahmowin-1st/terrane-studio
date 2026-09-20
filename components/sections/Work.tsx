@@ -156,8 +156,8 @@ function Stage({ images, title }: { images: { src: string; alt: string }[]; titl
           {String(i + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
         </span>
         <div className="flex gap-2">
-          <button type="button" aria-label={"Previous " + title + " image"} className="project-arrow" onClick={() => go(-1)}>←</button>
-          <button type="button" aria-label={"Next " + title + " image"} className="project-arrow" onClick={() => go(1)}>→</button>
+          <button type="button" aria-label={"Previous " + title + " image"} className="project-arrow" onClick={() => go(-1)}>Prev</button>
+          <button type="button" aria-label={"Next " + title + " image"} className="project-arrow" onClick={() => go(1)}>Next</button>
         </div>
       </div>
     </div>
@@ -203,7 +203,7 @@ export function Work() {
                   <div><dt className="mb-1 text-[9px] font-semibold tracking-[0.16em] text-umber uppercase">Core move</dt><dd>{project.design}</dd></div>
                 </dl>
                 <Link href={`/work/${project.slug}`} className="project-link group mt-8 inline-flex min-h-11 items-center gap-5 text-[10px] font-semibold tracking-[0.18em] uppercase">
-                  Read the study <span className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true">↗</span>
+                  Read the study <span className="h-2 w-2 rounded-full bg-current opacity-55" aria-hidden="true" />
                 </Link>
               </div>
             </div>
