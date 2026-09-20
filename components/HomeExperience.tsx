@@ -38,7 +38,7 @@ export function HomeExperience() {
         </div>
       </section>
 
-      <section id="practice" className="tf-section tf-principles" aria-labelledby="tf-principles-title">
+      <section id="trust" className="tf-section tf-principles" aria-labelledby="tf-principles-title">
         <div className="tf-section-head">
           <div>
             <p className="tf-eyebrow">PRACTICE</p>
