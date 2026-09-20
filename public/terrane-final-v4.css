@@ -510,3 +510,33 @@ html.terrane-v4 body.terrane-v2 .tv2-project-dossier{
     transform:none!important;
   }
 }
+
+
+/* Touch devices: prevent long-press text/search/callout surfaces outside real form controls. */
+@media(pointer:coarse){
+  html.terrane-v4 body.terrane-v2 *:not(input):not(textarea):not(select):not(option){
+    -webkit-touch-callout:none;
+  }
+  html.terrane-v4 body.terrane-v2 :is(
+    h1,h2,h3,p,span,small,b,strong,dt,dd,li,figcaption
+  ){
+    -webkit-user-select:none;
+    user-select:none;
+  }
+}
+
+/* Active navigation is a rounded capsule, never an underline or sharp marker. */
+html.terrane-v4 body.terrane-v2 .site-header nav a>span.absolute{
+  display:none!important;
+}
+html.terrane-v4 body.terrane-v2 .site-header nav a{
+  border-radius:999px!important;
+  padding:.72rem .9rem!important;
+}
+html.terrane-v4 body.terrane-v2 .site-header nav a[data-active="true"]{
+  background:rgba(255,255,255,.15)!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.13);
+}
+html.terrane-v4 body.terrane-v2 .site-header-inner[data-tv3-tone="light"] nav a[data-active="true"]{
+  background:rgba(20,18,16,.075)!important;
+}
