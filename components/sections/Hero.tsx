@@ -4,7 +4,7 @@ import { imageSrcSet } from "@/lib/media";
 export function Hero() {
   return (
     <section id="home" className="hero-scene relative" aria-label="Introduction">
-      <div className="hero-frame relative min-h-[100svh] overflow-hidden bg-ink text-bone">
+      <div className="hero-frame relative min-h-[100svh] overflow-hidden bg-paper text-ink">
         <div className="hero-media-shell absolute inset-0 overflow-hidden">
           <img
             src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2400&q=88"
@@ -33,19 +33,19 @@ export function Hero() {
         <div className="hero-copy absolute inset-x-0 bottom-0 z-10 mx-auto w-full max-w-[1280px] px-5 pb-10 sm:px-7 md:px-10 md:pb-14 lg:px-12 lg:pb-16">
           <div className="hero-copy-grid">
             <div className="hero-primary-copy">
-              <p className="hero-kicker text-[10px] font-medium tracking-[0.24em] text-sand uppercase sm:text-[11px]">
+              <p className="hero-kicker text-[10px] font-medium tracking-[0.24em] text-clay uppercase sm:text-[11px]">
                 Architecture / {site.city} / 41.31°N
               </p>
-              <h1 className="hero-title mt-4 font-display font-light text-bone">
+              <h1 className="hero-title mt-4 font-display font-light text-ink">
                 <span className="hero-line"><span>Ground.</span></span>
                 <span className="hero-line"><span>Light.</span></span>
                 <span className="hero-line hero-line-accent"><span>Duration.</span></span>
               </h1>
-              <p className="hero-lead mt-6 max-w-[34rem] text-[15px] leading-[1.65] text-bone/78 sm:text-base md:text-[18px]">
+              <p className="hero-lead mt-6 max-w-[34rem] text-[15px] leading-[1.65] text-ink/70 sm:text-base md:text-[18px]">
                 Houses, interiors and landscapes resolved as one material condition — drawn from climate, proportion and the lives already on the site.
               </p>
               <div className="hero-actions mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
-                <a href="#commission" className="hero-primary-cta group inline-flex min-h-12 items-center gap-5 rounded-full bg-bone px-6 text-[10px] font-semibold tracking-[0.18em] text-ink uppercase sm:px-7 sm:text-[11px]">
+                <a href="#commission" className="hero-primary-cta group inline-flex min-h-12 items-center gap-5 rounded-full bg-moss px-6 text-[10px] font-semibold tracking-[0.18em] text-ink uppercase sm:px-7 sm:text-[11px]">
                   Begin a commission <span aria-hidden="true" className="h-2 w-2 rounded-full bg-current opacity-55" />
                 </a>
                 <a href="#work" className="hero-secondary-cta inline-flex min-h-12 items-center gap-3 px-2 text-[10px] font-semibold tracking-[0.18em] text-bone uppercase sm:text-[11px]">
@@ -69,7 +69,7 @@ export function Hero() {
             </aside>
           </div>
 
-          <div className="hero-footer-line mt-9 flex items-center justify-between gap-5 border-t border-bone/20 pt-4 text-[9px] tracking-[0.18em] text-bone/55 uppercase sm:text-[10px]">
+          <div className="hero-footer-line mt-9 flex items-center justify-between gap-5 border-t border-ink/10 pt-4 text-[9px] tracking-[0.18em] text-ink/50 uppercase sm:text-[10px]">
             <span>No polished brief needed.</span>
             <span className="hidden sm:inline">Scroll to enter the work</span>
             <span>01 / 08</span>
