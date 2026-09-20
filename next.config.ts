@@ -36,11 +36,6 @@ const nextConfig: NextConfig = {
         source: "/terrane-webflow.js",
         headers: publicCrossOriginHeaders,
       },
-      {
-        // The Webflow stylesheet references these font files cross-origin.
-        source: "/_next/static/media/:path*",
-        headers: publicCrossOriginHeaders,
-      },
     ];
   },
 };
