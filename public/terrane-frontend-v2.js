@@ -182,3 +182,155 @@
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot,{once:true});
   else boot();
 })();
+
+/* TERRANE Frontend V2.1 — signature instrumentation */
+(() => {
+  if (window.__TERRANE_FRONTEND_V21__) return;
+  window.__TERRANE_FRONTEND_V21__ = true;
+
+  const q=(s,r=document)=>r.querySelector(s);
+  const qa=(s,r=document)=>[...r.querySelectorAll(s)];
+  const fine=matchMedia("(pointer:fine)").matches;
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function addSectionCuts(root=document){
+    [
+      ".practice-scene",".work-scene",".expertise-scene",".control-scene",
+      ".approach-scene",".studio-scene",".commission-scene",
+      ".case-intro",".case-gallery",".case-material",".case-next"
+    ].forEach(sel=>qa(sel,root).forEach(el=>el.classList.add("tv2-cut")));
+  }
+
+  function heroCoordinate(root=document){
+    const hero=q(".hero-frame",root);
+    if(!hero||q(".tv2-hero-coordinate",hero))return;
+    const el=document.createElement("div");
+    el.className="tv2-hero-coordinate";
+    el.setAttribute("aria-hidden","true");
+    el.innerHTML="<strong>Ground / light</strong><span>41.31°N / 69.24°E<br>Climate / proportion / use<br>Archive 01—05</span>";
+    hero.appendChild(el);
+  }
+
+  function projectDossiers(root=document){
+    qa(".project-story",root).forEach((story,i)=>{
+      const stage=q(".project-stage",story);
+      if(!stage||stage.dataset.tv21)return;
+      stage.dataset.tv21="1";
+
+      const frame=document.createElement("div");
+      frame.className="tv2-stage-frame";
+      frame.setAttribute("aria-hidden","true");
+      frame.innerHTML="<i></i><i></i><i></i><i></i>";
+      stage.appendChild(frame);
+
+      const dossier=document.createElement("div");
+      dossier.className="tv2-project-dossier";
+      dossier.setAttribute("aria-hidden","true");
+      const idx=String(i+1).padStart(2,"0");
+      dossier.innerHTML=
+        '<div class="tv2-project-dossier__head"><span>Study</span><span class="tv2-project-dossier__index">'+idx+'</span></div>'+
+        '<div class="tv2-project-dossier__rule"></div>'+
+        '<div class="tv2-project-dossier__meta"><span>Layer</span><b>Spatial</b><span>Read</span><b>Material</b><span>Mode</span><b>Live</b></div>';
+      stage.appendChild(dossier);
+
+      const cross=document.createElement("div");
+      cross.className="tv2-crosshair";
+      cross.setAttribute("aria-hidden","true");
+      cross.innerHTML="<span>50 / 50</span>";
+      stage.appendChild(cross);
+
+      if(fine){
+        stage.addEventListener("pointermove",e=>{
+          const r=stage.getBoundingClientRect();
+          const x=Math.max(0,Math.min(100,((e.clientX-r.left)/r.width)*100));
+          const y=Math.max(0,Math.min(100,((e.clientY-r.top)/r.height)*100));
+          cross.style.setProperty("--x",x.toFixed(1)+"%");
+          cross.style.setProperty("--y",y.toFixed(1)+"%");
+          const read=q("span",cross);
+          if(read)read.textContent=Math.round(x)+" / "+Math.round(y);
+        },{passive:true});
+      }
+
+      const imgs=qa(".project-image",stage);
+      const mo=new MutationObserver(ms=>{
+        ms.forEach(m=>{
+          if(m.type!=="attributes"||m.attributeName!=="class")return;
+          const img=m.target;
+          if(img.classList.contains("is-active")){
+            img.classList.remove("tv2-enter");
+            void img.offsetWidth;
+            img.classList.add("tv2-enter");
+          }
+        });
+      });
+      imgs.forEach(img=>mo.observe(img,{attributes:true,attributeFilter:["class"]}));
+    });
+  }
+
+  function materialStrip(root=document){
+    const studio=q(".studio-scene",root);
+    const inner=studio?.querySelector(".mx-auto");
+    if(!inner||q(".tv2-material-strip",inner))return;
+    const el=document.createElement("div");
+    el.className="tv2-material-strip";
+    el.setAttribute("aria-label","Material language");
+    const names=["Earth","Lime","Timber","Brick"];
+    el.innerHTML=names.map((name,i)=>
+      '<div class="tv2-material-strip__item"><span class="tv2-material-strip__index">0'+(i+1)+'</span><span class="tv2-material-strip__name">'+name+'</span></div>'
+    ).join("");
+    inner.appendChild(el);
+  }
+
+  function caseInstrumentation(root=document){
+    const hero=q(".case-hero",root);
+    if(hero&&!q(".tv2-case-index",hero)){
+      const el=document.createElement("div");
+      el.className="tv2-case-index";
+      el.setAttribute("aria-hidden","true");
+      el.textContent="TERRANE / CASE STUDY";
+      hero.appendChild(el);
+    }
+  }
+
+  function motion(root=document){
+    if(reduce||!window.gsap||!window.ScrollTrigger)return;
+    try{
+      const gsap=window.gsap;
+      qa(".tv2-project-dossier",root).forEach(el=>{
+        if(el.dataset.tv21Motion)return;el.dataset.tv21Motion="1";
+        gsap.from(el,{x:22,opacity:0,duration:.65,ease:"power3.out",
+          scrollTrigger:{trigger:el.closest(".project-story"),start:"top 70%",once:true}});
+      });
+      qa(".tv2-material-strip__item",root).forEach((el,i)=>{
+        if(el.dataset.tv21Motion)return;el.dataset.tv21Motion="1";
+        gsap.from(el,{y:24,opacity:0,duration:.55,delay:i*.03,ease:"power3.out",
+          scrollTrigger:{trigger:el.parentElement,start:"top 86%",once:true}});
+      });
+      setTimeout(()=>window.ScrollTrigger.refresh(),80);
+    }catch(_){}
+  }
+
+  function decorate(root=document){
+    addSectionCuts(root);
+    heroCoordinate(root);
+    projectDossiers(root);
+    materialStrip(root);
+    caseInstrumentation(root);
+    motion(root);
+  }
+
+  const start=()=>{
+    decorate(document);
+    const caseRoot=document.getElementById("terrane-case-root");
+    if(caseRoot){
+      let timer=0;
+      new MutationObserver(()=>{
+        clearTimeout(timer);
+        timer=setTimeout(()=>decorate(caseRoot),40);
+      }).observe(caseRoot,{childList:true,subtree:true});
+    }
+  };
+
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",start,{once:true});
+  else start();
+})();
