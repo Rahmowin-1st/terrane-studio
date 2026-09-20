@@ -11,20 +11,16 @@ type IdleWindow = Window & {
 };
 
 const REVEAL_SELECTORS = [
-  ".hero-primary-copy",
-  ".hero-meta",
-  ".practice-intro",
-  ".practice-proof",
-  ".work-intro",
-  ".project-story",
-  ".expertise-head",
-  ".discipline-row",
-  ".control-layout",
-  ".control-step",
-  ".approach-sticky",
-  ".approach-step",
-  ".studio-media",
-  ".studio-copy",
+  ".tf-hero-copy",
+  ".tf-hero-facts",
+  ".tf-section-head",
+  ".tf-principles-grid > article",
+  ".tf-project",
+  ".tf-expertise-list > article",
+  ".tf-process-intro",
+  ".tf-process-list > li",
+  ".tf-studio-media",
+  ".tf-studio-copy",
   ".commission-copy",
   ".commission-form-wrap",
   ".case-hero-copy",
@@ -77,7 +73,7 @@ export function LightExperience() {
 
   useEffect(() => {
     const root = document.documentElement;
-    const hero = document.querySelector<HTMLElement>(".hero-scene");
+    const hero = document.querySelector<HTMLElement>(".tf-hero");
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
     let raf = 0;
     let py = 0;
