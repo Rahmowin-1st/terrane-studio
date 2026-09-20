@@ -46,10 +46,10 @@ export function Hero() {
               </p>
               <div className="hero-actions mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
                 <a href="#commission" className="hero-primary-cta group inline-flex min-h-12 items-center gap-5 rounded-full bg-bone px-6 text-[10px] font-semibold tracking-[0.18em] text-ink uppercase sm:px-7 sm:text-[11px]">
-                  Begin a commission <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">↗</span>
+                  Begin a commission <span aria-hidden="true" className="h-2 w-2 rounded-full bg-current opacity-55" />
                 </a>
                 <a href="#work" className="hero-secondary-cta inline-flex min-h-12 items-center gap-3 px-2 text-[10px] font-semibold tracking-[0.18em] text-bone uppercase sm:text-[11px]">
-                  Selected work <span aria-hidden="true">↓</span>
+                  Selected work <span aria-hidden="true" className="h-2 w-2 rounded-full bg-current opacity-55" />
                 </a>
               </div>
             </div>
